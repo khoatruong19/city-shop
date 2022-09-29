@@ -32,8 +32,9 @@ export async function createServer() {
   app.register(cookie, {
     secret: config.COOKIE_SECRET,
     parseOptions: {
+      path: '/',
       httpOnly: true,
-      sameSite: true,
+      sameSite: 'lax',
     },
   } as FastifyCookieOptions);
 

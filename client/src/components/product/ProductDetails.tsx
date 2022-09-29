@@ -1,23 +1,14 @@
-import {
-  Box,
-  Container,
-  Divider,
-  Group,
-  Stack,
-  Text,
-  Title,
-} from '@mantine/core';
-import React, { useEffect, useState } from 'react';
+import { HeartIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
+import { Box, Container, Group, Stack, Text, Title } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
+import { useEffect, useState } from 'react';
+import ReactStars from 'react-rating-stars-component';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { clearError, getProductDetail } from '../../store/slices/productSlice';
-import { Product } from '../../utils/models/product.model';
 import Header from '../layout/Header';
 import MetaData from '../layout/MetaData';
-import ReactStars from 'react-rating-stars-component';
-import { HeartIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import ProductReviews from './ProductReviews';
-import { showNotification } from '@mantine/notifications';
 
 const ProductDetails = () => {
   const { product, loading, error } = useAppSelector((state) => state.product);

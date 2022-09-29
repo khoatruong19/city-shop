@@ -4,12 +4,13 @@ import { Carousel } from '@mantine/carousel';
 import BannerContent from './BannerContent';
 import { useAppDispatch } from '../../store';
 import { getAllProducts } from '../../store/slices/productSlice';
-import Product from '../product/Product';
+import Products from '../product/Products';
 import Autoplay from 'embla-carousel-autoplay';
 import MetaData from '../layout/MetaData';
 import Footer from '../layout/Footer';
 import BannerImage from '../../images/background.jpg';
 import BannerImage2 from '../../images/background2.jpg';
+import userApi from '../../api/userApi';
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -17,7 +18,13 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
-  });
+    const me = async () => {
+      const res = await userApi.me();
+      console.log(res);
+    };
+    me();
+  }, []);
+
   return (
     <div>
       <MetaData title="Home" />
@@ -48,7 +55,7 @@ const Home = () => {
           <BannerContent />
         </Carousel.Slide>
       </Carousel>
-      <Product />
+      <Products />
       <Footer />
     </div>
   );

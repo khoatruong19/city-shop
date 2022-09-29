@@ -2,7 +2,7 @@ import { Stack, Text, Divider, Group } from '@mantine/core';
 import { useAppSelector } from '../../store';
 import ProductCard from './ProductCard';
 
-const Product = () => {
+const Products = () => {
   const { loading, products } = useAppSelector((state) => state.product);
   return (
     <Stack mt={20} sx={{ height: '100vh' }}>
@@ -12,7 +12,7 @@ const Product = () => {
       <div style={{ width: '300px', margin: '0 auto' }}>
         <Divider color={'black'} />
       </div>
-      <Group sx={{ justifyContent: 'space-between', padding: '10px' }}>
+      <Group sx={{ justifyContent: 'space-between', padding: '2rem' }}>
         {!loading &&
           products.map((product) => (
             <ProductCard key={product._id} product={product} />
@@ -22,4 +22,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Products;

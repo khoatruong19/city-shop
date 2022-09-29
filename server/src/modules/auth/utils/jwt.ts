@@ -29,6 +29,8 @@ export async function sendToken(
     .status(statusCode)
     .setCookie('token', token, {
       expires: new Date(new Date().getTime() + 60 * 60 * 1000 * 24),
+      httpOnly: true,
+      sameSite: 'lax',
     })
     .send({
       message:

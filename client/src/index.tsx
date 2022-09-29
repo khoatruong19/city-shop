@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { NotificationsProvider } from '@mantine/notifications';
+import { HelmetProvider } from 'react-helmet-async';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,9 +15,11 @@ const root = ReactDOM.createRoot(
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <Provider store={store}>
-      <NotificationsProvider position="top-center" zIndex={2077}>
-        {children}
-      </NotificationsProvider>
+      <HelmetProvider>
+        <NotificationsProvider position="top-center" zIndex={2077}>
+          {children}
+        </NotificationsProvider>
+      </HelmetProvider>
     </Provider>
   );
 };

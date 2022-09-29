@@ -1,6 +1,10 @@
-import React from 'react';
-import { TextInput, Checkbox, Button, Group, Box } from '@mantine/core';
+import React, { useEffect } from 'react';
+import { TextInput, Button, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { clearError, loginUser } from '../../store/slices/userSlice';
+import { showNotification } from '@mantine/notifications';
+import { useNavigate } from 'react-router-dom';
 
 type FormData = {
   email: string;
@@ -8,6 +12,11 @@ type FormData = {
 };
 
 const LoginForm = () => {
+  const { isAuthenticated, loading, error } = useAppSelector(
+    (state) => state.user
+  );
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const form = useForm<FormData>({
     initialValues: {
       email: '',
@@ -17,12 +26,30 @@ const LoginForm = () => {
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
       password: (value) =>
-        value.length > 3 ? null : 'Password is more than 3 charaters',
+        value.length > 2 ? null : 'Password is more than 2 charaters',
     },
   });
+
+  useEffect(() => {
+    if (error) {
+      showNotification({
+        id: 'login-error',
+        disallowClose: false,
+        autoClose: 3000,
+        message: error,
+        color: 'red',
+        sx: { fontWeight: 700 },
+        loading: false,
+      });
+      dispatch(clearError());
+    }
+
+    if (isAuthenticated) navigate('/');
+  }, [dispatch, isAuthenticated, loading, error]);
+
   return (
     <Box sx={{ maxWidth: 500 }} mx="auto">
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form onSubmit={form.onSubmit((values) => dispatch(loginUser(values)))}>
         <TextInput
           withAsterisk
           label="Email"

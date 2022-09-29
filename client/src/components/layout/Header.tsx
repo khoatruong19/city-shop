@@ -22,7 +22,7 @@ const Header = () => {
         <Link to="/">
           <Image
             width={90}
-            style={{ scale: '1.5', marginLeft: '2rem', cursor: 'poniyer' }}
+            style={{ scale: '1.5', marginLeft: '3rem', cursor: 'poniyer' }}
             alt=""
             src={Logo}
           />

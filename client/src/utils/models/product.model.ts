@@ -1,8 +1,4 @@
-type ProductImage = {
-  _id: string;
-  public_id: string;
-  url: string;
-};
+import { ImageModel } from './others.model';
 
 export type UserReview = {
   _id: string;
@@ -18,7 +14,7 @@ export type Product = {
   name: string;
   description: string;
   price: number;
-  images: ProductImage[];
+  images: ImageModel[];
   category: string;
   discountPrice: string;
   stock: number;
