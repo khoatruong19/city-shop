@@ -58,6 +58,16 @@ export const me = createAsyncThunk('user/me', async (_, thunkApi) => {
   }
 });
 
+export const logout = createAsyncThunk('user/logout', async (_, thunkApi) => {
+  try {
+    const res = await userApi.logout();
+    return res.data.message;
+  } catch (error: any) {
+    if (error.data.message) return thunkApi.rejectWithValue(error.data.message);
+    return thunkApi.rejectWithValue('Logout fail!');
+  }
+});
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -116,6 +126,21 @@ const userSlice = createSlice({
         state.isAuthenticated = true;
       })
       .addCase(me.rejected, (state, { payload }: PayloadAction<any>) => {
+        state.loading = false;
+        state.user = null;
+        state.isAuthenticated = false;
+        state.error = payload;
+      })
+
+      .addCase(logout.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.loading = false;
+        state.user = null;
+        state.isAuthenticated = false;
+      })
+      .addCase(logout.rejected, (state, { payload }: PayloadAction<any>) => {
         state.loading = false;
         state.user = null;
         state.isAuthenticated = false;

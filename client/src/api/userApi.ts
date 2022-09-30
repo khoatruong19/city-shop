@@ -15,6 +15,7 @@ const userApi = {
   login: (params: LoginUserParams) =>
     axiosClient.post<UserResponse>('auth/login', params, config),
   me: () => axiosClient.get<UserResponse>('auth/me', config),
+  logout: () => axiosClient.post<{ message: string }>('auth/logout', config),
 };
 
 export default userApi;

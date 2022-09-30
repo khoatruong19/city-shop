@@ -6,7 +6,7 @@ export type User = {
   email: string;
   password: string;
   avatar: ImageModel;
-  role: 'admin' | 'user';
+  role: 'admin' | 'user' | 'creator';
   createdAt: string;
   updatedAt: string;
 };

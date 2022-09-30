@@ -58,6 +58,5 @@ export async function verifyJWT(
     name: userPayload.name,
     role: userPayload.role,
   } as JwtPayload;
-  console.log(request.user);
   done();
 }

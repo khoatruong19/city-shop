@@ -6,6 +6,7 @@ import ReactStars from 'react-rating-stars-component';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { clearError, getProductDetail } from '../../store/slices/productSlice';
+import toaster from '../../utils/helpers/toaster';
 import Header from '../layout/Header';
 import MetaData from '../layout/MetaData';
 import ProductReviews from './ProductReviews';
@@ -26,16 +27,13 @@ const ProductDetails = () => {
 
   const handleControlQuantity = (mode: 'up' | 'down') => {
     if (mode === 'up') {
-      if (product.stock <= quantity)
-        return showNotification({
-          id: 'hello-there',
-          disallowClose: false,
-          autoClose: 3000,
+      if (product.stock <= quantity) {
+        return toaster({
+          id: 'product-outstock',
           message: 'Product stock limited!',
-          color: 'red',
-          sx: { fontWeight: 700 },
-          loading: false,
         });
+      }
+
       setQuantity((prev) => prev + 1);
     } else setQuantity((prev) => (prev === 1 ? prev : prev - 1));
   };

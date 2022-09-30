@@ -4,21 +4,38 @@ import WebFont from 'webfontloader';
 import { Route, Routes } from 'react-router-dom';
 import ProductDetails from './components/product/ProductDetails';
 import Auth from './components/auth/Auth';
+import { useAppDispatch, useAppSelector } from './store';
+import { me } from './store/slices/userSlice';
+import UserNav from './components/user/UserNav';
+import ProtectedRoute from './components/route/ProtectedRoute';
+import Profile from './components/user/Profile';
 
 function App() {
+  const { isAuthenticated } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     WebFont.load({
       google: {
         families: ['Roboto', 'Droid Sans', 'Chilanka'],
       },
     });
+    dispatch(me());
   }, []);
   return (
     <div className="App">
+      {isAuthenticated && <UserNav />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/auth" element={<Auth />} />
+        <Route
+          path="/me"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   );

@@ -13,13 +13,10 @@ type FormData = {
 };
 
 const SignupForm = () => {
-  const { isAuthenticated, loading, error } = useAppSelector(
-    (state) => state.user
-  );
+  const { loading, error } = useAppSelector((state) => state.user);
   const fileRef = useRef<HTMLInputElement>(null);
   const [avatar, setAvatar] = useState('/profile.png');
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const form = useForm<FormData>({
     initialValues: {
@@ -41,7 +38,6 @@ const SignupForm = () => {
 
       reader.onload = () => {
         if (reader.readyState === 2) {
-          console.log('Avatar: ', reader.result);
           setAvatar(reader.result as string);
         }
       };
@@ -63,9 +59,7 @@ const SignupForm = () => {
       });
       dispatch(clearError());
     }
-
-    if (isAuthenticated) navigate('/');
-  }, [dispatch, isAuthenticated, loading, error]);
+  }, [dispatch, loading, error]);
 
   return (
     <Box sx={{ maxWidth: 500 }} mx="auto">
@@ -116,7 +110,7 @@ const SignupForm = () => {
         </Group>
 
         <Group position="right" mt="lg">
-          <Button type="submit" sx={{ width: '100%' }}>
+          <Button loading={loading} type="submit" sx={{ width: '100%' }}>
             Register
           </Button>
         </Group>

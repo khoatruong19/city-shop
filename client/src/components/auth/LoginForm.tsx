@@ -43,9 +43,7 @@ const LoginForm = () => {
       });
       dispatch(clearError());
     }
-
-    if (isAuthenticated) navigate('/');
-  }, [dispatch, isAuthenticated, loading, error]);
+  }, [dispatch, loading, error]);
 
   return (
     <Box sx={{ maxWidth: 500 }} mx="auto">
@@ -66,7 +64,7 @@ const LoginForm = () => {
         />
 
         <Group position="right" mt="lg">
-          <Button type="submit" sx={{ width: '100%' }}>
+          <Button loading={loading} type="submit" sx={{ width: '100%' }}>
             Login
           </Button>
         </Group>
