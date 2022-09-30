@@ -48,6 +48,16 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const me = createAsyncThunk('user/me', async (_, thunkApi) => {
+  try {
+    const res = await userApi.me();
+    return res.data.user;
+  } catch (error: any) {
+    if (error.data.message) return thunkApi.rejectWithValue(error.data.message);
+    return thunkApi.rejectWithValue('Me fail!');
+  }
+});
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -91,6 +101,21 @@ const userSlice = createSlice({
         }
       )
       .addCase(loginUser.rejected, (state, { payload }: PayloadAction<any>) => {
+        state.loading = false;
+        state.user = null;
+        state.isAuthenticated = false;
+        state.error = payload;
+      })
+
+      .addCase(me.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(me.fulfilled, (state, { payload }: PayloadAction<User>) => {
+        state.loading = false;
+        state.user = payload;
+        state.isAuthenticated = true;
+      })
+      .addCase(me.rejected, (state, { payload }: PayloadAction<any>) => {
         state.loading = false;
         state.user = null;
         state.isAuthenticated = false;
