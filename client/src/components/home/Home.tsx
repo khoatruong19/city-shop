@@ -10,7 +10,9 @@ import MetaData from '../layout/MetaData';
 import Footer from '../layout/Footer';
 import BannerImage from '../../images/background.jpg';
 import BannerImage2 from '../../images/background2.jpg';
-import userApi from '../../api/userApi';
+import { me } from '../../store/slices/userSlice';
+import UserNav from '../user/UserNav';
+import { Box } from '@mantine/core';
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -18,16 +20,13 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
-    const me = async () => {
-      const res = await userApi.me();
-      console.log(res);
-    };
-    me();
+    dispatch(me());
   }, []);
 
   return (
-    <div>
+    <Box sx={{ overflow: 'hidden' }}>
       <MetaData title="Home" />
+      <UserNav />
       <Header />
       <Carousel
         sx={{ width: '100%' }}
@@ -57,7 +56,8 @@ const Home = () => {
       </Carousel>
       <Products />
       <Footer />
-    </div>
+      overflow: 'hidden',
+    </Box>
   );
 };
 
