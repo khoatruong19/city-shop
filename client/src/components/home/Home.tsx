@@ -10,8 +10,7 @@ import MetaData from '../layout/MetaData';
 import Footer from '../layout/Footer';
 import BannerImage from '../../images/background.jpg';
 import BannerImage2 from '../../images/background2.jpg';
-import { me } from '../../store/slices/userSlice';
-import UserNav from '../user/UserNav';
+
 import { Box } from '@mantine/core';
 
 const Home = () => {
@@ -20,13 +19,11 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
-    dispatch(me());
   }, []);
 
   return (
     <Box sx={{ overflow: 'hidden' }}>
       <MetaData title="Home" />
-      <UserNav />
       <Header />
       <Carousel
         sx={{ width: '100%' }}

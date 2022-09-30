@@ -1,11 +1,20 @@
 import { Box, Container, Group, Image } from '@mantine/core';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../store';
 import MetaData from '../layout/MetaData';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
 const Auth = () => {
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
+  const { isAuthenticated, loading } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && isAuthenticated) navigate('/');
+  }, [isAuthenticated, loading]);
+
   return (
     <>
       <MetaData title="Authentication" />
