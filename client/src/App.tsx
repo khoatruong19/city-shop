@@ -9,6 +9,7 @@ import { me } from './store/slices/userSlice';
 import UserNav from './components/user/UserNav';
 import ProtectedRoute from './components/route/ProtectedRoute';
 import Profile from './components/user/Profile';
+import UpdatePassword from './components/user/UpdatePassword';
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -33,6 +34,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/me/update-password"
+          element={
+            <ProtectedRoute>
+              <UpdatePassword />
             </ProtectedRoute>
           }
         />

@@ -1,5 +1,10 @@
 import { User } from '../utils/models/user.model';
-import { LoginUserParams, RegisterUserParams } from '../utils/types/user.type';
+import {
+  LoginUserParams,
+  RegisterUserParams,
+  UpdatePasswordParams,
+  UpdateProfileParams,
+} from '../utils/types/user.type';
 import axiosClient from './axiosClient';
 
 type UserResponse = {
@@ -7,15 +12,17 @@ type UserResponse = {
   user: User;
 };
 
-const config = { headers: { 'Content-Type': 'application/json' } };
-
 const userApi = {
   register: (params: RegisterUserParams) =>
-    axiosClient.post<UserResponse>('auth/register', params, config),
+    axiosClient.post<UserResponse>('auth/register', params),
   login: (params: LoginUserParams) =>
-    axiosClient.post<UserResponse>('auth/login', params, config),
-  me: () => axiosClient.get<UserResponse>('auth/me', config),
-  logout: () => axiosClient.post<{ message: string }>('auth/logout', config),
+    axiosClient.post<UserResponse>('auth/login', params),
+  me: () => axiosClient.get<UserResponse>('auth/me'),
+  logout: () => axiosClient.post<{ message: string }>('auth/logout'),
+  updateProfile: (params: UpdateProfileParams) =>
+    axiosClient.put<UserResponse>('auth/me/profile-update', params),
+  updatePassword: (params: UpdatePasswordParams) =>
+    axiosClient.put<UserResponse>('auth/me/password-update', params),
 };
 
 export default userApi;
