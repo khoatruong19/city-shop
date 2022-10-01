@@ -38,6 +38,7 @@ export const registerUserSchema = {
       format: 'email',
     }),
     password: Type.String({ minLength: 3 }),
+    avatar: Type.String(),
   }),
   response: {
     201: userResponseWithCredentials,
@@ -126,6 +127,7 @@ export const updateProfileSchema = {
   body: Type.Object({
     email: Type.String({ format: 'email' }),
     name: Type.String({ minLength: 3, maxLength: 20 }),
+    avatar: Type.String(),
   }),
   response: {
     200: userResponseWithCredentials,

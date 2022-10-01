@@ -29,6 +29,7 @@ export type UpdateProfileInput = {
   userId: Types.ObjectId;
   email: string;
   name: string;
+  avatar: string;
 };
 
 export type UpdateRoleInput = {

@@ -11,23 +11,28 @@ import {
   UpdateRoleInput,
 } from '../../utils/types';
 import { Types } from 'mongoose';
+import { v2 as cloudinary } from 'cloudinary';
 
 export async function createUser(
   input: RegisterUserBody
 ): Promise<User | null> {
-  const { name, email, password } = input;
+  const { name, email, password, avatar } = input;
 
   const existingUser = await UserModel.findOne({ email });
 
   if (existingUser) return null;
+
+  const myCloud = await cloudinary.uploader.upload(avatar, {
+    folder: 'avatars',
+  });
 
   const user = await UserModel.create({
     name,
     email,
     password,
     avatar: {
-      public_id: 'https://test.com',
-      url: 'https://test.com',
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
     },
   });
 
@@ -145,8 +150,34 @@ export async function updatePassword({
 export async function updateProfile(
   input: UpdateProfileInput
 ): Promise<User | null> {
-  const { userId, ...rest } = input;
-  const user = await UserModel.findByIdAndUpdate(userId, rest, {
+  const { userId, avatar, ...rest } = input;
+
+  let data = {};
+
+  if (avatar !== '') {
+    const user = await getUserById(userId);
+
+    if (!user) return null;
+
+    const imageId = user.avatar.public_id;
+
+    await cloudinary.uploader.destroy(imageId);
+
+    const myCloud = await cloudinary.uploader.upload(avatar, {
+      folder: 'avatars',
+      width: 150,
+      crop: 'scale',
+    });
+    data = {
+      ...rest,
+      avatar: {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      },
+    };
+  }
+
+  const user = await UserModel.findByIdAndUpdate(userId, data, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
@@ -172,6 +203,10 @@ export async function deleteUserById(userId: Types.ObjectId): Promise<boolean> {
   const user = await UserModel.findById(userId);
 
   if (!user) return false;
+
+  const imageId = user.avatar.public_id;
+
+  await cloudinary.uploader.destroy(imageId);
 
   await user.remove();
 
