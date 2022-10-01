@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { TextInput, Button, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { clearError, loginUser } from '../../store/slices/userSlice';
+import { clearUserError, loginUser } from '../../store/slices/userSlice';
 import { showNotification } from '@mantine/notifications';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,7 +31,7 @@ const LoginForm = () => {
   });
 
   useEffect(() => {
-    if (error) {
+    if (error && error !== 'Not authenticated') {
       showNotification({
         id: 'login-error',
         disallowClose: false,
@@ -41,7 +41,7 @@ const LoginForm = () => {
         sx: { fontWeight: 700 },
         loading: false,
       });
-      dispatch(clearError());
+      dispatch(clearUserError());
     }
   }, [dispatch, loading, error]);
 
