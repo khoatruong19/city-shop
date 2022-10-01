@@ -9,7 +9,7 @@ interface IProps {
 
 const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
   return (
-    <Box>
+    <Box mb={40}>
       <Text size={40} weight={600} ml={'4rem'}>
         Reviews
       </Text>

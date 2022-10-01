@@ -10,6 +10,7 @@ import UserNav from './components/user/UserNav';
 import ProtectedRoute from './components/route/ProtectedRoute';
 import Profile from './components/user/Profile';
 import UpdatePassword from './components/user/UpdatePassword';
+import EditProfile from './components/user/EditProfile';
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -42,6 +43,14 @@ function App() {
           element={
             <ProtectedRoute>
               <UpdatePassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/me/update-profile"
+          element={
+            <ProtectedRoute>
+              <EditProfile />
             </ProtectedRoute>
           }
         />

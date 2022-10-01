@@ -9,6 +9,7 @@ import {
   getProductDetail,
 } from '../../store/slices/productSlice';
 import toaster from '../../utils/helpers/toaster';
+import Footer from '../layout/Footer';
 import Header from '../layout/Header';
 import MetaData from '../layout/MetaData';
 import ProductReviews from './ProductReviews';
@@ -159,6 +160,7 @@ const ProductDetails = () => {
         numOfReviews={product.numOfReviews}
         reviews={product.reviews}
       />
+      <Footer />
     </Box>
   );
 };

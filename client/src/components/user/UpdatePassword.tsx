@@ -73,6 +73,7 @@ const UpdatePassword = () => {
           width: '20vw',
           padding: '2rem 2rem 5rem',
           backgroundColor: 'white',
+          borderRadius: '1rem',
         }}
       >
         <Stack sx={{ textAlign: 'center' }}>

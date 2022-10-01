@@ -44,7 +44,7 @@ const Profile = () => {
             objectFit: 'cover',
           }}
         />
-        <Anchor component={Link} to="/me/update/info">
+        <Anchor component={Link} to="/me/update-profile">
           Edit Profile
         </Anchor>
         <Box>
