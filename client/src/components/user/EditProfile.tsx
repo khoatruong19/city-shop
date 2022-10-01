@@ -83,7 +83,6 @@ const EditProfile = () => {
     }
   }, [loading, error, isUpdated]);
 
-  console.log({ avatar });
   return (
     <Stack
       sx={{
@@ -108,7 +107,9 @@ const EditProfile = () => {
         </Stack>
         <form
           style={{ marginTop: '4rem' }}
-          onSubmit={form.onSubmit((values) => dispatch(updateProfile(values)))}
+          onSubmit={form.onSubmit((values) =>
+            dispatch(updateProfile({ ...values, avatar }))
+          )}
         >
           <TextInput
             placeholder="Your name"
@@ -159,6 +160,7 @@ const EditProfile = () => {
             size="lg"
             style={{ width: '100%' }}
             color={'orange'}
+            loading={loading}
           >
             Update
           </Button>
