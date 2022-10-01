@@ -1,11 +1,13 @@
 import { HeartIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { Box, Container, Group, Stack, Text, Title } from '@mantine/core';
-import { showNotification } from '@mantine/notifications';
 import { useEffect, useState } from 'react';
 import ReactStars from 'react-rating-stars-component';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { clearError, getProductDetail } from '../../store/slices/productSlice';
+import {
+  clearProductError,
+  getProductDetail,
+} from '../../store/slices/productSlice';
 import toaster from '../../utils/helpers/toaster';
 import Header from '../layout/Header';
 import MetaData from '../layout/MetaData';
@@ -41,7 +43,7 @@ const ProductDetails = () => {
   useEffect(() => {
     if (error) {
       alert(error);
-      dispatch(clearError());
+      dispatch(clearProductError());
     }
     if (id) dispatch(getProductDetail(id));
   }, [id]);
