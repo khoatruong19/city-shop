@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <Box sx={{ borderTop: '1px solid black', padding: '1rem 6rem' }}>
+    <Box sx={{ borderTop: '1px solid black', padding: '2rem 6rem' }}>
       <Group sx={{ justifyContent: 'space-around', alignItems: 'flex-start' }}>
         <Stack>
           <Image
