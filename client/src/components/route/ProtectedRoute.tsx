@@ -1,5 +1,4 @@
-import React from 'react';
-import { Navigate, Route, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../../store';
 
 interface IProps {
@@ -8,12 +7,15 @@ interface IProps {
 }
 
 const ProtectedRoute = ({ isAdmin, children }: IProps) => {
-  const navigate = useNavigate();
-  const { isAuthenticated, user } = useAppSelector((state) => state.user);
+  const { loading, isAuthenticated, user } = useAppSelector(
+    (state) => state.user
+  );
 
-  if (!isAuthenticated) return <Navigate replace to="/auth" />;
-  if (isAdmin === true && user!.role !== 'admin')
-    return <Navigate replace to="/auth" />;
+  if (!loading) {
+    if (!isAuthenticated) return <Navigate replace to="/auth" />;
+    if (isAdmin === true && user!.role !== 'admin')
+      return <Navigate replace to="/auth" />;
+  }
 
   return children;
 };
