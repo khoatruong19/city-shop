@@ -4,21 +4,21 @@ import { IResetPasswordBody, IUpdatePasswordBody } from '../interfaces';
 import { ApiError } from './error';
 
 export function validateMongoId(
-    request: FastifyRequest<{
-      Params: {
-        id: mongoose.Types.ObjectId;
-      };
-    }>,
-    reply: FastifyReply,
-    done: HookHandlerDoneFunction
-  ) {
-    if (mongoose.isValidObjectId(request.params.id)) done();
-    else
-      throw new ApiError(
-        400,
-        'Resources not found with this id ...Invalid mongoID'
-      ).getErrorObject(reply);
-  }
+  request: FastifyRequest<{
+    Params: {
+      id: mongoose.Types.ObjectId;
+    };
+  }>,
+  reply: FastifyReply,
+  done: HookHandlerDoneFunction
+) {
+  if (mongoose.isValidObjectId(request.params.id)) done();
+  else
+    throw new ApiError(
+      400,
+      'Resources not found with this id ...Invalid mongoID'
+    ).getErrorObject(reply);
+}
 
 export function checkMatchNewPassword(
   request: FastifyRequest<IResetPasswordBody>,
@@ -34,15 +34,15 @@ export function checkMatchNewPassword(
   done();
 }
 
-export function checkMatchOldPassword(
+export function checkMatchUpdatePassword(
   request: FastifyRequest<IUpdatePasswordBody>,
   reply: FastifyReply,
   done: HookHandlerDoneFunction
 ) {
-  if (request.body.confirmPassword !== request.body.oldPassword) {
+  if (request.body.confirmPassword !== request.body.newPassword) {
     throw new ApiError(
       400,
-      'Old password and confirm password not matched!'
+      'New password and confirm password not matched!'
     ).getErrorObject(reply);
   }
   done();
