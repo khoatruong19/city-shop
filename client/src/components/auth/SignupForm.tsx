@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../store';
 import { clearUserError, registerUser } from '../../store/slices/userSlice';
 import { showNotification } from '@mantine/notifications';
 import { useNavigate } from 'react-router-dom';
+import toaster from '../../utils/helpers/toaster';
 
 type FormData = {
   name: string;
@@ -13,7 +14,9 @@ type FormData = {
 };
 
 const SignupForm = () => {
-  const { loading, error } = useAppSelector((state) => state.user);
+  const { isAuthenticated, loading, error } = useAppSelector(
+    (state) => state.user
+  );
   const fileRef = useRef<HTMLInputElement>(null);
   const [avatar, setAvatar] = useState('/profile.png');
   const dispatch = useAppDispatch();
@@ -48,16 +51,15 @@ const SignupForm = () => {
 
   useEffect(() => {
     if (error && error !== 'Not authenticated') {
-      showNotification({
-        id: 'register-error',
-        disallowClose: false,
-        autoClose: 3000,
-        message: error,
-        color: 'red',
-        sx: { fontWeight: 700 },
-        loading: false,
-      });
+      toaster({ id: 'login-error', message: error });
       dispatch(clearUserError());
+    }
+    if (isAuthenticated) {
+      toaster({
+        id: 'welcome-user',
+        message: 'Welcome to CITY SHOP!',
+        success: true,
+      });
     }
   }, [dispatch, loading, error]);
 

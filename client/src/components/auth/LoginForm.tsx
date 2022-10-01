@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../store';
 import { clearUserError, loginUser } from '../../store/slices/userSlice';
 import { showNotification } from '@mantine/notifications';
 import { useNavigate } from 'react-router-dom';
+import toaster from '../../utils/helpers/toaster';
 
 type FormData = {
   email: string;
@@ -32,18 +33,17 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (error && error !== 'Not authenticated') {
-      showNotification({
-        id: 'login-error',
-        disallowClose: false,
-        autoClose: 3000,
-        message: error,
-        color: 'red',
-        sx: { fontWeight: 700 },
-        loading: false,
-      });
+      toaster({ id: 'login-error', message: error });
       dispatch(clearUserError());
     }
-  }, [dispatch, loading, error]);
+    if (isAuthenticated) {
+      toaster({
+        id: 'welcome-user',
+        message: 'Welcome to CITY SHOP!',
+        success: true,
+      });
+    }
+  }, [dispatch, loading, error, isAuthenticated]);
 
   return (
     <Box sx={{ maxWidth: 500 }} mx="auto">
