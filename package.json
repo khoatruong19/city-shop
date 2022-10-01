@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "cloudinary": "^1.32.0",
+    "fastify-file-upload": "^4.0.0"
+  }
+}

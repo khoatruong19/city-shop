@@ -18,6 +18,7 @@ import {
   createProductReview,
   deleteProductReview,
 } from './product.service';
+import { v2 as cloudinary } from 'cloudinary';
 
 export async function getAllProductsHandler(
   request: QueryRequest,
@@ -42,7 +43,29 @@ export async function createProductHandler(
   reply: FastifyReply
 ) {
   try {
-    const product = await createProduct(request.body);
+    const { images: bodyImages, ...rest } = request.body;
+    let images: string[] = [];
+
+    if (typeof bodyImages === 'string') {
+      images.push(bodyImages);
+    } else {
+      images = bodyImages as string[];
+    }
+
+    const imagesLinks = [];
+
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.uploader.upload(images[i], {
+        folder: 'products',
+      });
+
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+
+    const product = await createProduct({ ...rest, images: imagesLinks });
     return reply.status(201).send({
       message: 'Get all products successfully!',
       product,
@@ -63,18 +86,49 @@ export async function updateProductHandler(
   reply: FastifyReply
 ) {
   try {
-    const product = await updateProduct({
-      ...request.body,
-      productId: request.params.id,
-    });
+    const product = await getProductDetail(request.params.id);
+
     if (!product)
       throw new ApiError(404, 'Product not found with this ID').getErrorObject(
         reply
       );
 
+    const { images: bodyImages, ...rest } = request.body;
+    let images: string[] = [];
+    const imagesLinks = [];
+
+    if (typeof bodyImages === 'string') {
+      images.push(bodyImages);
+    } else {
+      images = bodyImages as string[];
+    }
+
+    if (images !== undefined) {
+      // Delete image from cloudinary
+      for (let i = 0; i < product.images.length; i++) {
+        await cloudinary.uploader.destroy(product.images[i].public_id);
+      }
+
+      for (let i = 0; i < images.length; i++) {
+        const result = await cloudinary.uploader.upload(images[i], {
+          folder: 'products',
+        });
+        imagesLinks.push({
+          public_id: result.public_id,
+          url: result.secure_url,
+        });
+      }
+    }
+
+    const updatedProduct = await updateProduct({
+      ...rest,
+      images: imagesLinks,
+      productId: request.params.id,
+    });
+
     return reply.status(200).send({
       message: 'Product updated!',
-      product,
+      product: updatedProduct,
     });
   } catch (error) {
     logger.info(`Update product error, ${error}`);

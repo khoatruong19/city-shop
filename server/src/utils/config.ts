@@ -17,6 +17,9 @@ const schema = Type.Object({
   SMPT_PASSWORD: Type.String(),
   SMPT_HOST: Type.String(),
   SMPT_PORT: Type.Number(),
+  CLOUDINARY_CLOUD_NAME: Type.String(),
+  CLOUDINARY_API_KEY: Type.String(),
+  CLOUDINARY_API_SECRET: Type.String(),
 });
 
 type Env = Static<typeof schema>;

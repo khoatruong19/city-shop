@@ -75,7 +75,7 @@ export const createProductSchema = {
     price: Type.Number(),
     stock: Type.Number(),
     category: Type.String(),
-    images: Type.Array(productImage),
+    images: Type.Unknown(),
   }),
   response: {
     201: productResponseSuccess,
@@ -91,7 +91,7 @@ export const updateProductSchema = {
     price: Type.Optional(Type.Number()),
     stock: Type.Optional(Type.Number()),
     category: Type.Optional(Type.String()),
-    images: Type.Optional(Type.Array(productImage)),
+    images: Type.Optional(Type.Unknown()),
   }),
   params: paramsJsonSchema,
   response: {

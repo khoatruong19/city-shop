@@ -7,6 +7,8 @@ import { productRoute } from '../modules/product/product.route';
 import { userRoute } from '../modules/user/user.route';
 import { config } from './config';
 import cors from '@fastify/cors';
+import { v2 as cloudinary } from 'cloudinary';
+import fileUpload from 'fastify-file-upload';
 
 export async function createServer() {
   const app = fastify();
@@ -37,6 +39,14 @@ export async function createServer() {
       sameSite: 'lax',
     },
   } as FastifyCookieOptions);
+
+  app.register(fileUpload);
+
+  cloudinary.config({
+    cloud_name: config.CLOUDINARY_CLOUD_NAME,
+    api_key: config.CLOUDINARY_API_KEY,
+    api_secret: config.CLOUDINARY_API_SECRET,
+  });
 
   return app;
 }

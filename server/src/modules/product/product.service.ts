@@ -6,11 +6,8 @@ import {
   UpdateProductStockInput,
 } from '../../utils/types';
 import { Product, ProductModel, UserReview } from './product.model';
-import {
-  CreateProductBody,
-  UpdateProductBody,
-  UserReviewType,
-} from './product.schema';
+import { CreateProductBody, UpdateProductBody } from './product.schema';
+import { v2 as cloudinary } from 'cloudinary';
 
 export async function getAllProducts(queryStr: {
   keyword: string;
@@ -57,6 +54,11 @@ export async function deleteProduct(
   let product = await ProductModel.findById(productId);
 
   if (!product) return false;
+
+  for (let i = 0; 1 < product.images.length; i++) {
+    await cloudinary.uploader.destroy(product.images[i].public_id);
+  }
+
   await product.remove();
   return true;
 }
