@@ -27,19 +27,66 @@ export async function getAllProducts(queryStr: {
 export async function createProduct(
   input: CreateProductBody
 ): Promise<Product> {
+  const { images: bodyImages, ...rest } = input;
+  let images: string[] = [];
+
+  if (typeof bodyImages === 'string') {
+    images.push(bodyImages);
+  } else {
+    images = bodyImages as string[];
+  }
+
+  const imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.uploader.upload(images[i], {
+      folder: 'products',
+    });
+
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
   return await ProductModel.create({
-    ...input,
+    ...rest,
+    images: imagesLinks,
   });
 }
 
 export async function updateProduct(
   input: UpdateProductBody & { productId: mongoose.Types.ObjectId }
 ): Promise<Product | null> {
-  const { productId, ...data } = input;
-  console.log({ input });
+  const { productId, images: bodyImages, ...data } = input;
   let product = await ProductModel.findById(productId);
 
   if (!product) return null;
+  let images: string[] = [];
+  const imagesLinks = [];
+
+  if (typeof bodyImages === 'string') {
+    images.push(bodyImages);
+  } else {
+    images = bodyImages as string[];
+  }
+
+  if (images !== undefined) {
+    // Delete image from cloudinary
+    for (let i = 0; i < product.images.length; i++) {
+      await cloudinary.uploader.destroy(product.images[i].public_id);
+    }
+
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.uploader.upload(images[i], {
+        folder: 'products',
+      });
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+  }
+
   product = await ProductModel.findByIdAndUpdate(productId, data, {
     new: true,
     runValidators: true,
