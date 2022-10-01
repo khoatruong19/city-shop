@@ -182,6 +182,12 @@ export async function updateProfileHandler(
   try {
     const userId = (request.user as JwtPayload).id;
 
+    const { email } = request.body;
+
+    const existingEmailUser = await getUserByEmail(email);
+    if (existingEmailUser && existingEmailUser.id !== userId)
+      throw new ApiError(400, 'Email already exists').getErrorObject(reply);
+
     const user = await updateProfile({
       userId,
       ...request.body,
