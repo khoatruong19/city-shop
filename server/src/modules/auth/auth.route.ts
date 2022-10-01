@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyPluginOptions } from 'fastify';
 import {
   checkMatchNewPassword,
-  checkMatchOldPassword,
+  checkMatchUpdatePassword,
 } from '../../utils/helpers/validation';
 import {
   forgotPasswordHandler,
@@ -57,7 +57,7 @@ export function authRoute(
     '/me/password-update',
     {
       schema: updatePasswordSchema,
-      preValidation: checkMatchOldPassword,
+      preValidation: checkMatchUpdatePassword,
       preHandler: [
         async (request, reply, done) => verifyJWT(request, reply, done),
       ],
