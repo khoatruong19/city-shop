@@ -125,7 +125,7 @@ const UserNav = () => {
       >
         <Image
           alt={''}
-          src="https://portfolio2022-liart.vercel.app/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdzo2rkafy%2Fimage%2Fupload%2Fv1664178702%2Fuploads%2Fefm4idlsz9hovrxywlgb.jpg&w=2048&q=75"
+          src={user?.avatar.url!}
           width={50}
           height={50}
           sx={{ borderRadius: '50%', overflow: 'hidden', cursor: 'pointer' }}
