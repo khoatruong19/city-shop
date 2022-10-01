@@ -33,9 +33,7 @@ const Profile = () => {
         <Title order={1}>My Profile</Title>
         <Image
           alt="user-avatar"
-          src={
-            'https://portfolio2022-liart.vercel.app/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdzo2rkafy%2Fimage%2Fupload%2Fv1664178702%2Fuploads%2Fefm4idlsz9hovrxywlgb.jpg&w=2048&q=75'
-          }
+          src={user?.avatar.url!}
           width="9rem"
           height="9rem"
           sx={{
