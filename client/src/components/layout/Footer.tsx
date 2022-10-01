@@ -92,7 +92,7 @@ const Footer = () => {
             <Link to="/" className="linkHover">
               <Title order={4}>Contact Us</Title>
             </Link>
-            <Link to="/" className="linkHover">
+            <Link to="/about" className="linkHover">
               <Title order={4}>About Us</Title>
             </Link>
             <Link to="/" className="linkHover">
