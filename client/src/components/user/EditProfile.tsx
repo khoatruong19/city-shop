@@ -36,7 +36,7 @@ const EditProfile = () => {
   const navigate = useNavigate();
 
   const fileRef = useRef<HTMLInputElement>(null);
-  const [avatar, setAvatar] = useState('');
+  const [avatar, setAvatar] = useState(user?.avatar.url || '');
 
   const form = useForm<FormData>({
     initialValues: {
