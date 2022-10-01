@@ -44,11 +44,11 @@ const Footer = () => {
         <Group spacing={20} align={'flex-start'}>
           <Stack spacing={10}>
             <Title order={2}>Account</Title>
-            <Link to="/" className="linkHover">
+            <Link to="/auth" className="linkHover">
               <Title order={4}>Log In</Title>
             </Link>
-            <Link to="/" className="linkHover">
-              <Title order={4}>Sign In</Title>
+            <Link to="/auth" className="linkHover">
+              <Title order={4}>Sign Up</Title>
             </Link>
             <Link to="/" className="linkHover">
               <Title order={4}>Registeration</Title>
