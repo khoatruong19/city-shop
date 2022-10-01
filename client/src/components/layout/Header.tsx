@@ -22,7 +22,7 @@ const Header = () => {
         <Link to="/">
           <Image
             width={90}
-            style={{ scale: '1.5', marginLeft: '3rem', cursor: 'poniyer' }}
+            style={{ scale: '1.5', marginLeft: '3rem', cursor: 'pointer' }}
             alt=""
             src={Logo}
           />
@@ -30,7 +30,7 @@ const Header = () => {
 
         <div
           style={{
-            backgroundColor: 'orangered',
+            backgroundColor: '#F65602',
             width: '40vw',
             overflow: 'hidden',
             color: 'white',

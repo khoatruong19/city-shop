@@ -24,7 +24,7 @@ const About = () => {
           >
             <Text size={40} weight={600}>
               Welcome to{' '}
-              <span style={{ color: 'orange', fontWeight: 700 }}>
+              <span style={{ color: '#f4732d', fontWeight: 700 }}>
                 CITY SHOP
               </span>
             </Text>

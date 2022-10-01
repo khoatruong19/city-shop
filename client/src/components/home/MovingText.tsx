@@ -9,7 +9,6 @@ const MovingText = ({ text }: { text: string }) => {
     to: { transform: 'translate(100%,0)' },
     config: { duration: 5000 },
     reset: true,
-    //reverse: key % 2 == 0,
     onRest: () => {
       setKey(key + 1);
     },
