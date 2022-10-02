@@ -1,9 +1,10 @@
-import { Box, Group, Image, Stack, Text } from '@mantine/core';
-import React from 'react';
+import { Box, Grid, Group, Image, Stack, Text } from '@mantine/core';
+import AboutImage from '../../images/about.png';
+import { aboutInfos } from '../../utils/data';
 import Footer from '../layout/Footer';
 import Header from '../layout/Header';
 import MetaData from '../layout/MetaData';
-import AboutImage from '../../images/about.png';
+import AboutCard from './AboutCard';
 
 const About = () => {
   return (
@@ -45,6 +46,29 @@ const About = () => {
               libero nesciunt harum velit. Dolore placeat provident at?
             </Text>
           </Stack>
+        </Group>
+
+        <Group sx={{ justifyContent: 'center', marginTop: '3rem' }}>
+          <Text size={40} weight={600}>
+            What We Provide?
+          </Text>
+          <Grid
+            sx={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: '1rem',
+            }}
+          >
+            {aboutInfos.map((info, i) => (
+              <Grid.Col key={i} span={4}>
+                <AboutCard
+                  description={info.description}
+                  imageUrl={info.imageUrl}
+                  title={info.title}
+                />
+              </Grid.Col>
+            ))}
+          </Grid>
         </Group>
       </Box>
       <Footer />
