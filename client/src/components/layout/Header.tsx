@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Logo from '../../images/logo.png';
-import { Image, Group, Stack, Text } from '@mantine/core';
+import { Image, Group, Stack, Text, Box } from '@mantine/core';
 import {
   MagnifyingGlassIcon,
   HeartIcon,
@@ -11,11 +11,20 @@ import {
 import NavLinks from '../home/NavLinks';
 import MovingText from '../home/MovingText';
 import { Link } from 'react-router-dom';
+import { mainOrangeColor } from '../../utils/constants';
 
 const Header = () => {
+  const navRef = useRef<HTMLDivElement>(null);
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 100) {
+      navRef.current?.classList.add('navActive');
+    } else {
+      navRef.current?.classList.remove('navActive');
+    }
+  });
   return (
     <Stack
-      spacing={40}
+      spacing={20}
       style={{ padding: '10px 5px 5px', borderBottom: '1px solid lightgray' }}
     >
       <Group style={{ justifyContent: 'space-between' }}>
@@ -30,7 +39,7 @@ const Header = () => {
 
         <div
           style={{
-            backgroundColor: '#F65602',
+            backgroundColor: mainOrangeColor,
             width: '40vw',
             overflow: 'hidden',
             color: 'white',
@@ -46,12 +55,51 @@ const Header = () => {
           <Text>khoa.truongthdk@hcmut.edu.vn</Text>
         </div>
       </Group>
-      <Group pl={30} style={{ justifyContent: 'space-between' }}>
+      <Group
+        pl={30}
+        py={20}
+        style={{ justifyContent: 'space-between' }}
+        ref={navRef}
+      >
         <NavLinks />
         <Group spacing={'lg'}>
           <MagnifyingGlassIcon className="navIcon" />
-          <HeartIcon className="navIcon" />
-          <ShoppingCartIcon className="navIcon" />
+          <Box sx={{ position: 'relative' }}>
+            <HeartIcon className="navIcon" />
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '-5px',
+                right: '-8px',
+                textAlign: 'center',
+                width: '1.3rem',
+                height: '1.3rem',
+                borderRadius: '50%',
+                backgroundColor: mainOrangeColor,
+                color: 'white',
+              }}
+            >
+              2
+            </Box>
+          </Box>
+          <Box sx={{ position: 'relative' }}>
+            <ShoppingCartIcon className="navIcon" />
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '-5px',
+                right: '-8px',
+                textAlign: 'center',
+                width: '1.3rem',
+                height: '1.3rem',
+                borderRadius: '50%',
+                backgroundColor: mainOrangeColor,
+                color: 'white',
+              }}
+            >
+              2
+            </Box>
+          </Box>
           <UserIcon className="navIcon" />
         </Group>
       </Group>

@@ -61,6 +61,7 @@
   },
   "devDependencies": {
     "@types/react-helmet": "^6.1.5",
+    "@types/react-js-pagination": "^3.0.4",
     "@types/webfontloader": "^1.6.34"
   }
 }

@@ -1,5 +1,6 @@
 import { Box, Grid, Group, Image, Stack, Text } from '@mantine/core';
 import AboutImage from '../../images/about.png';
+import { mainOrangeColor } from '../../utils/constants';
 import { aboutInfos } from '../../utils/data';
 import Footer from '../layout/Footer';
 import Header from '../layout/Header';
@@ -25,7 +26,7 @@ const About = () => {
           >
             <Text size={40} weight={600}>
               Welcome to{' '}
-              <span style={{ color: '#f4732d', fontWeight: 700 }}>
+              <span style={{ color: mainOrangeColor, fontWeight: 700 }}>
                 CITY SHOP
               </span>
             </Text>

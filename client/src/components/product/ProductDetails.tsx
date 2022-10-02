@@ -11,6 +11,7 @@ import {
 import toaster from '../../utils/helpers/toaster';
 import Footer from '../layout/Footer';
 import Header from '../layout/Header';
+import Loading from '../layout/Loading';
 import MetaData from '../layout/MetaData';
 import ProductReviews from './ProductReviews';
 
@@ -49,7 +50,7 @@ const ProductDetails = () => {
     if (id) dispatch(getProductDetail(id));
   }, [id]);
 
-  if (loading) return <p>Loading</p>;
+  if (loading) return <Loading />;
 
   return (
     <Box>

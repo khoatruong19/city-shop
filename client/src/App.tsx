@@ -12,6 +12,7 @@ import Profile from './components/user/Profile';
 import UpdatePassword from './components/user/UpdatePassword';
 import EditProfile from './components/user/EditProfile';
 import About from './components/about/About';
+import Products from './components/product/Products';
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -32,6 +33,7 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/about" element={<About />} />
+        <Route path="/products" element={<Products />} />
         <Route
           path="/me"
           element={

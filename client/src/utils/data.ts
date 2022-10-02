@@ -42,3 +42,29 @@ export const aboutInfos = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
   },
 ];
+
+export const categories = [
+  'Personal',
+  'Cloth',
+  'Ladies Cloth',
+  'Gift',
+  'Food',
+  'Electronics',
+  'Sports',
+  'Others',
+];
+
+export const quickLinks = [
+  {
+    name: 'My Carts',
+    link: '/carts',
+  },
+  {
+    name: 'Favourites Items',
+    link: '/favouriteItems',
+  },
+  {
+    name: 'Go to checkout',
+    link: '/checkout',
+  },
+];

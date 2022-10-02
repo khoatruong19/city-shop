@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import productApi from '../../api/productApi';
 import { Product } from '../../utils/models/product.model';
+import { getProductQueries } from '../../utils/types/product.type';
 
 interface ProductSliceState {
   loading: boolean;
@@ -22,10 +23,10 @@ const initialState: ProductSliceState = {
 
 export const getAllProducts = createAsyncThunk(
   'product/getAll',
-  async (_, thunkApi) => {
+  async (queries: getProductQueries, thunkApi) => {
     try {
-      const res = await productApi.getAll();
-      return res.data.products;
+      const res = await productApi.getMany(queries);
+      return res.data;
     } catch (error) {
       return thunkApi.rejectWithValue(`Get all products fail. ${error}`);
     }
@@ -57,13 +58,12 @@ const productSlice = createSlice({
       .addCase(getAllProducts.pending, (state) => {
         state.loading = true;
       })
-      .addCase(
-        getAllProducts.fulfilled,
-        (state, { payload }: PayloadAction<Product[]>) => {
-          state.loading = false;
-          state.products = payload;
-        }
-      )
+      .addCase(getAllProducts.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.products = payload.products;
+        state.resultPerPage = payload.resultPerPage;
+        state.productsCount = payload.productsCount;
+      })
       .addCase(
         getAllProducts.rejected,
         (state, { payload }: PayloadAction<any>) => {
