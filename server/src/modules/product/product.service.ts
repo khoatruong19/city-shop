@@ -16,7 +16,7 @@ export async function getAllProducts(queryStr: {
   page: string;
 }): Promise<GetProductsWithCount> {
   const productsCount = await ProductModel.countDocuments();
-  const resultsPerPage = 8;
+  const resultsPerPage = 10;
   if (Object.keys(queryStr).length === 0) {
     const products = await ProductModel.find().select('+review.user');
     return {
