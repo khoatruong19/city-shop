@@ -3,6 +3,7 @@ import { User } from '../modules/user/user.model';
 import { Types } from 'mongoose';
 import { CreateOrderBody } from '../modules/order/order.schema';
 import { Order } from '../modules/order/order.model';
+import { Product } from '../modules/product/product.model';
 
 export type QueryRequest = FastifyRequest<{
   Querystring: { keyword: string; category: string; page: string };
@@ -37,6 +38,12 @@ export type UpdateRoleInput = {
   email: string;
   name: string;
   role: string;
+};
+
+export type GetProductsWithCount = {
+  products: Product[];
+  productsCount: number;
+  resultsPerPage: number;
 };
 
 export type CreateProductReviewInput = {

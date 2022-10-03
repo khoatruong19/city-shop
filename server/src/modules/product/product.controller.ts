@@ -25,10 +25,14 @@ export async function getAllProductsHandler(
   reply: FastifyReply
 ) {
   try {
-    const products = await getAllProducts(request.query);
+    const { products, productsCount, resultsPerPage } = await getAllProducts(
+      request.query
+    );
     reply.send({
       message: 'Get all products successfully!',
       products,
+      productsCount,
+      resultsPerPage,
     });
   } catch (error) {
     logger.info(`Get all products error, `, error);

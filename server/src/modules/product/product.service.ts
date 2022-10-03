@@ -3,6 +3,7 @@ import { Features } from '../../utils/features';
 import {
   CreateProductReviewInput,
   DeleteProductReviewInput,
+  GetProductsWithCount,
   UpdateProductStockInput,
 } from '../../utils/types';
 import { Product, ProductModel, UserReview } from './product.model';
@@ -13,15 +14,28 @@ export async function getAllProducts(queryStr: {
   keyword: string;
   category: string;
   page: string;
-}): Promise<Product[]> {
-  if (Object.keys(queryStr).length === 0)
-    return await ProductModel.find().select('+review.user');
+}): Promise<GetProductsWithCount> {
+  const productsCount = await ProductModel.countDocuments();
   const resultsPerPage = 8;
+  if (Object.keys(queryStr).length === 0) {
+    const products = await ProductModel.find().select('+review.user');
+    return {
+      products,
+      resultsPerPage,
+      productsCount,
+    };
+  }
+
   const searchFeature = new Features(ProductModel.find(), queryStr)
     .search()
     .filter()
     .pagination(resultsPerPage);
-  return await searchFeature.query;
+  const products = await searchFeature.query;
+  return {
+    products,
+    resultsPerPage,
+    productsCount,
+  };
 }
 
 export async function createProduct(

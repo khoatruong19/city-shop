@@ -35,6 +35,8 @@ const productResponseSuccess = Type.Object({
   message: Type.String(),
   product: Type.Optional(product),
   products: Type.Optional(Type.Array(product)),
+  productsCount: Type.Optional(Type.String()),
+  resultPerPage: Type.Optional(Type.String()),
 });
 
 const productResponseFailure = Type.Object({
