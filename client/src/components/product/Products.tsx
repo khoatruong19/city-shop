@@ -109,6 +109,7 @@ const Products = () => {
                 backgroundColor: 'white',
                 alignItems: 'flex-start',
                 padding: '0 2rem',
+                height: '60vh',
               }}
               spacing={40}
             >
@@ -117,7 +118,13 @@ const Products = () => {
                   <ProductCard key={product._id} product={product} />
                 ))}
             </Group>
-            <Group>
+            <Group
+              sx={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '2rem',
+              }}
+            >
               <Pagination
                 activePage={currentPage}
                 itemsCountPerPage={resultPerPage}

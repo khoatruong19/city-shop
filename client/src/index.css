@@ -55,6 +55,9 @@ a {
   transition: all 0.3s ease-in-out;
 }
 
+.pagination {
+  display: flex !important;
+}
 .page-item {
   background-color: #fff;
   list-style: none;
