@@ -1,4 +1,14 @@
-import { Box, Button, Divider, Group, Stack, Table, Text } from '@mantine/core';
+import {
+  Box,
+  Button,
+  Divider,
+  Group,
+  Image,
+  Stack,
+  Table,
+  Text,
+  Title,
+} from '@mantine/core';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
@@ -13,6 +23,7 @@ import Header from '../layout/Header';
 import MetaData from '../layout/MetaData';
 import QuantityButtons from '../others/QuantityButtons';
 import CartItemCard from './CartItemCard';
+import EmptyCart from '../../images/empty-cart.png';
 
 const Cart = () => {
   const cartItems = useAppSelector((state) => state.cart.cartItems);
@@ -50,75 +61,104 @@ const Cart = () => {
     navigate('/login?redirect=shipping');
   };
 
-  if (cartItems.length === 0) return <p>No items</p>;
-
   return (
     <>
       <MetaData title="Cart" />
       <Header />
-      <Stack
-        sx={{
-          width: '90vw',
-          margin: '2rem auto',
-        }}
-      >
-        <Table captionSide="bottom">
-          <thead style={{ backgroundColor: mainOrangeColor }}>
-            <tr style={{}}>
-              <th style={{ color: 'white' }}>Product</th>
-              <th style={{ color: 'white', paddingLeft: '4rem' }}>Quantity</th>
-              <th style={{ color: 'white' }}>Subtotal</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cartItems.map((item) => (
-              <tr
-                key={item.product}
-                style={{ borderBottom: '1px solid lightgray' }}
-              >
-                <td>
-                  <CartItemCard removeItem={handleRemoveItem} item={item} />
-                </td>
-                <td>
-                  <QuantityButtons
-                    handleControlQuantity={(mode: 'up' | 'down') =>
-                      handleControlQuantity(
-                        mode,
-                        item.product,
-                        item.quantity,
-                        item.stock
-                      )
-                    }
-                    quantity={item.quantity}
-                    size="sm"
-                  />
-                </td>
-                <td style={{ fontSize: '1.25rem', fontWeight: 600 }}>
-                  ${item.quantity * item.price}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <Stack sx={{ alignSelf: 'flex-end', width: '30%' }}>
-          <Divider size={'lg'} color={mainOrangeColor} />
-          <Group
+      {cartItems.length === 0 ? (
+        <Box
+          sx={{
+            width: 'fit-content',
+            margin: '5rem auto',
+            textAlign: 'center',
+          }}
+        >
+          <Box
             sx={{
-              fontSize: '1.5rem',
-              fontWeight: 600,
-              justifyContent: 'space-between',
+              position: 'relative',
+              width: '6rem',
+              marginLeft: '4.5rem',
             }}
           >
-            <Text>Price Total</Text>
-            <Text>${totalPrice}</Text>
-          </Group>
-          <Box sx={{ width: '30%', alignSelf: 'flex-end' }}>
-            <Button size="lg" color={'orange'} onClick={handleCheckout}>
-              Check Out
-            </Button>
+            <Image className="img" alt="" src={EmptyCart} />
           </Box>
+          <Title order={1}>No Items In Cart</Title>
+          <Button
+            size="md"
+            color="orange"
+            onClick={() => navigate('/products')}
+            mt={10}
+          >
+            View Products
+          </Button>
+        </Box>
+      ) : (
+        <Stack
+          sx={{
+            width: '90vw',
+            margin: '2rem auto',
+          }}
+        >
+          <Table captionSide="bottom">
+            <thead style={{ backgroundColor: mainOrangeColor }}>
+              <tr style={{}}>
+                <th style={{ color: 'white' }}>Product</th>
+                <th style={{ color: 'white', paddingLeft: '4rem' }}>
+                  Quantity
+                </th>
+                <th style={{ color: 'white' }}>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems.map((item) => (
+                <tr
+                  key={item.product}
+                  style={{ borderBottom: '1px solid lightgray' }}
+                >
+                  <td>
+                    <CartItemCard removeItem={handleRemoveItem} item={item} />
+                  </td>
+                  <td>
+                    <QuantityButtons
+                      handleControlQuantity={(mode: 'up' | 'down') =>
+                        handleControlQuantity(
+                          mode,
+                          item.product,
+                          item.quantity,
+                          item.stock
+                        )
+                      }
+                      quantity={item.quantity}
+                      size="sm"
+                    />
+                  </td>
+                  <td style={{ fontSize: '1.25rem', fontWeight: 600 }}>
+                    ${item.quantity * item.price}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <Stack sx={{ alignSelf: 'flex-end', width: '30%' }}>
+            <Divider size={'lg'} color={mainOrangeColor} />
+            <Group
+              sx={{
+                fontSize: '1.5rem',
+                fontWeight: 600,
+                justifyContent: 'space-between',
+              }}
+            >
+              <Text>Price Total</Text>
+              <Text>${totalPrice}</Text>
+            </Group>
+            <Box sx={{ width: '30%', alignSelf: 'flex-end' }}>
+              <Button size="lg" color={'orange'} onClick={handleCheckout}>
+                Check Out
+              </Button>
+            </Box>
+          </Stack>
         </Stack>
-      </Stack>
+      )}
     </>
   );
 };
