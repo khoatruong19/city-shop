@@ -16,6 +16,7 @@ import Products from './components/product/Products';
 import Search from './components/product/Search';
 import Support from './components/support/Support';
 import Cart from './components/cart/Cart';
+import Favourites from './components/cart/Favourites';
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -41,6 +42,7 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/support" element={<Support />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/favourites" element={<Favourites />} />
         <Route
           path="/me"
           element={
