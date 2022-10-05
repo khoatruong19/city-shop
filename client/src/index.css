@@ -25,11 +25,13 @@ a {
 .navIcon {
   width: 2rem;
   height: 2rem;
+  cursor: pointer;
 }
 
 .footerIcon {
   width: 1.5rem;
   height: 1.5rem;
+  cursor: pointer;
 }
 
 .linkHover:hover {
@@ -89,4 +91,8 @@ a {
 }
 .pageLinkActive {
   color: white;
+}
+
+.mantine-fjy3ul::placeholder {
+  font-family: 'Chilanka';
 }

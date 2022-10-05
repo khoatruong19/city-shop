@@ -20,55 +20,63 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllProducts({ keyword: '', currentPage: 1 }));
-  }, []);
+  }, [dispatch]);
 
   return (
-    <Box sx={{ overflow: 'hidden' }}>
+    <>
       <MetaData title="Home" />
       <Header />
-      <Carousel
-        sx={{ width: '100%' }}
-        withIndicators
-        height="100vh"
-        plugins={[autoplay.current]}
-      >
-        <Carousel.Slide
-          style={{
-            backgroundImage: `url(${BannerImage})`,
-
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-          }}
+      <Box sx={{ overflow: 'hidden' }}>
+        <Carousel
+          sx={{ width: '100%' }}
+          withIndicators
+          height="100vh"
+          plugins={[autoplay.current]}
         >
-          <BannerContent />
-        </Carousel.Slide>
-        <Carousel.Slide
-          style={{
-            backgroundImage: `url(${BannerImage2})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-          }}
-        >
-          <BannerContent />
-        </Carousel.Slide>
-      </Carousel>
+          <Carousel.Slide
+            style={{
+              backgroundImage: `url(${BannerImage})`,
 
-      <Stack mt={20} sx={{ height: '100vh' }}>
-        <Text align="center" size={30} weight={600}>
-          Features Products
-        </Text>
-        <div style={{ width: '300px', margin: '0 auto' }}>
-          <Divider color={'black'} />
-        </div>
-        <Group sx={{ justifyContent: 'space-between', padding: '2rem' }}>
-          {!loading &&
-            products.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-        </Group>
-      </Stack>
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+            }}
+          >
+            <BannerContent />
+          </Carousel.Slide>
+          <Carousel.Slide
+            style={{
+              backgroundImage: `url(${BannerImage2})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+            }}
+          >
+            <BannerContent />
+          </Carousel.Slide>
+        </Carousel>
+
+        <Stack mt={20} sx={{ height: '100vh' }}>
+          <Text align="center" size={30} weight={600}>
+            Features Products
+          </Text>
+          <div style={{ width: '300px', margin: '0 auto' }}>
+            <Divider color={'black'} />
+          </div>
+          <Group
+            sx={{
+              padding: '2rem',
+              justifyContent: 'center',
+            }}
+            spacing={40}
+          >
+            {!loading &&
+              products.map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))}
+          </Group>
+        </Stack>
+      </Box>
       <Footer />
-    </Box>
+    </>
   );
 };
 

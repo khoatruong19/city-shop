@@ -12,9 +12,15 @@ import NavLinks from '../home/NavLinks';
 import MovingText from '../home/MovingText';
 import { Link } from 'react-router-dom';
 import { mainOrangeColor } from '../../utils/constants';
+import { useAppSelector } from '../../store';
 
 const Header = () => {
+  const cartItemsCount = useAppSelector((state) => state.cart.cartItems).length;
+  const favouriteItemsCount = useAppSelector(
+    (state) => state.favourite.favouriteItems
+  ).length;
   const navRef = useRef<HTMLDivElement>(null);
+
   window.addEventListener('scroll', () => {
     if (window.pageYOffset > 100) {
       navRef.current?.classList.add('navActive');
@@ -63,9 +69,11 @@ const Header = () => {
       >
         <NavLinks />
         <Group spacing={'lg'}>
-          <MagnifyingGlassIcon className="navIcon" />
+          <Link to={'/search'}>
+            <MagnifyingGlassIcon className="navIcon linkHover" />
+          </Link>
           <Box sx={{ position: 'relative' }}>
-            <HeartIcon className="navIcon" />
+            <HeartIcon className="navIcon linkHover" />
             <Box
               sx={{
                 position: 'absolute',
@@ -79,11 +87,11 @@ const Header = () => {
                 color: 'white',
               }}
             >
-              2
+              {favouriteItemsCount}
             </Box>
           </Box>
           <Box sx={{ position: 'relative' }}>
-            <ShoppingCartIcon className="navIcon" />
+            <ShoppingCartIcon className="navIcon linkHover" />
             <Box
               sx={{
                 position: 'absolute',
@@ -97,10 +105,10 @@ const Header = () => {
                 color: 'white',
               }}
             >
-              2
+              {cartItemsCount}
             </Box>
           </Box>
-          <UserIcon className="navIcon" />
+          <UserIcon className="navIcon linkHover" />
         </Group>
       </Group>
     </Stack>

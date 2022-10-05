@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import ReactStars from 'react-rating-stars-component';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
+import { addItemToCart } from '../../store/slices/cartSlice';
+import { addItemToFavourite } from '../../store/slices/favouriteSlice';
 import {
   clearProductError,
   getProductDetail,
@@ -26,7 +28,7 @@ const ProductDetails = () => {
     value: product.ratings,
     edit: false,
     isHalf: 0.5,
-    size: '30',
+    size: 30,
   };
 
   const handleControlQuantity = (mode: 'up' | 'down') => {
@@ -40,6 +42,44 @@ const ProductDetails = () => {
 
       setQuantity((prev) => prev + 1);
     } else setQuantity((prev) => (prev === 1 ? prev : prev - 1));
+  };
+
+  const handleAddToCart = () => {
+    if (product.stock > 0) {
+      dispatch(
+        addItemToCart({
+          product: product._id,
+          image: product.images[0].url,
+          name: product.name,
+          price: product.price,
+          stock: product.stock,
+          quantity,
+        })
+      );
+      toaster({
+        id: 'add-to-cart',
+        message: 'Product added to cart!',
+        success: true,
+      });
+    } else toaster({ id: 'add-to-cart', message: 'Product stock limited!' });
+  };
+
+  const handleAddToFavourite = () => {
+    dispatch(
+      addItemToFavourite({
+        product: product._id,
+        image: product.images[0].url,
+        name: product.name,
+        price: product.price,
+        stock: product.stock,
+        quantity,
+      })
+    );
+    toaster({
+      id: 'add-to-favourite',
+      message: 'Product added to favourite!',
+      success: true,
+    });
   };
 
   useEffect(() => {
@@ -136,6 +176,7 @@ const ProductDetails = () => {
                   opacity: 0.8,
                 },
               }}
+              onClick={handleAddToFavourite}
             >
               <HeartIcon style={{ width: '2rem', height: '2rem' }} />
               <Text>Add to wishlist</Text>
@@ -150,6 +191,7 @@ const ProductDetails = () => {
                   opacity: 0.8,
                 },
               }}
+              onClick={handleAddToCart}
             >
               <ShoppingBagIcon style={{ width: '2rem', height: '2rem' }} />
               <Text>Add to cart</Text>

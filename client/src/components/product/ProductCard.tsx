@@ -12,6 +12,7 @@ const ProductCard = ({ product }: IProps) => {
   const options = {
     value: product.ratings,
     edit: false,
+    isHalf: 0.5,
     precision: 0.5,
   };
   return (

@@ -18,6 +18,7 @@ const Products = () => {
   const { loading, products, resultPerPage, productsCount, error } =
     useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
+  const { keyword: key } = useParams();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [category, setCategory] = useState('');
@@ -32,8 +33,8 @@ const Products = () => {
       alert(error);
       dispatch(clearProductError());
     }
-    dispatch(getAllProducts({ keyword: '', currentPage, category }));
-  }, [dispatch, currentPage, category, alert, error]);
+    dispatch(getAllProducts({ keyword: key || '', currentPage, category }));
+  }, [dispatch, currentPage, key, category, alert, error]);
 
   return (
     <>

@@ -8,6 +8,7 @@ import {
   FlagIcon,
   ArrowRightOnRectangleIcon,
   ChartBarIcon,
+  CubeIcon,
 } from '@heroicons/react/24/solid';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { useNavigate } from 'react-router-dom';
@@ -17,8 +18,10 @@ import { Box, Image, Overlay, Stack, Tooltip } from '@mantine/core';
 
 const UserNav = () => {
   const { user } = useAppSelector((state) => state.user);
-  const cartItems = [];
-  const favouriteItems = [];
+  const cartItemsCount = useAppSelector((state) => state.cart.cartItems).length;
+  const favouriteItemsCount = useAppSelector(
+    (state) => state.favourite.favouriteItems
+  ).length;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -26,6 +29,12 @@ const UserNav = () => {
 
   const options = [
     { icon: <HomeIcon className="navIcon" />, name: 'Home', func: home },
+    {
+      icon: <CubeIcon className="navIcon" />,
+      name: 'Products',
+      func: products,
+    },
+
     {
       icon: <ClipboardDocumentIcon className="navIcon" />,
       name: 'Orders',
@@ -36,11 +45,11 @@ const UserNav = () => {
         <ShoppingCartIcon
           className="navIcon"
           style={{
-            color: cartItems.length === 0 ? '' : 'tomato',
+            color: cartItemsCount === 0 ? '' : 'tomato',
           }}
         />
       ),
-      name: `Cart (${cartItems.length})`,
+      name: `Cart (${cartItemsCount})`,
       func: cart,
     },
     {
@@ -48,11 +57,11 @@ const UserNav = () => {
         <HeartIcon
           className="navIcon"
           style={{
-            color: favouriteItems.length === 0 ? '' : 'tomato',
+            color: favouriteItemsCount === 0 ? '' : 'tomato',
           }}
         />
       ),
-      name: `Favourite (${favouriteItems.length})`,
+      name: `Favourite (${favouriteItemsCount})`,
       func: favourite,
     },
     { icon: <UserIcon className="navIcon" />, name: 'Profile', func: account },
@@ -84,6 +93,9 @@ const UserNav = () => {
   }
   function home() {
     navigate('/');
+  }
+  function products() {
+    navigate('/products');
   }
   function orders() {
     navigate('/orders');

@@ -1,5 +1,5 @@
 import mongoose, { Types } from 'mongoose';
-import { Features } from '../../utils/features';
+import { Features } from '../../utils/helpers/features';
 import {
   CreateProductReviewInput,
   DeleteProductReviewInput,
@@ -25,7 +25,6 @@ export async function getAllProducts(queryStr: {
       productsCount,
     };
   }
-
   const searchFeature = new Features(ProductModel.find(), queryStr)
     .search()
     .filter()

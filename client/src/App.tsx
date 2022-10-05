@@ -13,6 +13,9 @@ import UpdatePassword from './components/user/UpdatePassword';
 import EditProfile from './components/user/EditProfile';
 import About from './components/about/About';
 import Products from './components/product/Products';
+import Search from './components/product/Search';
+import Support from './components/support/Support';
+import Cart from './components/cart/Cart';
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -34,6 +37,10 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/about" element={<About />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/products/:keyword" element={<Products />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/support" element={<Support />} />
+        <Route path="/cart" element={<Cart />} />
         <Route
           path="/me"
           element={
