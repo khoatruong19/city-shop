@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CartItem } from '../../utils/types/cart.type';
+import { CartItem, ShippingInfo } from '../../utils/types/cart.type';
 
 interface CartSliceState {
   cartItems: CartItem[];
-  shippingInfo: any;
+  shippingInfo: ShippingInfo;
 }
 
 const initialState: CartSliceState = {
@@ -11,7 +11,7 @@ const initialState: CartSliceState = {
     localStorage.getItem('cartItems') !== null
       ? JSON.parse(localStorage.getItem('cartItems')!)
       : [],
-  shippingInfo: {},
+  shippingInfo: {} as ShippingInfo,
 };
 
 const cartSlice = createSlice({

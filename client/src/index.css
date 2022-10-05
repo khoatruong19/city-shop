@@ -96,3 +96,8 @@ a {
 .mantine-fjy3ul::placeholder {
   font-family: 'Chilanka';
 }
+
+.mantine-13929wa {
+  border: none !important;
+  background-color: transparent !important;
+}

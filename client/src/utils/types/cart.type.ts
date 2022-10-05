@@ -6,3 +6,10 @@ export type CartItem = {
   stock: number;
   quantity: number;
 };
+
+export type ShippingInfo = {
+  address: string;
+  state: string;
+  country: string;
+  phoneNo: string;
+};
