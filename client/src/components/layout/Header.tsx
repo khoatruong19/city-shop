@@ -72,42 +72,46 @@ const Header = () => {
           <Link to={'/search'}>
             <MagnifyingGlassIcon className="navIcon linkHover" />
           </Link>
-          <Box sx={{ position: 'relative' }}>
-            <HeartIcon className="navIcon linkHover" />
-            <Box
-              sx={{
-                position: 'absolute',
-                top: '-5px',
-                right: '-8px',
-                textAlign: 'center',
-                width: '1.3rem',
-                height: '1.3rem',
-                borderRadius: '50%',
-                backgroundColor: mainOrangeColor,
-                color: 'white',
-              }}
-            >
-              {favouriteItemsCount}
+          <Link to="/favourites">
+            <Box sx={{ position: 'relative' }}>
+              <HeartIcon className="navIcon linkHover" />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: '-5px',
+                  right: '-8px',
+                  textAlign: 'center',
+                  width: '1.3rem',
+                  height: '1.3rem',
+                  borderRadius: '50%',
+                  backgroundColor: mainOrangeColor,
+                  color: 'white',
+                }}
+              >
+                {favouriteItemsCount}
+              </Box>
             </Box>
-          </Box>
-          <Box sx={{ position: 'relative' }}>
-            <ShoppingCartIcon className="navIcon linkHover" />
-            <Box
-              sx={{
-                position: 'absolute',
-                top: '-5px',
-                right: '-8px',
-                textAlign: 'center',
-                width: '1.3rem',
-                height: '1.3rem',
-                borderRadius: '50%',
-                backgroundColor: mainOrangeColor,
-                color: 'white',
-              }}
-            >
-              {cartItemsCount}
+          </Link>
+          <Link to="/cart">
+            <Box sx={{ position: 'relative' }}>
+              <ShoppingCartIcon className="navIcon linkHover" />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: '-5px',
+                  right: '-8px',
+                  textAlign: 'center',
+                  width: '1.3rem',
+                  height: '1.3rem',
+                  borderRadius: '50%',
+                  backgroundColor: mainOrangeColor,
+                  color: 'white',
+                }}
+              >
+                {cartItemsCount}
+              </Box>
             </Box>
-          </Box>
+          </Link>
           <UserIcon className="navIcon linkHover" />
         </Group>
       </Group>
