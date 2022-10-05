@@ -15,6 +15,7 @@ import Footer from '../layout/Footer';
 import Header from '../layout/Header';
 import Loading from '../layout/Loading';
 import MetaData from '../layout/MetaData';
+import QuantityButtons from '../others/QuantityButtons';
 import ProductReviews from './ProductReviews';
 
 const ProductDetails = () => {
@@ -115,49 +116,11 @@ const ProductDetails = () => {
           </Text>
           <Group>
             <Title order={3}>Quantity</Title>
-            <Group>
-              <Stack
-                sx={{
-                  padding: '0.5rem',
-                  width: '3rem',
-                  fontSize: '1.5rem',
-                  backgroundColor: 'coral',
-                  cursor: 'pointer',
-                  '&:hover': {
-                    opacity: '0.8',
-                  },
-                }}
-                align="center"
-                justify="center"
-                onClick={() => handleControlQuantity('down')}
-              >
-                -
-              </Stack>
-              <Stack
-                sx={{ minWidth: '2rem', fontSize: '1.2rem' }}
-                align="center"
-                justify="center"
-              >
-                {quantity}
-              </Stack>
-              <Stack
-                sx={{
-                  padding: '0.5rem',
-                  width: '3rem',
-                  fontSize: '1.5rem',
-                  backgroundColor: 'coral',
-                  cursor: 'pointer',
-                  '&:hover': {
-                    opacity: '0.8',
-                  },
-                }}
-                align="center"
-                justify="center"
-                onClick={() => handleControlQuantity('up')}
-              >
-                +
-              </Stack>
-            </Group>
+            <QuantityButtons
+              handleControlQuantity={handleControlQuantity}
+              quantity={quantity}
+              size={'lg'}
+            />
           </Group>
           <Title order={4} color={'green'}>
             {product.stock < 1 ? 'OutOfStock' : 'InStock'}
