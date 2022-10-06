@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Home from './components/home/Home';
 import WebFont from 'webfontloader';
 import { Route, Routes } from 'react-router-dom';
@@ -19,10 +19,24 @@ import Cart from './components/cart/Cart';
 import Favourites from './components/cart/Favourites';
 import Shipping from './components/cart/Shipping';
 import ConfirmOrder from './components/cart/ConfirmOrder';
+import paymentApi from './api/paymentApi';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import Payment from './components/cart/Payment';
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
+  const [stripeApiKey, setStripeApiKey] = useState('');
   const dispatch = useAppDispatch();
+
+  async function getStripeApiKey() {
+    try {
+      const { data } = await paymentApi.getApiKey();
+      if (data) setStripeApiKey(data.stripeApiKey);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
     WebFont.load({
       google: {
@@ -30,10 +44,13 @@ function App() {
       },
     });
     dispatch(me());
+    getStripeApiKey();
   }, []);
+
   return (
     <div className="App">
       {isAuthenticated && <UserNav />}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductDetails />} />
@@ -71,6 +88,18 @@ function App() {
             </ProtectedRoute>
           }
         />
+        {stripeApiKey && (
+          <Route
+            path="/process/payment"
+            element={
+              <ProtectedRoute>
+                <Elements stripe={loadStripe(stripeApiKey)}>
+                  <Payment />
+                </Elements>
+              </ProtectedRoute>
+            }
+          />
+        )}
       </Routes>
     </div>
   );

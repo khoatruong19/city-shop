@@ -9,6 +9,7 @@ import { config } from './config';
 import cors from '@fastify/cors';
 import { v2 as cloudinary } from 'cloudinary';
 import fileUpload from 'fastify-file-upload';
+import { paymentRoute } from '../modules/payment/payment.route';
 
 export async function createServer() {
   const app = fastify();
@@ -17,6 +18,7 @@ export async function createServer() {
   app.register(authRoute, { prefix: '/api/auth' });
   app.register(userRoute, { prefix: '/api/users' });
   app.register(orderRoute, { prefix: '/api/orders' });
+  app.register(paymentRoute, { prefix: '/api/payment' });
 
   app.register(cors, {
     origin: 'http://localhost:3000',

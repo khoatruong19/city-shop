@@ -20,6 +20,8 @@ const schema = Type.Object({
   CLOUDINARY_CLOUD_NAME: Type.String(),
   CLOUDINARY_API_KEY: Type.String(),
   CLOUDINARY_API_SECRET: Type.String(),
+  STRIPE_SECRET_KEY: Type.String(),
+  STRIPE_API_KEY: Type.String(),
 });
 
 type Env = Static<typeof schema>;
