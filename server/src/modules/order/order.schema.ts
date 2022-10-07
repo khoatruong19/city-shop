@@ -112,7 +112,10 @@ export const updateOrderStatusSchema = {
     status: Type.String(),
   }),
   response: {
-    200: orderResponseSuccess,
+    200: {
+      message: Type.String(),
+      success: Type.Boolean(),
+    },
     404: orderResponseFailure,
     400: orderResponseFailure,
   },
@@ -125,7 +128,10 @@ export const deleteOrderSchema = {
     id: Type.String(),
   },
   response: {
-    200: orderResponseSuccess,
+    200: {
+      message: Type.String(),
+      success: Type.Boolean(),
+    },
     404: orderResponseFailure,
   },
 };

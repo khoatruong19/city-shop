@@ -117,6 +117,7 @@ export async function updateOrderStatusHandler(
 
     reply.send({
       message: 'Updated order status!',
+      success: true,
     });
   } catch (error) {
     logger.info(`Update order status error, ${error}`);
@@ -139,6 +140,7 @@ export async function deleteOrderHandler(
 
     reply.send({
       message: 'Deleted order!',
+      success: true,
     });
   } catch (error) {
     logger.info(`Delete order error, ${error}`);
