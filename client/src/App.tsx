@@ -24,6 +24,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import Payment from './components/cart/Payment';
 import PaymentSuccess from './components/cart/PaymentSuccess';
+import MyOrder from './components/user/MyOrder';
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -65,6 +66,7 @@ function App() {
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/order/confirm" element={<ConfirmOrder />} />
+        <Route path="/orders" element={<MyOrder />} />
         <Route
           path="/me"
           element={
