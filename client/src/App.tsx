@@ -23,6 +23,7 @@ import paymentApi from './api/paymentApi';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import Payment from './components/cart/Payment';
+import PaymentSuccess from './components/cart/PaymentSuccess';
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -89,16 +90,26 @@ function App() {
           }
         />
         {stripeApiKey && (
-          <Route
-            path="/process/payment"
-            element={
-              <ProtectedRoute>
-                <Elements stripe={loadStripe(stripeApiKey)}>
-                  <Payment />
-                </Elements>
-              </ProtectedRoute>
-            }
-          />
+          <>
+            <Route
+              path="/process/payment"
+              element={
+                <ProtectedRoute>
+                  <Elements stripe={loadStripe(stripeApiKey)}>
+                    <Payment />
+                  </Elements>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/payment/success"
+              element={
+                <ProtectedRoute>
+                  <PaymentSuccess />
+                </ProtectedRoute>
+              }
+            />
+          </>
         )}
       </Routes>
     </div>

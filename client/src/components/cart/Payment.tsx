@@ -92,7 +92,7 @@ const Payment = () => {
 
           dispatch(createOrder(order));
 
-          navigate('/success');
+          navigate('/payment/success');
         } else {
           toaster({
             id: 'payment',
