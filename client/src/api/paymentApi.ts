@@ -11,8 +11,8 @@ type GetApiKeyResponse = {
 };
 
 const paymentApi = {
-  processPayment: (amount: number) =>
-    axiosClient.post<ProcessPaymentResponse>(`payment/process`, { amount }),
+  processPayment: (params: { amount: number }) =>
+    axiosClient.post<ProcessPaymentResponse>(`payment/process`, params),
   getApiKey: () => axiosClient.get<GetApiKeyResponse>(`payment/stripeapikey`),
 };
 

@@ -4,11 +4,11 @@ export type ImageModel = {
   url: string;
 };
 
-export type OrderItem = {
-  _id: string;
-  productName: string;
-  productPrice: number;
+export type CartItem = {
+  product: string;
+  name: string;
+  price: number;
+  image: string;
+  stock: number;
   quantity: number;
-  productImage: string;
-  productId: string;
 };

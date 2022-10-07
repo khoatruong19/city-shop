@@ -1,5 +1,12 @@
-import { OrderItem } from '../models/others.model';
-import { ShippingInfo } from './cart.type';
+import { CartItem, ShippingInfo } from './cart.type';
+
+export type OrderItem = {
+  productName: string;
+  productPrice: number;
+  quantity: number;
+  productImage: string;
+  productId: string;
+};
 
 export type CreateOrderParams = {
   itemsPrice: number;

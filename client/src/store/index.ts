@@ -6,6 +6,7 @@ import userReducer from './slices/userSlice';
 import profileReducer from './slices/profileSlice';
 import cartReducer from './slices/cartSlice';
 import favouriteReducer from './slices/favouriteSlice';
+import orderReducer from './slices/orderSlice';
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     profile: profileReducer,
     cart: cartReducer,
     favourite: favouriteReducer,
+    order: orderReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

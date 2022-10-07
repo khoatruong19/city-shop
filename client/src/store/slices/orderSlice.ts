@@ -29,6 +29,7 @@ export const createOrder = createAsyncThunk(
   'order/create',
   async (params: CreateOrderParams, thunkApi) => {
     try {
+      console.log({ params });
       const res = await orderApi.createOrder(params);
       return res.data.order;
     } catch (error) {
@@ -89,7 +90,7 @@ export const updateOrderStatus = createAsyncThunk(
 );
 
 export const deleteOrder = createAsyncThunk(
-  'order/updateOrder',
+  'order/deleteOrder',
   async (id: string, thunkApi) => {
     try {
       const res = await orderApi.deleteOrder(id);

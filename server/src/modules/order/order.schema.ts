@@ -3,10 +3,10 @@ import { Static, Type } from '@sinclair/typebox';
 const shippingInfo = Type.Object({
   _id: Type.Optional(Type.String()),
   address: Type.String(),
-  city: Type.String(),
+  city: Type.Optional(Type.String()),
   state: Type.String(),
   country: Type.String(),
-  pinCode: Type.Number(),
+  pinCode: Type.Optional(Type.Number()),
   phoneNo: Type.String(),
 });
 

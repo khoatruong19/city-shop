@@ -1,5 +1,5 @@
-import { ShippingInfo } from '../types/cart.type';
-import { OrderItem } from './others.model';
+import { CartItem, ShippingInfo } from '../types/cart.type';
+import { OrderItem } from '../types/order.type';
 
 export type Order = {
   _id: string;
