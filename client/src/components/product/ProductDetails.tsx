@@ -1,5 +1,5 @@
 import { HeartIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
-import { Box, Container, Group, Stack, Text, Title } from '@mantine/core';
+import { Box, Container, Group, Text, Title } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import ReactStars from 'react-rating-stars-component';
 import { useParams } from 'react-router-dom';
@@ -26,7 +26,7 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
 
   const options = {
-    value: product.ratings,
+    value: product.ratings || 0,
     edit: false,
     isHalf: 0.5,
     size: 30,

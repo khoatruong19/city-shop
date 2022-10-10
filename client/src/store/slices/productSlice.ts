@@ -1,10 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import productApi from '../../api/productApi';
 import { Product } from '../../utils/models/product.model';
-import { getProductQueries } from '../../utils/types/product.type';
+import {
+  createProductReviewParams,
+  getProductQueries,
+} from '../../utils/types/product.type';
 
 interface ProductSliceState {
   loading: boolean;
+  reviewLoading: boolean;
   products: Product[];
   product: Product;
   productsCount: number;
@@ -14,6 +18,7 @@ interface ProductSliceState {
 
 const initialState: ProductSliceState = {
   loading: false,
+  reviewLoading: false,
   products: [],
   product: {} as Product,
   productsCount: 0,
@@ -40,7 +45,19 @@ export const getProductDetail = createAsyncThunk(
       const res = await productApi.getSingleDetail(id);
       return res.data.product;
     } catch (error) {
-      return thunkApi.rejectWithValue(`Get all products fail. ${error}`);
+      return thunkApi.rejectWithValue(`Get product detail fail. ${error}`);
+    }
+  }
+);
+
+export const createProductReview = createAsyncThunk(
+  'product/createReview',
+  async (params: createProductReviewParams, thunkApi) => {
+    try {
+      const res = await productApi.addNewReview(params);
+      return res.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(`Add product review fail. ${error}`);
     }
   }
 );
@@ -86,6 +103,20 @@ const productSlice = createSlice({
         getProductDetail.rejected,
         (state, { payload }: PayloadAction<any>) => {
           state.loading = false;
+          state.error = payload;
+        }
+      )
+      //Add Product Review
+      .addCase(createProductReview.pending, (state) => {
+        state.reviewLoading = true;
+      })
+      .addCase(createProductReview.fulfilled, (state) => {
+        state.reviewLoading = false;
+      })
+      .addCase(
+        createProductReview.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.reviewLoading = false;
           state.error = payload;
         }
       );

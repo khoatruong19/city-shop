@@ -1,5 +1,8 @@
 import { Product } from '../utils/models/product.model';
-import { getProductQueries } from '../utils/types/product.type';
+import {
+  createProductReviewParams,
+  getProductQueries,
+} from '../utils/types/product.type';
 import axiosClient from './axiosClient';
 
 type ProductsResponse = {
@@ -15,6 +18,11 @@ type ProductResponse = {
   product: Product;
 };
 
+type UDProductResponse = {
+  success: boolean;
+  message: string;
+};
+
 const productApi = {
   getMany: ({ currentPage, keyword, category }: getProductQueries) => {
     if (category)
@@ -28,6 +36,8 @@ const productApi = {
   },
   getSingleDetail: (id: string) =>
     axiosClient.get<ProductResponse>(`products/${id}`),
+  addNewReview: ({ id, ...rest }: createProductReviewParams) =>
+    axiosClient.post<UDProductResponse>(`products/${id}/reviews`, rest),
 };
 
 export default productApi;

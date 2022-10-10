@@ -167,6 +167,7 @@ export async function createProductReviewHandler(
         reply
       );
     reply.send({
+      success: true,
       message: 'Review created!',
     });
   } catch (error) {
@@ -224,6 +225,7 @@ export async function deleteProductReviewHandler(
       );
     }
     return reply.status(200).send({
+      success: true,
       message: 'Deleted product review!',
     });
   } catch (error) {

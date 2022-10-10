@@ -3,3 +3,9 @@ export type getProductQueries = {
   currentPage: number;
   category?: string;
 };
+
+export type createProductReviewParams = {
+  id: string;
+  rating: number;
+  comment: string;
+};

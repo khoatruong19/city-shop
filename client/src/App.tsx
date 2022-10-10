@@ -46,7 +46,7 @@ function App() {
       },
     });
     dispatch(me());
-    getStripeApiKey();
+    isAuthenticated && getStripeApiKey();
   }, []);
 
   return (

@@ -45,6 +45,11 @@ const productResponseFailure = Type.Object({
   statusCode: Type.Number(),
 });
 
+const productUDResponse = Type.Object({
+  message: Type.String(),
+  success: Type.Boolean(),
+});
+
 const productReviewsResponse = Type.Object({
   message: Type.String(),
   reviews: Type.Array(userReview),
@@ -131,7 +136,7 @@ export const createProductReviewSchema = {
     comment: Type.String(),
   }),
   response: {
-    200: productResponseSuccess,
+    200: productUDResponse,
     404: productResponseFailure,
   },
 };
@@ -154,7 +159,7 @@ export const deleteProductReviewSchema = {
     reviewId: Type.String(),
   },
   response: {
-    200: productResponseSuccess,
+    200: productUDResponse,
     404: productResponseFailure,
   },
 };
