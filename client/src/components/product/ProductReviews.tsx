@@ -6,6 +6,7 @@ import {
   Textarea,
   Button,
   Group,
+  Title,
 } from '@mantine/core';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -16,6 +17,7 @@ import {
   clearProductError,
   createProductReview,
 } from '../../store/slices/productSlice';
+import moment from 'moment';
 
 interface IProps {
   numOfReviews: number;
@@ -56,7 +58,6 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
         (item) => item.user === user?._id
       );
       tempReviews[reviewIndex] = { ...existingReview, rating, comment };
-      console.log({ tempReviews });
       setNewReviews(tempReviews);
     } else {
       setNewReviews((prev) => [
@@ -76,8 +77,6 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
     setRating(0);
   };
 
-  console.log({ newReviews });
-
   return (
     <Box mb={40}>
       <Text size={40} weight={600} ml={'4rem'}>
@@ -90,9 +89,23 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
             No Reviews
           </Text>
         ) : (
-          newReviews.map((review) => (
-            <Box key={review._id}>{review.comment}</Box>
-          ))
+          <Stack pl={'4rem'} mt={20} spacing={20}>
+            {newReviews.map((review) => (
+              <Box key={review._id}>
+                <Group spacing={8}>
+                  <Title order={4}>{review.name}</Title>
+                  <Text color={'gray'}>{moment(review.time).format('L')}</Text>
+                </Group>
+                <Text>{review.comment}</Text>
+                <ReactStars
+                  size={20}
+                  value={review.rating}
+                  edit={false}
+                  isHalf={true}
+                />
+              </Box>
+            ))}
+          </Stack>
         )}
       </Stack>
       <Box px={'4rem'} py={10}>
@@ -124,6 +137,7 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
             }}
             color={'red'}
             type="submit"
+            loading={reviewLoading}
           >
             Submit
           </Button>
