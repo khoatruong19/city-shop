@@ -55,6 +55,11 @@ const orderResponseFailure = Type.Object({
   statusCode: Type.Number(),
 });
 
+const orderUDResponse = Type.Object({
+  message: Type.String(),
+  success: Type.Boolean(),
+});
+
 export const createOrderSchema = {
   tags: ['order'],
   description: 'Create a order resource',
@@ -112,10 +117,7 @@ export const updateOrderStatusSchema = {
     status: Type.String(),
   }),
   response: {
-    200: {
-      message: Type.String(),
-      success: Type.Boolean(),
-    },
+    200: orderUDResponse,
     404: orderResponseFailure,
     400: orderResponseFailure,
   },
@@ -128,10 +130,7 @@ export const deleteOrderSchema = {
     id: Type.String(),
   },
   response: {
-    200: {
-      message: Type.String(),
-      success: Type.Boolean(),
-    },
+    200: orderUDResponse,
     404: orderResponseFailure,
   },
 };
