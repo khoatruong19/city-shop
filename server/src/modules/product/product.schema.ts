@@ -36,7 +36,7 @@ const productResponseSuccess = Type.Object({
   product: Type.Optional(product),
   products: Type.Optional(Type.Array(product)),
   productsCount: Type.Optional(Type.String()),
-  resultPerPage: Type.Optional(Type.String()),
+  resultsPerPage: Type.Optional(Type.Number()),
 });
 
 const productResponseFailure = Type.Object({

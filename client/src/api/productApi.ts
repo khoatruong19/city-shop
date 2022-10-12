@@ -9,7 +9,7 @@ type ProductsResponse = {
   message: string;
   products: Product[];
   productsCount: number;
-  resultPerPage: number;
+  resultsPerPage: number;
   filteredProductsCount: number;
 };
 

@@ -12,7 +12,7 @@ interface ProductSliceState {
   products: Product[];
   product: Product;
   productsCount: number;
-  resultPerPage: number;
+  resultsPerPage: number;
   error: string | null;
 }
 
@@ -22,7 +22,7 @@ const initialState: ProductSliceState = {
   products: [],
   product: {} as Product,
   productsCount: 0,
-  resultPerPage: 0,
+  resultsPerPage: 0,
   error: null,
 };
 
@@ -78,7 +78,7 @@ const productSlice = createSlice({
       .addCase(getAllProducts.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.products = payload.products;
-        state.resultPerPage = payload.resultPerPage;
+        state.resultsPerPage = payload.resultsPerPage;
         state.productsCount = payload.productsCount;
       })
       .addCase(
