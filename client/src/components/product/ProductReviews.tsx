@@ -18,6 +18,9 @@ import {
   createProductReview,
 } from '../../store/slices/productSlice';
 import moment from 'moment';
+import 'moment/locale/vi';
+
+moment.locale('vi');
 
 interface IProps {
   numOfReviews: number;
