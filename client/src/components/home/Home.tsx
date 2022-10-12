@@ -26,7 +26,7 @@ const Home = () => {
     <>
       <MetaData title="Home" />
       <Header />
-      <Box sx={{ overflow: 'hidden' }}>
+      <Box>
         <Carousel
           sx={{ width: '100%' }}
           withIndicators
@@ -48,13 +48,14 @@ const Home = () => {
               backgroundImage: `url(${BannerImage2})`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
+              backgroundPosition: 'center',
             }}
           >
             <BannerContent />
           </Carousel.Slide>
         </Carousel>
 
-        <Stack mt={20} sx={{ height: '100vh' }}>
+        <Stack mt={20}>
           <Text align="center" size={30} weight={600}>
             Features Products
           </Text>
@@ -65,6 +66,7 @@ const Home = () => {
             sx={{
               padding: '2rem',
               justifyContent: 'center',
+              height: 'fit-content',
             }}
             spacing={40}
           >
@@ -74,8 +76,8 @@ const Home = () => {
               ))}
           </Group>
         </Stack>
+        <Footer />
       </Box>
-      <Footer />
     </>
   );
 };

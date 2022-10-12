@@ -1,32 +1,49 @@
 import { Box, Grid, Group, Image, Stack, Text } from '@mantine/core';
 import AboutImage from '../../images/about.png';
-import { mainOrangeColor } from '../../utils/constants';
+import {
+  largeScreenQuery,
+  mainOrangeColor,
+  smallScreenQuery,
+} from '../../utils/constants';
 import { aboutInfos } from '../../utils/data';
 import Footer from '../layout/Footer';
 import Header from '../layout/Header';
 import MetaData from '../layout/MetaData';
 import AboutCard from './AboutCard';
+import { useMediaQuery } from '@mantine/hooks';
 
 const About = () => {
+  const largeScreen = useMediaQuery(largeScreenQuery);
+  const smallScreen = useMediaQuery(smallScreenQuery);
   return (
     <Box>
       <MetaData title="About" />
       <Header />
-      <Box sx={{ width: '90%', margin: '2rem auto', padding: '30px' }}>
-        <Group sx={{ alignItems: 'flex-start' }} spacing={0}>
+      <Box sx={{ margin: '2rem auto', padding: '30px' }}>
+        <Group sx={{ justifyContent: 'center' }} spacing={0}>
           <Box
             sx={{
-              width: '50%',
+              width: largeScreen ? '40vw' : '100%',
+              position: 'relative',
             }}
           >
-            <Image src={AboutImage} />
+            <Image className="img" src={AboutImage} />
           </Box>
           <Stack
-            sx={{ padding: '2rem 5rem', wordBreak: 'break-all', width: '50%' }}
+            sx={{
+              flex: 1,
+              padding: '2rem',
+            }}
           >
             <Text size={40} weight={600}>
               Welcome to{' '}
-              <span style={{ color: mainOrangeColor, fontWeight: 700 }}>
+              <span
+                style={{
+                  color: mainOrangeColor,
+                  fontWeight: 700,
+                  wordBreak: 'break-word',
+                }}
+              >
                 CITY SHOP
               </span>
             </Text>
@@ -49,8 +66,13 @@ const About = () => {
           </Stack>
         </Group>
 
-        <Group sx={{ justifyContent: 'center', marginTop: '3rem' }}>
-          <Text size={40} weight={600}>
+        <Group
+          sx={{
+            justifyContent: 'center',
+            marginTop: largeScreen ? '3rem' : '1rem',
+          }}
+        >
+          <Text size={largeScreen ? 40 : 35} weight={600} align="center">
             What We Provide?
           </Text>
           <Grid
@@ -61,7 +83,7 @@ const About = () => {
             }}
           >
             {aboutInfos.map((info, i) => (
-              <Grid.Col key={i} span={4}>
+              <Grid.Col key={i} span={smallScreen ? 12 : 4}>
                 <AboutCard
                   description={info.description}
                   imageUrl={info.imageUrl}

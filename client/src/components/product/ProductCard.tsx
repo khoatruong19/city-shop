@@ -28,6 +28,7 @@ const ProductCard = ({ product }: IProps) => {
           height: '240px',
           padding: '5px',
           borderRadius: '0.5rem',
+          width: '100%',
         }}
       >
         <Stack sx={{ height: '150px' }} justify="center" align={'center'}>

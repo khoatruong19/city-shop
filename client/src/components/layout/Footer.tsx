@@ -7,15 +7,28 @@ import {
   ClockIcon,
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import { largeScreenQuery } from '../../utils/constants';
+import { useMediaQuery } from '@mantine/hooks';
 
 const Footer = () => {
+  const largeScreen = useMediaQuery(largeScreenQuery);
   return (
-    <Box sx={{ borderTop: '1px solid black', padding: '2rem 6rem' }}>
-      <Group sx={{ justifyContent: 'space-around', alignItems: 'flex-start' }}>
+    <Box
+      sx={{
+        borderTop: '1px solid black',
+        padding: `2rem ${largeScreen ? '6rem' : '1rem'}`,
+      }}
+    >
+      <Group
+        sx={{
+          justifyContent: 'space-around',
+          gap: '2rem',
+        }}
+      >
         <Stack>
           <Image
             width={90}
-            style={{ scale: '1.5', marginLeft: '2rem' }}
+            style={{ scale: '1.5', marginLeft: '2rem', alignSelf: 'center' }}
             alt=""
             src={Logo}
           />
@@ -41,7 +54,11 @@ const Footer = () => {
           </Group>
         </Stack>
 
-        <Group spacing={20} align={'flex-start'}>
+        <Group
+          spacing={40}
+          sx={{ justifyContent: 'space-around' }}
+          align={'flex-start'}
+        >
           <Stack spacing={10}>
             <Title order={2}>Account</Title>
             <Link to="/auth" className="linkHover">
@@ -57,7 +74,7 @@ const Footer = () => {
               <Title order={4}>Forgot Password</Title>
             </Link>
           </Stack>
-          <Stack spacing={10}>
+          <Stack spacing={10} sx={{ flex: 1 }}>
             <Title order={2}>Follow us</Title>
             <Link to="/" className="linkHover">
               <Title order={4}>Facebook</Title>

@@ -1,5 +1,6 @@
 import { HeartIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { Box, Container, Group, Text, Title } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 import ReactStars from 'react-rating-stars-component';
 import { useParams } from 'react-router-dom';
@@ -10,6 +11,7 @@ import {
   clearProductError,
   getProductDetail,
 } from '../../store/slices/productSlice';
+import { largeScreenQuery } from '../../utils/constants';
 import toaster from '../../utils/helpers/toaster';
 import Footer from '../layout/Footer';
 import Header from '../layout/Header';
@@ -24,6 +26,7 @@ const ProductDetails = () => {
   const { id } = useParams();
 
   const [quantity, setQuantity] = useState(1);
+  const largeScreen = useMediaQuery(largeScreenQuery);
 
   const options = {
     value: product.ratings || 0,
@@ -98,8 +101,15 @@ const ProductDetails = () => {
       <MetaData title={product.name} />
       <Header />
       <Group>
-        <Container sx={{ flex: 1, padding: '2rem' }}>
+        <Container
+          sx={{
+            padding: '2rem',
+            width: largeScreen ? '40vw' : '30rem',
+            position: 'relative',
+          }}
+        >
           <img
+            className="img"
             alt={product.name}
             src={product.images && product.images[0].url}
           />
@@ -129,7 +139,7 @@ const ProductDetails = () => {
             <Text>Description:</Text>
             <Text mt={-7}>{product.description}</Text>
           </Box>
-          <Group spacing={4}>
+          <Group spacing={4} mt={10}>
             <Group
               spacing={2}
               p={10}
