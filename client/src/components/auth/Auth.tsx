@@ -5,9 +5,13 @@ import { useAppSelector } from '../../store';
 import MetaData from '../layout/MetaData';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
+import { useMediaQuery } from '@mantine/hooks';
+import { mediumScreenQuery, smallScreenQuery } from '../../utils/constants';
 
 const Auth = () => {
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
+  const tabletScreen = useMediaQuery(mediumScreenQuery);
+  const mobileScreen = useMediaQuery(smallScreenQuery);
   const { isAuthenticated, loading } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -21,29 +25,32 @@ const Auth = () => {
       <Container
         sx={{
           display: 'flex',
-          width: '100vw',
           height: '100vh',
           alignItems: 'center',
           justifyContent: 'center',
           gap: '5rem',
+          padding: '0 1rem',
         }}
       >
-        <Image
-          src="https://litextension.com/wp-content/themes/yootheme/cache/1.1-645c9556.png"
-          alt=""
-        />
+        {!tabletScreen && (
+          <Image
+            src="https://litextension.com/wp-content/themes/yootheme/cache/1.1-645c9556.png"
+            alt=""
+          />
+        )}
         <Box
           sx={{
             flex: 1,
-            height: '50vh',
-            padding: '0.5rem 2rem',
+            minHeight: '50vh',
+            padding: '2rem',
             boxShadow: '0px 0px 15px gray',
             borderRadius: '10px',
+            maxWidth: mobileScreen ? '80vw' : '60vw',
           }}
         >
           <Box
             sx={{
-              height: '12%',
+              height: '3rem',
               display: 'flex',
               marginBottom: '2rem',
               fontWeight: 600,

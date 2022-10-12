@@ -1,9 +1,18 @@
 import { Anchor, Group } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { Link } from 'react-router-dom';
+import { largeScreenQuery } from '../../utils/constants';
 
 const NavLinks = () => {
+  const largeScreen = useMediaQuery(largeScreenQuery);
   return (
-    <Group spacing="lg">
+    <Group
+      spacing="lg"
+      sx={{
+        width: !largeScreen ? '100%' : '',
+        justifyContent: !largeScreen ? 'space-between' : '',
+      }}
+    >
       <Anchor component={Link} to="/" className="anchor">
         Home
       </Anchor>

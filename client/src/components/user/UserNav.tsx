@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import { logout } from '../../store/slices/userSlice';
 import toaster from '../../utils/helpers/toaster';
 import { Box, Image, Overlay, Stack, Tooltip } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import { smallScreenQuery } from '../../utils/constants';
 
 const UserNav = () => {
   const { user } = useAppSelector((state) => state.user);
@@ -26,6 +28,7 @@ const UserNav = () => {
   const dispatch = useAppDispatch();
 
   const [visible, setVisible] = useState(false);
+  const mobileScreen = useMediaQuery(smallScreenQuery);
 
   const options = [
     { icon: <HomeIcon className="navIcon" />, name: 'Home', func: home },
@@ -90,28 +93,36 @@ const UserNav = () => {
 
   function dashboard() {
     navigate('/dashboard');
+    mobileScreen && setVisible(false);
   }
   function home() {
     navigate('/');
+    mobileScreen && setVisible(false);
   }
   function products() {
     navigate('/products');
+    mobileScreen && setVisible(false);
   }
   function orders() {
     navigate('/orders');
+    mobileScreen && setVisible(false);
   }
   function cart() {
     navigate('/cart');
+    mobileScreen && setVisible(false);
   }
   function favourite() {
     navigate('/favourites');
+    mobileScreen && setVisible(false);
   }
   function account() {
     navigate('/me');
+    mobileScreen && setVisible(false);
   }
 
   function report() {
     navigate('/support');
+    mobileScreen && setVisible(false);
   }
 
   function logoutUser() {
@@ -130,7 +141,7 @@ const UserNav = () => {
         sx={{
           position: 'fixed',
           right: '1rem',
-          top: '12rem',
+          top: !mobileScreen ? '12rem' : '5rem',
           zIndex: 30,
           padding: '1rem',
         }}

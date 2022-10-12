@@ -36,7 +36,7 @@ const Search = () => {
             />
           }
           sx={{
-            width: '40vw',
+            minWidth: '70vw',
           }}
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}

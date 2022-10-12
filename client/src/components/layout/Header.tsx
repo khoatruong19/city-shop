@@ -11,8 +11,13 @@ import {
 import NavLinks from '../home/NavLinks';
 import MovingText from '../home/MovingText';
 import { Link } from 'react-router-dom';
-import { mainOrangeColor } from '../../utils/constants';
+import {
+  largeScreenQuery,
+  mainOrangeColor,
+  smallScreenQuery,
+} from '../../utils/constants';
 import { useAppSelector } from '../../store';
+import { useMediaQuery } from '@mantine/hooks';
 
 const Header = () => {
   const cartItemsCount = useAppSelector((state) => state.cart.cartItems).length;
@@ -20,6 +25,8 @@ const Header = () => {
     (state) => state.favourite.favouriteItems
   ).length;
   const navRef = useRef<HTMLDivElement>(null);
+  const largeScreen = useMediaQuery(largeScreenQuery);
+  const mobileScreen = useMediaQuery(smallScreenQuery);
 
   window.addEventListener('scroll', () => {
     if (window.pageYOffset > 100) {
@@ -33,88 +40,103 @@ const Header = () => {
       spacing={20}
       style={{ padding: '10px 5px 5px', borderBottom: '1px solid lightgray' }}
     >
-      <Group style={{ justifyContent: 'space-between' }}>
+      <Group
+        style={{ justifyContent: !mobileScreen ? 'space-between' : 'center' }}
+      >
         <Link to="/">
           <Image
             width={90}
-            style={{ scale: '1.5', marginLeft: '3rem', cursor: 'pointer' }}
+            style={{
+              scale: '1.5',
+              marginLeft: !mobileScreen ? '3rem' : '',
+              cursor: 'pointer',
+            }}
             alt=""
             src={Logo}
           />
         </Link>
 
-        <div
-          style={{
-            backgroundColor: mainOrangeColor,
-            width: '40vw',
-            overflow: 'hidden',
-            color: 'white',
-            padding: '5px',
-            fontFamily: 'Droid Sans',
-          }}
-        >
-          <MovingText text="Welcome to our shop... You can find anything in here as your favourites..." />
-        </div>
+        {!mobileScreen && (
+          <div
+            style={{
+              backgroundColor: mainOrangeColor,
+              overflow: 'hidden',
+              color: 'white',
+              padding: '5px',
+              fontFamily: 'Droid Sans',
+            }}
+          >
+            <MovingText text="Welcome to our shop... You can find anything in here as your favourites..." />
+          </div>
+        )}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <EnvelopeIcon width={20} height={20} />
           <Text mx={3}>Email:</Text>
           <Text>khoa.truongthdk@hcmut.edu.vn</Text>
         </div>
       </Group>
-      <Group
-        pl={30}
-        py={20}
-        style={{ justifyContent: 'space-between' }}
-        ref={navRef}
-      >
-        <NavLinks />
-        <Group spacing={'lg'}>
-          <Link to={'/search'}>
-            <MagnifyingGlassIcon className="navIcon linkHover" />
-          </Link>
-          <Link to="/favourites">
-            <Box sx={{ position: 'relative' }}>
-              <HeartIcon className="navIcon linkHover" />
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: '-5px',
-                  right: '-8px',
-                  textAlign: 'center',
-                  width: '1.3rem',
-                  height: '1.3rem',
-                  borderRadius: '50%',
-                  backgroundColor: mainOrangeColor,
-                  color: 'white',
-                }}
-              >
-                {favouriteItemsCount}
+      {!mobileScreen && (
+        <Group
+          px={30}
+          py={20}
+          style={{ justifyContent: 'space-between' }}
+          ref={navRef}
+        >
+          <NavLinks />
+          <Group
+            spacing={'lg'}
+            sx={{
+              width: !largeScreen ? '100%' : '',
+              justifyContent: !largeScreen ? 'center' : '',
+            }}
+          >
+            <Link to={'/search'}>
+              <MagnifyingGlassIcon className="navIcon linkHover" />
+            </Link>
+            <Link to="/favourites">
+              <Box sx={{ position: 'relative' }}>
+                <HeartIcon className="navIcon linkHover" />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: '-5px',
+                    right: '-8px',
+                    textAlign: 'center',
+                    width: '1.3rem',
+                    height: '1.3rem',
+                    borderRadius: '50%',
+                    backgroundColor: mainOrangeColor,
+                    color: 'white',
+                  }}
+                >
+                  {favouriteItemsCount}
+                </Box>
               </Box>
-            </Box>
-          </Link>
-          <Link to="/cart">
-            <Box sx={{ position: 'relative' }}>
-              <ShoppingCartIcon className="navIcon linkHover" />
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: '-5px',
-                  right: '-8px',
-                  textAlign: 'center',
-                  width: '1.3rem',
-                  height: '1.3rem',
-                  borderRadius: '50%',
-                  backgroundColor: mainOrangeColor,
-                  color: 'white',
-                }}
-              >
-                {cartItemsCount}
+            </Link>
+            <Link to="/cart">
+              <Box sx={{ position: 'relative' }}>
+                <ShoppingCartIcon className="navIcon linkHover" />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: '-5px',
+                    right: '-8px',
+                    textAlign: 'center',
+                    width: '1.3rem',
+                    height: '1.3rem',
+                    borderRadius: '50%',
+                    backgroundColor: mainOrangeColor,
+                    color: 'white',
+                  }}
+                >
+                  {cartItemsCount}
+                </Box>
               </Box>
-            </Box>
-          </Link>
-          <UserIcon className="navIcon linkHover" />
+            </Link>
+            <UserIcon className="navIcon linkHover" />
+          </Group>
         </Group>
-      </Group>
+      )}
     </Stack>
   );
 };

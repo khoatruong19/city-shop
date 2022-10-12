@@ -75,7 +75,7 @@ const SignupForm = () => {
           label="Name"
           placeholder="Your name..."
           {...form.getInputProps('name')}
-          sx={{ width: 300, marginBottom: '1rem' }}
+          sx={{ minWidth: 300, marginBottom: '1rem' }}
         />
 
         <TextInput
@@ -83,7 +83,7 @@ const SignupForm = () => {
           label="Email"
           placeholder="your@email.com"
           {...form.getInputProps('email')}
-          sx={{ width: 300, marginBottom: '1rem' }}
+          sx={{ minWidth: 300, marginBottom: '1rem' }}
         />
 
         <TextInput

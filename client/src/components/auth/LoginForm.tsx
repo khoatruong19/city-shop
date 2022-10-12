@@ -53,7 +53,7 @@ const LoginForm = () => {
           label="Email"
           placeholder="your@email.com"
           {...form.getInputProps('email')}
-          sx={{ width: 300, marginBottom: '1rem' }}
+          sx={{ marginBottom: '1rem', minWidth: '300px' }}
         />
 
         <TextInput
