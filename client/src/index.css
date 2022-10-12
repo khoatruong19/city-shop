@@ -57,6 +57,11 @@ a {
   transition: all 0.3s ease-in-out;
 }
 
+.hover:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
 .pagination {
   display: flex !important;
 }

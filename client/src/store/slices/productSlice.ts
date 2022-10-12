@@ -3,6 +3,7 @@ import productApi from '../../api/productApi';
 import { Product } from '../../utils/models/product.model';
 import {
   createProductReviewParams,
+  DeleteProductReviewParams,
   getProductQueries,
 } from '../../utils/types/product.type';
 
@@ -62,6 +63,18 @@ export const createProductReview = createAsyncThunk(
   }
 );
 
+export const deleteProductReview = createAsyncThunk(
+  'product/deleteReview',
+  async (params: DeleteProductReviewParams, thunkApi) => {
+    try {
+      const res = await productApi.deleteReview(params);
+      return res.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(`Delete product review fail. ${error}`);
+    }
+  }
+);
+
 const productSlice = createSlice({
   name: 'product',
   initialState,
@@ -115,6 +128,20 @@ const productSlice = createSlice({
       })
       .addCase(
         createProductReview.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.reviewLoading = false;
+          state.error = payload;
+        }
+      )
+      //Delete Product Review
+      .addCase(deleteProductReview.pending, (state) => {
+        state.reviewLoading = true;
+      })
+      .addCase(deleteProductReview.fulfilled, (state) => {
+        state.reviewLoading = false;
+      })
+      .addCase(
+        deleteProductReview.rejected,
         (state, { payload }: PayloadAction<any>) => {
           state.reviewLoading = false;
           state.error = payload;

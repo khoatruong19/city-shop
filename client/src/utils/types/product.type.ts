@@ -9,3 +9,8 @@ export type createProductReviewParams = {
   rating: number;
   comment: string;
 };
+
+export type DeleteProductReviewParams = {
+  productId: string;
+  reviewId: string;
+};

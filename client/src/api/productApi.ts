@@ -1,6 +1,7 @@
 import { Product } from '../utils/models/product.model';
 import {
   createProductReviewParams,
+  DeleteProductReviewParams,
   getProductQueries,
 } from '../utils/types/product.type';
 import axiosClient from './axiosClient';
@@ -38,6 +39,10 @@ const productApi = {
     axiosClient.get<ProductResponse>(`products/${id}`),
   addNewReview: ({ id, ...rest }: createProductReviewParams) =>
     axiosClient.post<UDProductResponse>(`products/${id}/reviews`, rest),
+  deleteReview: ({ productId, reviewId }: DeleteProductReviewParams) =>
+    axiosClient.delete<UDProductResponse>(
+      `products/${productId}/reviews?reviewId=${reviewId}`
+    ),
 };
 
 export default productApi;

@@ -16,9 +16,12 @@ import ReactStars from 'react-rating-stars-component';
 import {
   clearProductError,
   createProductReview,
+  deleteProductReview,
 } from '../../store/slices/productSlice';
 import moment from 'moment';
 import 'moment/locale/vi';
+import { TrashIcon } from '@heroicons/react/24/solid';
+import toaster from '../../utils/helpers/toaster';
 
 moment.locale('vi');
 
@@ -32,7 +35,7 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAppSelector((state) => state.user);
   const { reviewLoading, error } = useAppSelector((state) => state.product);
-  const { id } = useParams();
+  const { id: productId } = useParams();
 
   const [newReviews, setNewReviews] = useState<UserReview[]>(reviews || []);
   const [comment, setComment] = useState('');
@@ -49,9 +52,12 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
     e.preventDefault();
     if (!isAuthenticated) navigate('/auth');
 
-    dispatch(createProductReview({ id: id!, comment, rating }));
+    dispatch(createProductReview({ id: productId!, comment, rating }));
 
-    if (error) return dispatch(clearProductError());
+    if (error) {
+      toaster({ id: 'create-review', message: error });
+      return dispatch(clearProductError());
+    }
 
     const existingReview = newReviews.find((item) => item.user === user?._id);
 
@@ -80,6 +86,16 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
     setRating(0);
   };
 
+  const handleDeleteReview = (reviewId: string) => {
+    dispatch(deleteProductReview({ productId: productId!, reviewId }));
+    if (error) {
+      toaster({ id: 'delete-review', message: error });
+      return dispatch(clearProductError());
+    }
+    let tempReviews = newReviews.filter((item) => item._id !== reviewId);
+    setNewReviews(tempReviews);
+  };
+
   return (
     <Box mb={40}>
       <Text size={40} weight={600} ml={'4rem'}>
@@ -98,6 +114,13 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
                 <Group spacing={8}>
                   <Title order={4}>{review.name}</Title>
                   <Text color={'gray'}>{moment(review.time).format('L')}</Text>
+                  {user?._id === review.user && (
+                    <TrashIcon
+                      onClick={() => handleDeleteReview(review._id)}
+                      className="footerIcon hover"
+                      style={{ color: 'red' }}
+                    />
+                  )}
                 </Group>
                 <Text>{review.comment}</Text>
                 <ReactStars
