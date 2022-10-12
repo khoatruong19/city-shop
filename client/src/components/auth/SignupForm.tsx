@@ -66,7 +66,9 @@ const SignupForm = () => {
   return (
     <Box sx={{ maxWidth: 500 }} mx="auto">
       <form
-        onSubmit={form.onSubmit((values) => console.log({ ...values, avatar }))}
+        onSubmit={form.onSubmit((values) =>
+          dispatch(registerUser({ ...values, avatar }))
+        )}
       >
         <TextInput
           withAsterisk
@@ -89,6 +91,7 @@ const SignupForm = () => {
           label="Password"
           placeholder="Your password..."
           {...form.getInputProps('password')}
+          type="password"
         />
 
         <Group spacing={18} mt={20}>

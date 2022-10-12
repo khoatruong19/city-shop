@@ -61,6 +61,7 @@ const LoginForm = () => {
           label="Password"
           placeholder="Your password..."
           {...form.getInputProps('password')}
+          type="password"
         />
 
         <Group position="right" mt="lg">
