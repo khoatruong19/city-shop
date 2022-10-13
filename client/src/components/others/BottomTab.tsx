@@ -37,7 +37,7 @@ const BottomTab = () => {
     >
       <Link to="/">
         <Group
-          px={8}
+          px={5}
           py={10}
           sx={{ justifyContent: 'center', alignItems: 'center' }}
         >
@@ -46,7 +46,7 @@ const BottomTab = () => {
       </Link>
       <Link to="/search">
         <Group
-          p={8}
+          px={5}
           py={10}
           sx={{ justifyContent: 'center', alignItems: 'center' }}
         >
@@ -55,7 +55,7 @@ const BottomTab = () => {
       </Link>
       <Link to="/cart">
         <Group
-          p={8}
+          px={5}
           py={10}
           sx={{
             justifyContent: 'center',
@@ -83,7 +83,7 @@ const BottomTab = () => {
       </Link>
       <Link to="/favourites">
         <Group
-          p={8}
+          px={5}
           py={10}
           sx={{
             justifyContent: 'center',
@@ -111,7 +111,7 @@ const BottomTab = () => {
       </Link>
       <Link to="/me">
         <Group
-          p={8}
+          px={5}
           py={10}
           sx={{ justifyContent: 'center', alignItems: 'center' }}
         >
@@ -121,7 +121,7 @@ const BottomTab = () => {
 
       <Link to="/more">
         <Group
-          p={8}
+          px={5}
           py={10}
           sx={{ justifyContent: 'center', alignItems: 'center' }}
         >

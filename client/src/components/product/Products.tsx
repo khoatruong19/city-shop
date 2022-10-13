@@ -29,6 +29,7 @@ const Products = () => {
 
   const setCurrentPageNo = (page: number) => {
     setCurrentPage(page);
+    window.scrollTo({ top: 0 });
   };
 
   const handleChangeCategory = (category: string) => {

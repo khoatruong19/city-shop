@@ -22,6 +22,8 @@ import moment from 'moment';
 import 'moment/locale/vi';
 import { TrashIcon } from '@heroicons/react/24/solid';
 import toaster from '../../utils/helpers/toaster';
+import { useMediaQuery } from '@mantine/hooks';
+import { smallScreenQuery } from '../../utils/constants';
 
 moment.locale('vi');
 
@@ -40,6 +42,7 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
   const [newReviews, setNewReviews] = useState<UserReview[]>(reviews || []);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
+  const mobileScreen = useMediaQuery(smallScreenQuery);
 
   const options = {
     value: rating,
@@ -134,7 +137,7 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
           </Stack>
         )}
       </Stack>
-      <Box px={'4rem'} py={10}>
+      <Box px={mobileScreen ? '1rem' : '4rem'} py={10}>
         <Text size={40} weight={600}>
           Add a Review
         </Text>
