@@ -25,6 +25,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import Payment from './components/cart/Payment';
 import PaymentSuccess from './components/cart/PaymentSuccess';
 import MyOrder from './components/user/MyOrder';
+import MoreOptions from './components/user/MoreOptions';
+import BottomTab from './components/others/BottomTab';
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -67,6 +69,7 @@ function App() {
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/order/confirm" element={<ConfirmOrder />} />
         <Route path="/orders" element={<MyOrder />} />
+        <Route path="/more" element={<MoreOptions />} />
         <Route
           path="/me"
           element={
@@ -114,6 +117,7 @@ function App() {
           </>
         )}
       </Routes>
+      {isAuthenticated && <BottomTab />}
     </div>
   );
 }

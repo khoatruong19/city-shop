@@ -10,8 +10,10 @@ import Footer from '../layout/Footer';
 import BannerImage from '../../images/background.jpg';
 import BannerImage2 from '../../images/background2.jpg';
 
-import { Box, Divider, Group, Stack, Text } from '@mantine/core';
+import { Badge, Box, Divider, Group, Stack, Text } from '@mantine/core';
 import ProductCard from '../product/ProductCard';
+import BottomTab from '../others/BottomTab';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const { loading, products } = useAppSelector((state) => state.product);
@@ -56,9 +58,25 @@ const Home = () => {
         </Carousel>
 
         <Stack mt={20}>
-          <Text align="center" size={30} weight={600}>
-            Features Products
-          </Text>
+          <Box sx={{ position: 'relative' }}>
+            <Text align="center" size={30} weight={600}>
+              Features Products
+            </Text>
+            <Link to="/products">
+              <Badge
+                sx={{
+                  position: 'absolute',
+                  bottom: '-3rem',
+                  left: '50%',
+                  translate: '-50% 0',
+                }}
+                className="hover"
+                color={'orange'}
+              >
+                Show All Products
+              </Badge>
+            </Link>
+          </Box>
           <div style={{ width: '300px', margin: '0 auto' }}>
             <Divider color={'black'} />
           </div>

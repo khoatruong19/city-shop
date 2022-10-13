@@ -8,10 +8,14 @@ const Search = () => {
   const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleNavigateSearchResult = () => {
     if (keyword.trim()) navigate(`/products/${keyword}`);
     else navigate(`/products`);
+  };
+
+  const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleNavigateSearchResult();
   };
 
   return (
@@ -33,6 +37,7 @@ const Search = () => {
             <MagnifyingGlassIcon
               style={{ color: 'gray' }}
               className="navIcon"
+              onClick={handleNavigateSearchResult}
             />
           }
           sx={{
