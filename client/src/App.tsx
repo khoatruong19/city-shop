@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import Home from './components/home/Home';
-import WebFont from 'webfontloader';
-import { Route, Routes } from 'react-router-dom';
-import ProductDetails from './components/product/ProductDetails';
-import Auth from './components/auth/Auth';
-import { useAppDispatch, useAppSelector } from './store';
-import { me } from './store/slices/userSlice';
-import UserNav from './components/user/UserNav';
-import ProtectedRoute from './components/route/ProtectedRoute';
-import Profile from './components/user/Profile';
-import UpdatePassword from './components/user/UpdatePassword';
-import EditProfile from './components/user/EditProfile';
-import About from './components/about/About';
-import Products from './components/product/Products';
-import Search from './components/product/Search';
-import Support from './components/support/Support';
-import Cart from './components/cart/Cart';
-import Favourites from './components/cart/Favourites';
-import Shipping from './components/cart/Shipping';
-import ConfirmOrder from './components/cart/ConfirmOrder';
-import paymentApi from './api/paymentApi';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import WebFont from 'webfontloader';
+import paymentApi from './api/paymentApi';
+import About from './components/about/About';
+import Auth from './components/auth/Auth';
+import Cart from './components/cart/Cart';
+import ConfirmOrder from './components/cart/ConfirmOrder';
+import Favourites from './components/cart/Favourites';
 import Payment from './components/cart/Payment';
 import PaymentSuccess from './components/cart/PaymentSuccess';
-import MyOrder from './components/user/MyOrder';
+import Shipping from './components/cart/Shipping';
+import Home from './components/home/Home';
+import CommingSoon from './components/others/CommingSoon';
+import ProductDetails from './components/product/ProductDetails';
+import Products from './components/product/Products';
+import Search from './components/product/Search';
+import ProtectedRoute from './components/route/ProtectedRoute';
+import Support from './components/support/Support';
+import EditProfile from './components/user/EditProfile';
 import MoreOptions from './components/user/MoreOptions';
-import BottomTab from './components/others/BottomTab';
+import MyOrder from './components/user/MyOrder';
+import Profile from './components/user/Profile';
+import UpdatePassword from './components/user/UpdatePassword';
+import UserNav from './components/user/UserNav';
+import { useAppDispatch, useAppSelector } from './store';
+import { me } from './store/slices/userSlice';
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -54,7 +54,6 @@ function App() {
   return (
     <div className="App">
       {isAuthenticated && <UserNav />}
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductDetails />} />
@@ -70,6 +69,7 @@ function App() {
         <Route path="/order/confirm" element={<ConfirmOrder />} />
         <Route path="/orders" element={<MyOrder />} />
         <Route path="/more" element={<MoreOptions />} />
+        <Route path="/commingsoon" element={<CommingSoon />} />
         <Route
           path="/me"
           element={
@@ -117,7 +117,6 @@ function App() {
           </>
         )}
       </Routes>
-      {isAuthenticated && <BottomTab />}
     </div>
   );
 }
