@@ -15,6 +15,7 @@ import {
 import { Pagination } from '@mantine/core';
 import { largeScreenQuery } from '../../utils/constants';
 import { useMediaQuery } from '@mantine/hooks';
+import BottomTab from '../others/BottomTab';
 
 const Products = () => {
   const { loading, products, resultsPerPage, productsCount, error } =
@@ -177,6 +178,7 @@ const Products = () => {
         </Group>
       </Stack>
       <Footer />
+      <BottomTab />
     </>
   );
 };

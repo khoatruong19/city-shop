@@ -1,5 +1,7 @@
 import { Box, Button, Group, Image, Stack, Text } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import React from 'react';
+import { smallScreenQuery } from '../../utils/constants';
 import { CartItem } from '../../utils/types/cart.type';
 
 interface IProps {
@@ -8,8 +10,9 @@ interface IProps {
 }
 
 const CartItemCard = ({ item, removeItem }: IProps) => {
+  const mobileScreen = useMediaQuery(smallScreenQuery);
   return (
-    <Group sx={{ padding: '1rem' }} spacing={30}>
+    <Group sx={{ padding: '1rem' }} spacing={mobileScreen ? 5 : 30}>
       <Box sx={{ position: 'relative', width: '6rem' }}>
         <Image src={item.image} alt="" />
       </Box>

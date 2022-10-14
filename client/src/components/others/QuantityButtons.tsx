@@ -1,5 +1,7 @@
 import { Group, Stack } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import React from 'react';
+import { smallScreenQuery } from '../../utils/constants';
 
 interface IProps {
   handleControlQuantity: (value: 'down' | 'up') => void;
@@ -8,12 +10,14 @@ interface IProps {
 }
 
 const QuantityButtons = ({ handleControlQuantity, quantity, size }: IProps) => {
+  const mobileScreen = useMediaQuery(smallScreenQuery);
   return (
-    <Group>
+    <Group sx={{ alignItems: 'center' }}>
       <Stack
         sx={{
-          padding: size === 'sm' ? '0.25rem' : '0.5rem',
-          width: '3rem',
+          padding: '0.5rem',
+          width: size === 'sm' ? '2rem' : '3rem',
+          height: size === 'sm' ? '2rem' : '3rem',
           fontSize: '1.5rem',
           backgroundColor: 'coral',
           cursor: 'pointer',
@@ -28,7 +32,11 @@ const QuantityButtons = ({ handleControlQuantity, quantity, size }: IProps) => {
         -
       </Stack>
       <Stack
-        sx={{ minWidth: '2rem', fontSize: '1.2rem' }}
+        sx={{
+          minWidth: '2rem',
+          fontSize: '1.2rem',
+          marginBottom: mobileScreen ? '-3rem' : '',
+        }}
         align="center"
         justify="center"
       >
@@ -36,8 +44,9 @@ const QuantityButtons = ({ handleControlQuantity, quantity, size }: IProps) => {
       </Stack>
       <Stack
         sx={{
-          padding: size === 'sm' ? '0.25rem' : '0.5rem',
-          width: '3rem',
+          padding: '0.5rem',
+          width: size === 'sm' ? '2rem' : '3rem',
+          height: size === 'sm' ? '2rem' : '3rem',
           fontSize: '1.5rem',
           backgroundColor: 'coral',
           cursor: 'pointer',

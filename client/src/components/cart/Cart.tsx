@@ -17,18 +17,21 @@ import {
   increaseItemQuantity,
   removeItem,
 } from '../../store/slices/cartSlice';
-import { mainOrangeColor } from '../../utils/constants';
+import { mainOrangeColor, mediumScreenQuery } from '../../utils/constants';
 import toaster from '../../utils/helpers/toaster';
 import Header from '../layout/Header';
 import MetaData from '../layout/MetaData';
 import QuantityButtons from '../others/QuantityButtons';
 import CartItemCard from './CartItemCard';
 import EmptyCart from '../../images/empty-cart.png';
+import { useMediaQuery } from '@mantine/hooks';
+import BottomTab from '../others/BottomTab';
 
 const Cart = () => {
   const cartItems = useAppSelector((state) => state.cart.cartItems);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const tabletScreen = useMediaQuery(mediumScreenQuery);
 
   let totalPrice = cartItems.reduce(
     (total, item) => total + item.quantity * item.price,
@@ -95,17 +98,15 @@ const Cart = () => {
       ) : (
         <Stack
           sx={{
-            width: '90vw',
-            margin: '2rem auto',
+            width: !tabletScreen ? '90vw' : '98%',
+            margin: '2rem auto 4rem',
           }}
         >
           <Table captionSide="bottom">
             <thead style={{ backgroundColor: mainOrangeColor }}>
               <tr style={{}}>
                 <th style={{ color: 'white' }}>Product</th>
-                <th style={{ color: 'white', paddingLeft: '4rem' }}>
-                  Quantity
-                </th>
+                <th style={{ color: 'white' }}>Quantity</th>
                 <th style={{ color: 'white' }}>Subtotal</th>
               </tr>
             </thead>
@@ -139,7 +140,13 @@ const Cart = () => {
               ))}
             </tbody>
           </Table>
-          <Stack sx={{ alignSelf: 'flex-end', width: '30%' }}>
+          <Stack
+            sx={{
+              alignSelf: 'flex-end',
+              width: 'fit-content',
+            }}
+            spacing={tabletScreen ? 10 : 20}
+          >
             <Divider size={'lg'} color={mainOrangeColor} />
             <Group
               sx={{
@@ -151,14 +158,19 @@ const Cart = () => {
               <Text>Price Total</Text>
               <Text>${totalPrice}</Text>
             </Group>
-            <Box sx={{ width: '30%', alignSelf: 'flex-end' }}>
-              <Button size="lg" color={'orange'} onClick={handleCheckout}>
+            <Box sx={{ alignSelf: 'flex-end' }}>
+              <Button
+                size={tabletScreen ? 'md' : 'lg'}
+                color={'orange'}
+                onClick={handleCheckout}
+              >
                 Check Out
               </Button>
             </Box>
           </Stack>
         </Stack>
       )}
+      <BottomTab />
     </>
   );
 };
