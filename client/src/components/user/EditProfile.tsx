@@ -100,6 +100,7 @@ const EditProfile = () => {
       <Box
         sx={{
           width: largeScreen ? '30rem' : '80%',
+          height: largeScreen ? 'fit-content' : '60%',
           padding: '2rem 2rem 5rem',
           backgroundColor: 'white',
           borderRadius: '1rem',

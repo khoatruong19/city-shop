@@ -22,6 +22,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { logout } from '../../store/slices/userSlice';
 import { largeScreenQuery } from '../../utils/constants';
+import toaster from '../../utils/helpers/toaster';
 import Header from '../layout/Header';
 import MetaData from '../layout/MetaData';
 import BottomTab from '../others/BottomTab';
@@ -30,6 +31,16 @@ const MoreOptions = () => {
   const { isAuthenticated, user } = useAppSelector((state) => state.user);
   const largeScreen = useMediaQuery(largeScreenQuery);
   const dispatch = useAppDispatch();
+
+  const logoutUser = () => {
+    dispatch(logout());
+    toaster({
+      id: 'user-logout',
+      message: 'Logout Successfully',
+      success: true,
+    });
+  };
+
   return (
     <Box sx={{ width: '100vw', overflow: 'hidden', marginBottom: '3rem' }}>
       <MetaData title="More Options" />
@@ -221,7 +232,7 @@ const MoreOptions = () => {
               alignItems: 'center',
             }}
             className="option-hover"
-            onClick={() => dispatch(logout())}
+            onClick={logoutUser}
           >
             <ArrowRightOnRectangleIcon className="navIcon" />
             <Text>Logout</Text>

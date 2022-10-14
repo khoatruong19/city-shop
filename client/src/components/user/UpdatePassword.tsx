@@ -1,16 +1,19 @@
-import { Box, Button, Divider, Stack, Text, TextInput } from '@mantine/core';
-import { KeyIcon, LockClosedIcon } from '@heroicons/react/24/solid';
 import { LockOpenIcon } from '@heroicons/react/24/outline';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { useEffect } from 'react';
+import { KeyIcon, LockClosedIcon } from '@heroicons/react/24/solid';
+import { Box, Button, Divider, Stack, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import toaster from '../../utils/helpers/toaster';
+import { useMediaQuery } from '@mantine/hooks';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../store';
 import {
   clearProfileError,
   resetUpdateState,
   updatePassword,
 } from '../../store/slices/profileSlice';
-import { useNavigate } from 'react-router-dom';
+import { largeScreenQuery } from '../../utils/constants';
+import toaster from '../../utils/helpers/toaster';
+import BottomTab from '../others/BottomTab';
 
 interface FormData {
   oldPassword: string;
@@ -24,6 +27,8 @@ const UpdatePassword = () => {
   );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const largeScreen = useMediaQuery(largeScreenQuery);
+
   const form = useForm<FormData>({
     initialValues: {
       oldPassword: '',
@@ -70,7 +75,8 @@ const UpdatePassword = () => {
     >
       <Box
         sx={{
-          width: '20vw',
+          width: largeScreen ? '30rem' : '80%',
+          height: largeScreen ? 'fit-content' : '60%',
           padding: '2rem 2rem 5rem',
           backgroundColor: 'white',
           borderRadius: '1rem',
@@ -122,6 +128,7 @@ const UpdatePassword = () => {
           </Button>
         </form>
       </Box>
+      <BottomTab />
     </Stack>
   );
 };
