@@ -133,7 +133,9 @@ const Header = () => {
                 </Box>
               </Box>
             </Link>
-            <UserIcon className="navIcon linkHover" />
+            <Link to="/me">
+              <UserIcon className="navIcon linkHover" />
+            </Link>
           </Group>
         </Group>
       )}
