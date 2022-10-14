@@ -1,10 +1,12 @@
 import { WrenchScrewdriverIcon } from '@heroicons/react/24/solid';
-import { Box, Stack } from '@mantine/core';
+import { Box, Button, Stack, Title } from '@mantine/core';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { mainOrangeColor } from '../../utils/constants';
 import BottomTab from './BottomTab';
 
 const CommingSoon = () => {
+  const navigate = useNavigate();
   return (
     <Stack
       sx={{
@@ -15,8 +17,14 @@ const CommingSoon = () => {
       }}
     >
       <WrenchScrewdriverIcon
-        style={{ width: '10rem', height: '10rem', color: mainOrangeColor }}
+        style={{ width: '6rem', height: '6rem', color: mainOrangeColor }}
       />
+      <Title order={2} sx={{ fontFamily: 'Chilanka' }}>
+        Comming Soon !
+      </Title>
+      <Button color="orange" size="md" onClick={() => navigate(-1)}>
+        Back
+      </Button>
       <BottomTab />
     </Stack>
   );
