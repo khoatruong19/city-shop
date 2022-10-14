@@ -7,6 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+  --mainOrange: #f4732d;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -101,13 +105,15 @@ a {
 .mantine-fjy3ul::placeholder {
   font-family: 'Chilanka';
 }
-
 .mantine-13929wa {
   border: none !important;
   background-color: transparent !important;
 }
-
 .paymentInput {
   width: 100%;
   outline: none;
+}
+
+.option-hover:hover {
+  color: var(--mainOrange);
 }

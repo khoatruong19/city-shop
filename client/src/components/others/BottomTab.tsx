@@ -12,11 +12,15 @@ import { Box, Group } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../store';
-import { mainOrangeColor, smallScreenQuery } from '../../utils/constants';
+import {
+  mainOrangeColor,
+  mediumScreenQuery,
+  smallScreenQuery,
+} from '../../utils/constants';
 
 const BottomTab = () => {
   const cartItemsCount = useAppSelector((state) => state.cart.cartItems).length;
-  const mobileScreen = useMediaQuery(smallScreenQuery);
+  const tabletScreen = useMediaQuery(mediumScreenQuery);
   const favouriteItemsCount = useAppSelector(
     (state) => state.favourite.favouriteItems
   ).length;
@@ -25,9 +29,9 @@ const BottomTab = () => {
       sx={{
         position: 'fixed',
         bottom: 0,
-        left: mobileScreen ? 0 : '50%',
-        translate: mobileScreen ? '' : '-50% 0',
-        width: mobileScreen ? '100%' : '60%',
+        left: tabletScreen ? 0 : '50%',
+        translate: tabletScreen ? '' : '-50% 0',
+        width: tabletScreen ? '100%' : '60%',
         backgroundColor: 'white',
         zIndex: 99,
         justifyContent: 'space-around',

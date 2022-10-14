@@ -95,6 +95,7 @@ const Home = () => {
           </Group>
         </Stack>
         <Footer />
+        <BottomTab />
       </Box>
     </>
   );

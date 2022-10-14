@@ -11,6 +11,7 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useMediaQuery } from '@mantine/hooks';
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
@@ -20,7 +21,9 @@ import {
   updateProfile,
 } from '../../store/slices/profileSlice';
 import { me } from '../../store/slices/userSlice';
+import { largeScreenQuery } from '../../utils/constants';
 import toaster from '../../utils/helpers/toaster';
+import BottomTab from '../others/BottomTab';
 
 interface FormData {
   name: string;
@@ -37,6 +40,7 @@ const EditProfile = () => {
 
   const fileRef = useRef<HTMLInputElement>(null);
   const [avatar, setAvatar] = useState(user?.avatar.url || '');
+  const largeScreen = useMediaQuery(largeScreenQuery);
 
   const form = useForm<FormData>({
     initialValues: {
@@ -95,7 +99,7 @@ const EditProfile = () => {
     >
       <Box
         sx={{
-          width: '20vw',
+          width: largeScreen ? '30rem' : '80%',
           padding: '2rem 2rem 5rem',
           backgroundColor: 'white',
           borderRadius: '1rem',
@@ -166,6 +170,7 @@ const EditProfile = () => {
           </Button>
         </form>
       </Box>
+      <BottomTab />
     </Stack>
   );
 };
