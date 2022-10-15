@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import WebFont from 'webfontloader';
 import paymentApi from './api/paymentApi';
 import About from './components/about/About';
+import Dashboard from './components/admin/Dashboard';
 import Auth from './components/auth/Auth';
 import Cart from './components/cart/Cart';
 import ConfirmOrder from './components/cart/ConfirmOrder';
@@ -91,6 +92,14 @@ function App() {
           element={
             <ProtectedRoute>
               <EditProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute isAdmin>
+              <Dashboard />
             </ProtectedRoute>
           }
         />
