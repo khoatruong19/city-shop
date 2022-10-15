@@ -4,12 +4,16 @@ import SupportImage from '../../images/support.jpg';
 import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import toaster from '../../utils/helpers/toaster';
+import { useMediaQuery } from '@mantine/hooks';
+import { mediumScreenQuery, smallScreenQuery } from '../../utils/constants';
 
 const Support = () => {
   const [done, setDone] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const formRef = useRef<HTMLFormElement>(null);
+  const mobileScreen = useMediaQuery(smallScreenQuery);
+  const tabletScreen = useMediaQuery(mediumScreenQuery);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,6 +49,7 @@ const Support = () => {
         alignItems: 'center',
         backgroundImage: `url(${SupportImage})`,
         backgroundRepeat: `no-repeat`,
+        backgroundPosition: tabletScreen ? 'center' : '',
       }}
     >
       <MetaData title="Support" />
@@ -53,27 +58,32 @@ const Support = () => {
         <Title order={2}>Report us for something...</Title>
       </Box>
       <form ref={formRef} onSubmit={handleSubmit}>
-        <Stack spacing={30}>
+        <Stack
+          spacing={30}
+          sx={{
+            width: !mobileScreen ? (tabletScreen ? '60vw' : '30vw') : '90vw',
+          }}
+        >
           <TextInput
-            sx={{ width: '25vw' }}
+            sx={{ width: '100%' }}
             size="md"
             placeholder="Write your name ..."
             name="user_name"
           />
           <TextInput
-            sx={{ width: '25vw' }}
+            sx={{ width: '100%' }}
             size="md"
             placeholder="Write a subject ..."
             name="subject"
           />
           <TextInput
-            sx={{ width: '25vw' }}
+            sx={{ width: '100%' }}
             size="md"
             placeholder="Write your email ..."
             name="user_email"
           />
           <Textarea
-            sx={{ width: '25vw' }}
+            sx={{ width: '100%' }}
             size="md"
             minRows={2}
             autosize
