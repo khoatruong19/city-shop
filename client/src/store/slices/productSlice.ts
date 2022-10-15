@@ -39,6 +39,21 @@ export const getAllProducts = createAsyncThunk(
   }
 );
 
+export const getAllProductsByAdmin = createAsyncThunk(
+  'product/getAllByAdmin',
+  async (_, thunkApi) => {
+    try {
+      const res = await productApi.getAllByAdmin();
+      return {
+        products: res.data.products,
+        productsCount: res.data.productsCount,
+      };
+    } catch (error) {
+      return thunkApi.rejectWithValue(`Get all products fail. ${error}`);
+    }
+  }
+);
+
 export const getProductDetail = createAsyncThunk(
   'product/getDetail',
   async (id: string, thunkApi) => {
@@ -46,7 +61,9 @@ export const getProductDetail = createAsyncThunk(
       const res = await productApi.getSingleDetail(id);
       return res.data.product;
     } catch (error) {
-      return thunkApi.rejectWithValue(`Get product detail fail. ${error}`);
+      return thunkApi.rejectWithValue(
+        `Get all products by admin fail! ${error}`
+      );
     }
   }
 );
@@ -91,7 +108,7 @@ const productSlice = createSlice({
       .addCase(getAllProducts.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.products = payload.products;
-        state.resultsPerPage = payload.resultsPerPage;
+        state.resultsPerPage = payload.resultsPerPage!;
         state.productsCount = payload.productsCount;
       })
       .addCase(
@@ -144,6 +161,23 @@ const productSlice = createSlice({
         deleteProductReview.rejected,
         (state, { payload }: PayloadAction<any>) => {
           state.reviewLoading = false;
+          state.error = payload;
+        }
+      )
+
+      //Get All Products By Admin
+      .addCase(getAllProductsByAdmin.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getAllProductsByAdmin.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.products = payload.products;
+        state.productsCount = payload.productsCount;
+      })
+      .addCase(
+        getAllProductsByAdmin.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
           state.error = payload;
         }
       );

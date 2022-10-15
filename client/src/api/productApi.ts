@@ -10,8 +10,8 @@ type ProductsResponse = {
   message: string;
   products: Product[];
   productsCount: number;
-  resultsPerPage: number;
-  filteredProductsCount: number;
+  resultsPerPage?: number;
+  filteredProductsCount?: number;
 };
 
 type ProductResponse = {
@@ -34,6 +34,9 @@ const productApi = {
       return axiosClient.get<ProductsResponse>(
         `products?keyword=${keyword}&page=${currentPage}`
       );
+  },
+  getAllByAdmin: () => {
+    return axiosClient.get<ProductsResponse>(`products/admin`);
   },
   getSingleDetail: (id: string) =>
     axiosClient.get<ProductResponse>(`products/${id}`),
