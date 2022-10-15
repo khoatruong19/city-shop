@@ -71,6 +71,14 @@ export const getAllProductsSchema = {
   },
 };
 
+export const getAllProductsByAdminSchema = {
+  tags: ['product'],
+  description: 'Gell all products resource',
+  response: {
+    200: productResponseSuccess,
+  },
+};
+
 export const createProductSchema = {
   tags: ['product'],
   description: 'Create a product resource',

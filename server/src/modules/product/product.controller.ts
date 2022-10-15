@@ -17,6 +17,7 @@ import {
   getProductDetail,
   createProductReview,
   deleteProductReview,
+  getAllProductsByAdmin,
 } from './product.service';
 import { v2 as cloudinary } from 'cloudinary';
 
@@ -37,6 +38,25 @@ export async function getAllProductsHandler(
   } catch (error) {
     logger.info(`Get all products error, `, error);
     throw new ApiError(400, 'Get all products error!').getErrorObject(reply);
+  }
+}
+
+export async function getAllProductsByAdminHandler(
+  request: QueryRequest,
+  reply: FastifyReply
+) {
+  try {
+    const { products, productsCount } = await getAllProductsByAdmin();
+    reply.send({
+      message: 'Get all products by admin successfully!',
+      products,
+      productsCount,
+    });
+  } catch (error) {
+    logger.info(`Get all products by admin error, `, error);
+    throw new ApiError(400, 'Get all products by admin error!').getErrorObject(
+      reply
+    );
   }
 }
 

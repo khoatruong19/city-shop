@@ -37,6 +37,15 @@ export async function getAllProducts(queryStr: {
   };
 }
 
+export const getAllProductsByAdmin = async () => {
+  const productsCount = await ProductModel.countDocuments();
+  const products = await ProductModel.find();
+  return {
+    products,
+    productsCount,
+  };
+};
+
 export async function createProduct(
   input: CreateProductBody
 ): Promise<Product> {

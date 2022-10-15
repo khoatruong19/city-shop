@@ -4,6 +4,7 @@ import {
   createProductReviewHandler,
   deleteProductHandler,
   deleteProductReviewHandler,
+  getAllProductsByAdminHandler,
   getAllProductsHandler,
   getProductDetailHandler,
   getSingleProductReviewsHandler,
@@ -14,6 +15,7 @@ import {
   createProductSchema,
   deleteProductReviewSchema,
   deleteProductSchema,
+  getAllProductsByAdminSchema,
   getAllProductsSchema,
   getProductDetailSchema,
   getSingleProductReviewsSchema,
@@ -34,6 +36,13 @@ export function productRoute(
       schema: getAllProductsSchema,
     },
     getAllProductsHandler
+  );
+  app.get(
+    '/admin',
+    {
+      schema: getAllProductsByAdminSchema,
+    },
+    getAllProductsByAdminHandler
   );
   app.get(
     '/:id',
