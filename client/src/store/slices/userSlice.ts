@@ -9,6 +9,7 @@ import {
 interface UserSliceState {
   loading: boolean;
   user: User | null;
+  users: User[];
   isAuthenticated: boolean;
   error: string | null;
 }
@@ -16,6 +17,7 @@ interface UserSliceState {
 const initialState: UserSliceState = {
   loading: false,
   user: null,
+  users: [],
   isAuthenticated: false,
   error: null,
 };
@@ -67,6 +69,20 @@ export const logout = createAsyncThunk('user/logout', async (_, thunkApi) => {
     return thunkApi.rejectWithValue('Logout fail!');
   }
 });
+
+export const getAllUsers = createAsyncThunk(
+  'user/getAll',
+  async (_, thunkApi) => {
+    try {
+      const res = await userApi.getAllUsers();
+      return res.data.users;
+    } catch (error: any) {
+      if (error.data.message)
+        return thunkApi.rejectWithValue(error.data.message);
+      return thunkApi.rejectWithValue('Get All Users fail!');
+    }
+  }
+);
 
 const userSlice = createSlice({
   name: 'user',
@@ -145,7 +161,25 @@ const userSlice = createSlice({
         state.user = null;
         state.isAuthenticated = false;
         state.error = payload;
-      });
+      })
+
+      .addCase(getAllUsers.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(
+        getAllUsers.fulfilled,
+        (state, { payload }: PayloadAction<User[]>) => {
+          state.loading = false;
+          state.users = payload;
+        }
+      )
+      .addCase(
+        getAllUsers.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.error = payload;
+        }
+      );
   },
 });
 

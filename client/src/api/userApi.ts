@@ -12,6 +12,11 @@ type UserResponse = {
   user: User;
 };
 
+type UsersResponse = {
+  message: string;
+  users: User[];
+};
+
 const userApi = {
   register: (params: RegisterUserParams) =>
     axiosClient.post<UserResponse>('auth/register', params),
@@ -23,6 +28,7 @@ const userApi = {
     axiosClient.put<UserResponse>('auth/me/profile-update', params),
   updatePassword: (params: UpdatePasswordParams) =>
     axiosClient.put<UserResponse>('auth/me/password-update', params),
+  getAllUsers: () => axiosClient.get<UsersResponse>('users'),
 };
 
 export default userApi;
