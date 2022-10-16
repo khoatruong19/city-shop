@@ -12,7 +12,8 @@ export type createProductParams = {
   price: number;
   stock: number;
   category: string;
-  images: Omit<ImageModel, '_id'>[];
+  images: string[];
+  offerPrice?: string;
 };
 
 export type createProductReviewParams = {

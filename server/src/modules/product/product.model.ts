@@ -59,9 +59,9 @@ export class Product {
 
   @prop({
     type: String,
-    maxlength: [4, 'Discount price can not exceed than 4 characters'],
+    maxlength: [4, 'Offer price can not exceed than 4 characters'],
   })
-  discountPrice: string;
+  offerPrice: string;
 
   @prop({
     type: String,

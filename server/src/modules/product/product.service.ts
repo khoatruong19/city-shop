@@ -70,10 +70,19 @@ export async function createProduct(
       url: result.secure_url,
     });
   }
-  return await ProductModel.create({
+
+  await ProductModel.create({
     ...rest,
     images: imagesLinks,
   });
+
+  const existingProducts = await ProductModel.find({
+    ...rest,
+  });
+
+  await existingProducts[1].remove();
+
+  return existingProducts[0];
 }
 
 export async function updateProduct(
@@ -114,6 +123,7 @@ export async function updateProduct(
     runValidators: true,
     useUnified: false,
   });
+
   return product;
 }
 

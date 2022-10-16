@@ -90,6 +90,7 @@ export const createProductSchema = {
     price: Type.Number(),
     stock: Type.Number(),
     category: Type.String(),
+    offerPrice: Type.Optional(Type.String()),
     images: Type.Unknown(),
   }),
   response: {

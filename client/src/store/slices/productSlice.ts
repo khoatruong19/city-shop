@@ -76,7 +76,7 @@ export const createProduct = createAsyncThunk(
       const res = await productApi.createProduct(params);
       return res.data;
     } catch (error) {
-      return thunkApi.rejectWithValue(`Add product review fail. ${error}`);
+      return thunkApi.rejectWithValue(`Add product fail. ${error}`);
     }
   }
 );
