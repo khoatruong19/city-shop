@@ -117,3 +117,8 @@ a {
 .option-hover:hover {
   color: var(--mainOrange);
 }
+
+.sidebar-hover:hover {
+  cursor: pointer;
+  color: var(--mainOrange);
+}
