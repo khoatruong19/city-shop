@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import WebFont from 'webfontloader';
 import paymentApi from './api/paymentApi';
 import About from './components/about/About';
+import CreateProduct from './components/admin/CreateProduct';
 import Dashboard from './components/admin/Dashboard';
 import Auth from './components/auth/Auth';
 import Cart from './components/cart/Cart';
@@ -100,6 +101,14 @@ function App() {
           element={
             <ProtectedRoute isAdmin>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/product"
+          element={
+            <ProtectedRoute isAdmin>
+              <CreateProduct />
             </ProtectedRoute>
           }
         />

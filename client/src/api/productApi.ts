@@ -1,5 +1,6 @@
 import { Product } from '../utils/models/product.model';
 import {
+  createProductParams,
   createProductReviewParams,
   DeleteProductReviewParams,
   getProductQueries,
@@ -40,6 +41,8 @@ const productApi = {
   },
   getSingleDetail: (id: string) =>
     axiosClient.get<ProductResponse>(`products/${id}`),
+  createProduct: (params: createProductParams) =>
+    axiosClient.post<ProductResponse>(`products`, params),
   addNewReview: ({ id, ...rest }: createProductReviewParams) =>
     axiosClient.post<UDProductResponse>(`products/${id}/reviews`, rest),
   deleteReview: ({ productId, reviewId }: DeleteProductReviewParams) =>
