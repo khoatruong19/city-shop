@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import productApi from '../../api/productApi';
 import { Product } from '../../utils/models/product.model';
 import {
+  createProductParams,
   createProductReviewParams,
   DeleteProductReviewParams,
   getProductQueries,
@@ -64,6 +65,18 @@ export const getProductDetail = createAsyncThunk(
       return thunkApi.rejectWithValue(
         `Get all products by admin fail! ${error}`
       );
+    }
+  }
+);
+
+export const createProduct = createAsyncThunk(
+  'product/createProduct',
+  async (params: createProductParams, thunkApi) => {
+    try {
+      const res = await productApi.createProduct(params);
+      return res.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(`Add product review fail. ${error}`);
     }
   }
 );
@@ -176,6 +189,23 @@ const productSlice = createSlice({
       })
       .addCase(
         getAllProductsByAdmin.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.error = payload;
+        }
+      )
+
+      //Create Product By Admin
+      .addCase(createProduct.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createProduct.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.products = [...state.products, payload.product];
+        state.productsCount = state.productsCount + 1;
+      })
+      .addCase(
+        createProduct.rejected,
         (state, { payload }: PayloadAction<any>) => {
           state.loading = false;
           state.error = payload;
