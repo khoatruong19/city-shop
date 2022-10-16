@@ -1,4 +1,5 @@
 import { HeartIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
+import { Carousel } from '@mantine/carousel';
 import { Box, Container, Group, Text, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
@@ -101,19 +102,27 @@ const ProductDetails = () => {
       <MetaData title={product.name} />
       <Header />
       <Group>
-        <Container
-          sx={{
-            padding: '2rem',
-            width: largeScreen ? '40vw' : '30rem',
-            position: 'relative',
-          }}
-        >
-          <img
-            className="img"
-            alt={product.name}
-            src={product.images && product.images[0].url}
-          />
-        </Container>
+        <Carousel sx={{ maxWidth: '40vw' }} mx="auto" withIndicators>
+          {product.images &&
+            product.images.map((image) => (
+              <Carousel.Slide key={image._id}>
+                <Container
+                  sx={{
+                    padding: '2rem',
+                    width: largeScreen ? '40vw' : '30rem',
+                    position: 'relative',
+                  }}
+                >
+                  <img
+                    className="img"
+                    alt={product.name}
+                    src={image && image.url}
+                  />
+                </Container>
+              </Carousel.Slide>
+            ))}
+        </Carousel>
+
         <Container sx={{ flex: 1, padding: '2rem' }}>
           <Title order={1}>{product.name}</Title>
           <Group spacing={3}>

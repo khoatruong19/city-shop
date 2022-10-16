@@ -31,10 +31,23 @@ const ProductCard = ({ product }: IProps) => {
           width: '100%',
         }}
       >
-        <Stack sx={{ height: '150px' }} justify="center" align={'center'}>
-          <Image width={200} src={product.images[0].url} alt={product.name} />
+        <Stack
+          sx={{ height: '150px', objectFit: 'cover' }}
+          justify="center"
+          align={'center'}
+        >
+          <Image
+            style={{ zIndex: -1 }}
+            width={200}
+            src={product.images[0].url}
+            alt={product.name}
+          />
         </Stack>
-        <Text color={'black'} weight={600} sx={{ fontFamily: 'Chilanka' }}>
+        <Text
+          color={'black'}
+          weight={600}
+          sx={{ fontFamily: 'Chilanka', zIndex: 999 }}
+        >
           {product.name}
         </Text>
         <div>
