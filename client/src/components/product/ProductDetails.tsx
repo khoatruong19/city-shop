@@ -105,7 +105,14 @@ const ProductDetails = () => {
         <Carousel sx={{ maxWidth: '40vw' }} mx="auto" withIndicators>
           {product.images &&
             product.images.map((image) => (
-              <Carousel.Slide key={image._id}>
+              <Carousel.Slide
+                key={image._id}
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
                 <Container
                   sx={{
                     padding: '2rem',
