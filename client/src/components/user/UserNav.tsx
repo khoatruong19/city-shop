@@ -141,7 +141,7 @@ const UserNav = () => {
         sx={{
           position: 'fixed',
           right: '1rem',
-          top: !mobileScreen ? '12rem' : '10%',
+          top: !mobileScreen ? '12rem' : '1rem',
           zIndex: 30,
           padding: '1rem',
         }}

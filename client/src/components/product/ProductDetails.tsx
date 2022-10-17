@@ -12,7 +12,7 @@ import {
   clearProductError,
   getProductDetail,
 } from '../../store/slices/productSlice';
-import { largeScreenQuery } from '../../utils/constants';
+import { smallScreenQuery } from '../../utils/constants';
 import toaster from '../../utils/helpers/toaster';
 import Footer from '../layout/Footer';
 import Header from '../layout/Header';
@@ -27,7 +27,7 @@ const ProductDetails = () => {
   const { id } = useParams();
 
   const [quantity, setQuantity] = useState(1);
-  const largeScreen = useMediaQuery(largeScreenQuery);
+  const mobileScreen = useMediaQuery(smallScreenQuery);
 
   const options = {
     value: product.ratings || 0,
@@ -102,7 +102,11 @@ const ProductDetails = () => {
       <MetaData title={product.name} />
       <Header />
       <Group>
-        <Carousel sx={{ maxWidth: '40vw' }} mx="auto" withIndicators>
+        <Carousel
+          sx={{ width: mobileScreen ? '90vw' : '40vw' }}
+          mx="1rem"
+          withIndicators
+        >
           {product.images &&
             product.images.map((image) => (
               <Carousel.Slide
@@ -116,7 +120,7 @@ const ProductDetails = () => {
                 <Container
                   sx={{
                     padding: '2rem',
-                    width: largeScreen ? '40vw' : '30rem',
+                    width: mobileScreen ? '90vw' : '40vw',
                     position: 'relative',
                   }}
                 >
@@ -152,7 +156,9 @@ const ProductDetails = () => {
             {product.stock < 1 ? 'OutOfStock' : 'InStock'}
           </Title>
           <Box>
-            <Text>Description:</Text>
+            <Text mb={5} weight={600}>
+              Description:
+            </Text>
             <Text mt={-7}>{product.description}</Text>
           </Box>
           <Group spacing={4} mt={10}>

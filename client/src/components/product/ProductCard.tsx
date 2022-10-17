@@ -1,4 +1,4 @@
-import { Container, Group, Image, Stack, Text } from '@mantine/core';
+import { Box, Container, Group, Image, Stack, Text } from '@mantine/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from '../../utils/models/product.model';
@@ -31,18 +31,29 @@ const ProductCard = ({ product }: IProps) => {
           width: '100%',
         }}
       >
-        <Stack
+        <Box
+          sx={{
+            position: 'relative',
+            width: '12.5rem',
+            height: '150px',
+            overflow: 'hidden ',
+            margin: 'auto',
+          }}
+        >
+          <Image
+            style={{ zIndex: -1 }}
+            className="img"
+            src={product.images[0].url}
+            alt={product.name}
+          />
+        </Box>
+        {/* <Stack
           sx={{ height: '150px', objectFit: 'cover' }}
           justify="center"
           align={'center'}
         >
-          <Image
-            style={{ zIndex: -1 }}
-            width={200}
-            src={product.images[0].url}
-            alt={product.name}
-          />
-        </Stack>
+          
+        </Stack> */}
         <Text
           color={'black'}
           weight={600}
