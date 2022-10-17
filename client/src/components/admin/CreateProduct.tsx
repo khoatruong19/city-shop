@@ -18,7 +18,7 @@ import {
   TextInput,
   Title,
 } from '@mantine/core';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import {
   clearProductError,
@@ -82,16 +82,20 @@ const CreateProduct = () => {
         offerPrice,
       })
     );
-    if (error) {
-      toaster({ id: 'create-product', message: error });
-      dispatch(clearProductError());
-    }
+
     toaster({
       id: 'create-product',
       message: 'Product created!',
       success: true,
     });
   };
+
+  useEffect(() => {
+    if (error) {
+      toaster({ id: 'create-product', message: error });
+      dispatch(clearProductError());
+    }
+  }, [error]);
 
   return (
     <AdminLayout>
