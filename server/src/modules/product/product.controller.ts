@@ -123,8 +123,9 @@ export async function deleteProductHandler(
         reply
       );
     }
-    return reply.status(200).send({
+    reply.status(200).send({
       message: 'Product deleted!',
+      success: true,
     });
   } catch (error) {
     logger.info(`Delete product error, ${error}`);

@@ -121,7 +121,7 @@ export const deleteProductSchema = {
   description: 'Delete a product resource',
   params: paramsJsonSchema,
   response: {
-    200: productResponseSuccess,
+    200: productUDResponse,
     404: productResponseFailure,
   },
 };

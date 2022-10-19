@@ -16,6 +16,7 @@ interface ProductSliceState {
   productsCount: number;
   resultsPerPage: number;
   error: string | null;
+  isDeleted: boolean;
 }
 
 const initialState: ProductSliceState = {
@@ -25,6 +26,7 @@ const initialState: ProductSliceState = {
   product: {} as Product,
   productsCount: 0,
   resultsPerPage: 0,
+  isDeleted: false,
   error: null,
 };
 
@@ -81,6 +83,18 @@ export const createProduct = createAsyncThunk(
   }
 );
 
+export const deleteProduct = createAsyncThunk(
+  'product/deleteProduct',
+  async (id: string, thunkApi) => {
+    try {
+      const res = await productApi.deleteProduct(id);
+      if (res.data && res.data.success) return { id };
+    } catch (error) {
+      return thunkApi.rejectWithValue(`Delete product fail. ${error}`);
+    }
+  }
+);
+
 export const createProductReview = createAsyncThunk(
   'product/createReview',
   async (params: createProductReviewParams, thunkApi) => {
@@ -111,6 +125,9 @@ const productSlice = createSlice({
   reducers: {
     clearProductError: (state) => {
       state.error = null;
+    },
+    resetDeleteProductStatus: (state) => {
+      state.isDeleted = false;
     },
   },
   extraReducers(builder) {
@@ -210,10 +227,31 @@ const productSlice = createSlice({
           state.loading = false;
           state.error = payload;
         }
+      )
+
+      //Delete Product By Admin
+      .addCase(deleteProduct.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteProduct.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.products = [...state.products].filter(
+          (product) => product._id !== payload?.id!
+        );
+        state.productsCount = state.productsCount - 1;
+        state.isDeleted = true;
+      })
+      .addCase(
+        deleteProduct.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.error = payload;
+        }
       );
   },
 });
 
-export const { clearProductError } = productSlice.actions;
+export const { clearProductError, resetDeleteProductStatus } =
+  productSlice.actions;
 
 export default productSlice.reducer;

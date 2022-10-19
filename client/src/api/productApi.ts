@@ -39,6 +39,9 @@ const productApi = {
   getAllByAdmin: () => {
     return axiosClient.get<ProductsResponse>(`products/admin`);
   },
+  deleteProduct: (id: string) => {
+    return axiosClient.delete<UDProductResponse>(`products/${id}`);
+  },
   getSingleDetail: (id: string) =>
     axiosClient.get<ProductResponse>(`products/${id}`),
   createProduct: (params: createProductParams) =>

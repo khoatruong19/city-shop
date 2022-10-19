@@ -134,8 +134,10 @@ export async function deleteProduct(
 
   if (!product) return false;
 
-  for (let i = 0; 1 < product.images.length; i++) {
-    await cloudinary.uploader.destroy(product.images[i].public_id);
+  for (let i = 0; i < product.images.length; i++) {
+    if (product.images[i] && product.images[i].public_id.length > 15) {
+      await cloudinary.uploader.destroy(product.images[i].public_id);
+    }
   }
 
   await product.remove();
