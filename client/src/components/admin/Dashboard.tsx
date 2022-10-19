@@ -2,6 +2,7 @@ import { Box, Group, Stack, Text, Title } from '@mantine/core';
 import { Chart as ChartJS, registerables } from 'chart.js';
 import { useEffect } from 'react';
 import { Doughnut, Line } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getAllOrdersByAdmin } from '../../store/slices/orderSlice';
 import { getAllProductsByAdmin } from '../../store/slices/productSlice';
@@ -119,21 +120,24 @@ const Dashboard = () => {
                 color: 'whitesmoke',
               }}
             >
-              <Group
-                sx={{
-                  width: '12rem',
-                  height: '12rem',
-                  borderRadius: '50%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: 'lightgreen',
-                  textAlign: 'center',
-                }}
-              >
-                <Text>
-                  Products <br /> {productsCount}
-                </Text>
-              </Group>
+              <Link to="/admin/products" style={{ color: 'inherit' }}>
+                <Group
+                  sx={{
+                    width: '12rem',
+                    height: '12rem',
+                    borderRadius: '50%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: 'lightgreen',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <Text>
+                    Products <br /> {productsCount}
+                  </Text>
+                </Group>
+              </Link>
               <Group
                 sx={{
                   width: '12rem',
@@ -143,6 +147,7 @@ const Dashboard = () => {
                   alignItems: 'center',
                   backgroundColor: 'salmon',
                   textAlign: 'center',
+                  cursor: 'pointer',
                 }}
               >
                 <Text>

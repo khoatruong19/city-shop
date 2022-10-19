@@ -80,7 +80,7 @@ export async function createProduct(
     ...rest,
   });
 
-  await existingProducts[1].remove();
+  existingProducts[1] && (await existingProducts[1].remove());
 
   return existingProducts[0];
 }
