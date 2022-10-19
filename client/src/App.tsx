@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import WebFont from 'webfontloader';
 import paymentApi from './api/paymentApi';
 import About from './components/about/About';
+import AllProducts from './components/admin/AllProducts';
 import CreateProduct from './components/admin/CreateProduct';
 import Dashboard from './components/admin/Dashboard';
 import Auth from './components/auth/Auth';
@@ -101,6 +102,14 @@ function App() {
           element={
             <ProtectedRoute isAdmin>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/products"
+          element={
+            <ProtectedRoute isAdmin>
+              <AllProducts />
             </ProtectedRoute>
           }
         />
