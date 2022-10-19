@@ -16,7 +16,7 @@ export type Product = {
   price: number;
   images: ImageModel[];
   category: string;
-  discountPrice: string;
+  offerPrice: string;
   stock: number;
   ratings: number;
   numOfReviews: number;

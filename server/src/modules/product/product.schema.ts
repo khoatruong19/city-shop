@@ -22,7 +22,7 @@ const product = Type.Object({
   price: Type.Number(),
   images: Type.Array(productImage),
   category: Type.String(),
-  discountPrice: Type.Optional(Type.String()),
+  offerPrice: Type.Optional(Type.String()),
   stock: Type.Number(),
   ratings: Type.Number(),
   numOfReviews: Type.Number(),

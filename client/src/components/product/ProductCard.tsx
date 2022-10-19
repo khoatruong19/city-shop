@@ -73,7 +73,7 @@ const ProductCard = ({ product }: IProps) => {
             alignItems: 'center',
           }}
         >
-          <Text>{product.discountPrice && `$${product.discountPrice}`}</Text>
+          <Text>{product.offerPrice && `$${product.offerPrice}`}</Text>
           <Text color={'green'} weight={500} size={18}>
             ${product.price}
           </Text>
