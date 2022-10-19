@@ -111,7 +111,9 @@ const AllProducts = () => {
                       <Button
                         color="green"
                         onClick={() =>
-                          navigate(`/edit/product/${cell.row.original._id}`)
+                          navigate(
+                            `/admin/edit/product/${cell.row.original._id}`
+                          )
                         }
                       >
                         Edit

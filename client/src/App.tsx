@@ -8,6 +8,7 @@ import About from './components/about/About';
 import AllProducts from './components/admin/AllProducts';
 import CreateProduct from './components/admin/CreateProduct';
 import Dashboard from './components/admin/Dashboard';
+import EditProduct from './components/admin/EditProduct';
 import Auth from './components/auth/Auth';
 import Cart from './components/cart/Cart';
 import ConfirmOrder from './components/cart/ConfirmOrder';
@@ -118,6 +119,14 @@ function App() {
           element={
             <ProtectedRoute isAdmin>
               <CreateProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/edit/product/:id"
+          element={
+            <ProtectedRoute isAdmin>
+              <EditProduct />
             </ProtectedRoute>
           }
         />
