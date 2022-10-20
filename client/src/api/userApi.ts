@@ -4,6 +4,7 @@ import {
   RegisterUserParams,
   UpdatePasswordParams,
   UpdateProfileParams,
+  UpdateUserParams,
 } from '../utils/types/user.type';
 import axiosClient from './axiosClient';
 
@@ -34,6 +35,9 @@ const userApi = {
   updatePassword: (params: UpdatePasswordParams) =>
     axiosClient.put<UserResponse>('auth/me/password-update', params),
   getAllUsers: () => axiosClient.get<UsersResponse>('users'),
+  getUserById: (id: string) => axiosClient.get<UserResponse>(`users/${id}`),
+  updateUser: ({ id, ...rest }: UpdateUserParams) =>
+    axiosClient.put<UDUserResponse>(`users/${id}`, rest),
   deleteUser: (id: string) => axiosClient.delete<UDUserResponse>(`users/${id}`),
 };
 

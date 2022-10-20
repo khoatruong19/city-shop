@@ -21,3 +21,12 @@ export type UpdatePasswordParams = {
   confirmPassword: string;
   newPassword: string;
 };
+
+export type UserRoles = 'admin' | 'user' | 'creator';
+
+export type UpdateUserParams = {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRoles;
+};

@@ -4,6 +4,7 @@ import { User } from '../../utils/models/user.model';
 import {
   LoginUserParams,
   RegisterUserParams,
+  UpdateUserParams,
 } from '../../utils/types/user.type';
 
 interface UserSliceState {
@@ -13,6 +14,7 @@ interface UserSliceState {
   isAuthenticated: boolean;
   isDeleted: boolean;
   isUpdated: boolean;
+  updateLoading: boolean;
   error: string | null;
 }
 
@@ -23,6 +25,7 @@ const initialState: UserSliceState = {
   isAuthenticated: false,
   isDeleted: false,
   isUpdated: false,
+  updateLoading: false,
   error: null,
 };
 
@@ -97,7 +100,21 @@ export const deleteUser = createAsyncThunk(
     } catch (error: any) {
       if (error.data.message)
         return thunkApi.rejectWithValue(error.data.message);
-      return thunkApi.rejectWithValue('Get All Users fail!');
+      return thunkApi.rejectWithValue('Delete User fail!');
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  'user/updateUser',
+  async (params: UpdateUserParams, thunkApi) => {
+    try {
+      await userApi.updateUser(params);
+      return params;
+    } catch (error: any) {
+      if (error.data.message)
+        return thunkApi.rejectWithValue(error.data.message);
+      return thunkApi.rejectWithValue('Update User fail!');
     }
   }
 );
@@ -217,6 +234,25 @@ const userSlice = createSlice({
         deleteUser.rejected,
         (state, { payload }: PayloadAction<any>) => {
           state.loading = false;
+          state.error = payload;
+        }
+      )
+
+      .addCase(updateUser.pending, (state) => {
+        state.updateLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, { payload: { id, ...rest } }) => {
+        state.updateLoading = false;
+        state.isUpdated = true;
+        state.users = [...state.users].map((user) => {
+          if (user._id === id) return { ...user, ...rest };
+          return user;
+        });
+      })
+      .addCase(
+        updateUser.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.updateLoading = false;
           state.error = payload;
         }
       );
