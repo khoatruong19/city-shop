@@ -94,7 +94,7 @@ export const deleteOrder = createAsyncThunk(
   async (id: string, thunkApi) => {
     try {
       const res = await orderApi.deleteOrder(id);
-      return res.data.success;
+      if (res.data && res.data.success) return id;
     } catch (error) {
       return thunkApi.rejectWithValue(`Delete order by admin fail. ${error}`);
     }
@@ -210,13 +210,13 @@ const orderSlice = createSlice({
       .addCase(deleteOrder.pending, (state) => {
         state.loading = true;
       })
-      .addCase(
-        deleteOrder.fulfilled,
-        (state, { payload }: PayloadAction<boolean>) => {
-          state.loading = false;
-          if (payload === true) state.isDeleted = true;
-        }
-      )
+      .addCase(deleteOrder.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.isDeleted = true;
+        state.orders = [...state.orders].filter(
+          (order) => order._id !== payload
+        );
+      })
       .addCase(
         deleteOrder.rejected,
         (state, { payload }: PayloadAction<any>) => {
