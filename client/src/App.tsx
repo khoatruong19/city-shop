@@ -55,7 +55,7 @@ function App() {
     });
     dispatch(me());
     isAuthenticated && getStripeApiKey();
-  }, []);
+  }, [dispatch, isAuthenticated]);
 
   return (
     <div className="App">
