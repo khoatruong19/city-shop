@@ -6,6 +6,7 @@ import {
   createProductReviewParams,
   DeleteProductReviewParams,
   getProductQueries,
+  updateProductParams,
 } from '../../utils/types/product.type';
 
 interface ProductSliceState {
@@ -15,8 +16,9 @@ interface ProductSliceState {
   product: Product;
   productsCount: number;
   resultsPerPage: number;
-  error: string | null;
   isDeleted: boolean;
+  isUpdated: boolean;
+  error: string | null;
 }
 
 const initialState: ProductSliceState = {
@@ -27,6 +29,7 @@ const initialState: ProductSliceState = {
   productsCount: 0,
   resultsPerPage: 0,
   isDeleted: false,
+  isUpdated: false,
   error: null,
 };
 
@@ -83,6 +86,18 @@ export const createProduct = createAsyncThunk(
   }
 );
 
+export const updateProduct = createAsyncThunk(
+  'product/updateProduct',
+  async (params: updateProductParams, thunkApi) => {
+    try {
+      const res = await productApi.updateProduct(params);
+      return res.data.product;
+    } catch (error) {
+      return thunkApi.rejectWithValue(`Delete product fail. ${error}`);
+    }
+  }
+);
+
 export const deleteProduct = createAsyncThunk(
   'product/deleteProduct',
   async (id: string, thunkApi) => {
@@ -128,6 +143,9 @@ const productSlice = createSlice({
     },
     resetDeleteProductStatus: (state) => {
       state.isDeleted = false;
+    },
+    resetUpdateProductStatus: (state) => {
+      state.isUpdated = false;
     },
   },
   extraReducers(builder) {
@@ -229,6 +247,27 @@ const productSlice = createSlice({
         }
       )
 
+      //Update Product By Admin
+      .addCase(updateProduct.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateProduct.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.product = payload;
+        state.products = [...state.products].map((product) => {
+          if (product._id === payload._id) return payload;
+          return product;
+        });
+        state.isUpdated = true;
+      })
+      .addCase(
+        updateProduct.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.error = payload;
+        }
+      )
+
       //Delete Product By Admin
       .addCase(deleteProduct.pending, (state) => {
         state.loading = true;
@@ -251,7 +290,10 @@ const productSlice = createSlice({
   },
 });
 
-export const { clearProductError, resetDeleteProductStatus } =
-  productSlice.actions;
+export const {
+  clearProductError,
+  resetDeleteProductStatus,
+  resetUpdateProductStatus,
+} = productSlice.actions;
 
 export default productSlice.reducer;

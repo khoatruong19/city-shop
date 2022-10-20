@@ -16,6 +16,8 @@ export type createProductParams = {
   offerPrice?: string;
 };
 
+export type updateProductParams = createProductParams & { id: string };
+
 export type createProductReviewParams = {
   id: string;
   rating: number;

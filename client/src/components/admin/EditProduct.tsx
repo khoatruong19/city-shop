@@ -19,12 +19,14 @@ import {
   Title,
 } from '@mantine/core';
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
 import {
   clearProductError,
   createProduct,
   getProductDetail,
+  resetUpdateProductStatus,
+  updateProduct,
 } from '../../store/slices/productSlice';
 import { categories } from '../../utils/data';
 import toaster from '../../utils/helpers/toaster';
@@ -34,8 +36,11 @@ import AdminLayout from '../layout/AdminLayout';
 const EditProduct = () => {
   const fileRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  const { product, loading, error } = useAppSelector((state) => state.product);
+  const { product, loading, isUpdated, error } = useAppSelector(
+    (state) => state.product
+  );
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
@@ -50,8 +55,13 @@ const EditProduct = () => {
     setCategory(category);
   };
 
-  const handleAddProductImages = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeProductImages = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     if (e.target.files) {
+      setImages([]);
+      setOldImages([]);
+
       const files = Array.from(e.target.files);
 
       files.forEach((file) => {
@@ -77,7 +87,8 @@ const EditProduct = () => {
   ) => {
     e.preventDefault();
     await dispatch(
-      createProduct({
+      updateProduct({
+        id: id!,
         name,
         category,
         description,
@@ -87,24 +98,28 @@ const EditProduct = () => {
         offerPrice,
       })
     );
-
-    toaster({
-      id: 'update-product',
-      message: 'Product updated!',
-      success: true,
-    });
   };
 
   useEffect(() => {
     if (error) {
       toaster({ id: 'update-product', message: error });
       dispatch(clearProductError());
+      return;
     }
-  }, [error]);
+    if (isUpdated) {
+      toaster({
+        id: 'update-product',
+        message: 'Product updated!',
+        success: true,
+      });
+      dispatch(resetUpdateProductStatus());
+      navigate(-1);
+    }
+  }, [error, isUpdated]);
 
   useEffect(() => {
-    if (product && id && product._id !== id) {
-      dispatch(getProductDetail(id));
+    if (product && product._id !== id) {
+      dispatch(getProductDetail(id!));
     } else {
       setName(product.name);
       setDescription(product.description);
@@ -115,8 +130,6 @@ const EditProduct = () => {
       setOldImages(product.images);
     }
   }, [id, dispatch, product]);
-
-  console.log({ product });
 
   return (
     <AdminLayout>
@@ -225,11 +238,10 @@ const EditProduct = () => {
               />
               <Group>
                 <TextInput
-                  onChange={handleAddProductImages}
+                  onChange={handleChangeProductImages}
                   ref={fileRef}
                   type="file"
                   sx={{ display: 'none' }}
-                  required
                   accept="image/*"
                   multiple
                 />

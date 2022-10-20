@@ -4,6 +4,7 @@ import {
   createProductReviewParams,
   DeleteProductReviewParams,
   getProductQueries,
+  updateProductParams,
 } from '../utils/types/product.type';
 import axiosClient from './axiosClient';
 
@@ -41,6 +42,9 @@ const productApi = {
   },
   deleteProduct: (id: string) => {
     return axiosClient.delete<UDProductResponse>(`products/${id}`);
+  },
+  updateProduct: ({ id, ...rest }: updateProductParams) => {
+    return axiosClient.patch<ProductResponse>(`products/${id}`, rest);
   },
   getSingleDetail: (id: string) =>
     axiosClient.get<ProductResponse>(`products/${id}`),
