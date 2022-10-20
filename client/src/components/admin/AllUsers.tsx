@@ -11,6 +11,7 @@ import {
 } from '../../store/slices/userSlice';
 import toaster from '../../utils/helpers/toaster';
 import AdminLayout from '../layout/AdminLayout';
+import MetaData from '../layout/MetaData';
 import ConfirmModal from '../others/ConfirmModal';
 import WaitingLoader from '../others/WaitingLoader';
 
@@ -57,84 +58,89 @@ const AllUsers = () => {
   }, [dispatch, error, isDeleted]);
 
   return (
-    <AdminLayout>
-      {loading ? (
-        <WaitingLoader />
-      ) : (
-        <Box
-          sx={{
-            padding: '2rem',
-          }}
-        >
-          <Title align="center" order={1} mb={20}>
-            All Users
-          </Title>
-          <DataGrid
-            data={users}
-            withGlobalFilter
-            withPagination
-            fontSize={16}
-            pageSizes={['10']}
-            columns={[
-              {
-                size: 220,
-                header: 'User ID',
-                filterFn: stringFilterFn,
-                accessorFn: (row) => row._id,
-              },
-              {
-                size: 220,
-                header: 'Email',
-                filterFn: stringFilterFn,
-                accessorFn: (row) => row.email,
-              },
-              {
-                header: 'Name',
-                filterFn: stringFilterFn,
-                accessorFn: (row) => row.name,
-              },
-              {
-                header: 'Role',
-                filterFn: stringFilterFn,
-                accessorFn: (row) => row.role,
-              },
-              {
-                header: 'Actions',
-                size: 200,
-                cell: (cell) => {
-                  return (
-                    <Group spacing={10}>
-                      <Button
-                        color="green"
-                        onClick={() =>
-                          navigate(`/admin/edit/user/${cell.row.original._id}`)
-                        }
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        color="red"
-                        onClick={() =>
-                          handleDeleteUserClick(cell.row.original._id)
-                        }
-                      >
-                        Delete
-                      </Button>
-                    </Group>
-                  );
+    <>
+      <MetaData title="All Users" />
+      <AdminLayout>
+        {loading ? (
+          <WaitingLoader />
+        ) : (
+          <Box
+            sx={{
+              padding: '2rem',
+            }}
+          >
+            <Title align="center" order={1} mb={20}>
+              All Users
+            </Title>
+            <DataGrid
+              data={users}
+              withGlobalFilter
+              withPagination
+              fontSize={16}
+              pageSizes={['10']}
+              columns={[
+                {
+                  size: 220,
+                  header: 'User ID',
+                  filterFn: stringFilterFn,
+                  accessorFn: (row) => row._id,
                 },
-              },
-            ]}
-          />
-          <ConfirmModal
-            title="Delete User"
-            open={openModal}
-            setOpen={setOpenModal}
-            handleConfirm={handleConfirmDelete}
-          />
-        </Box>
-      )}
-    </AdminLayout>
+                {
+                  size: 220,
+                  header: 'Email',
+                  filterFn: stringFilterFn,
+                  accessorFn: (row) => row.email,
+                },
+                {
+                  header: 'Name',
+                  filterFn: stringFilterFn,
+                  accessorFn: (row) => row.name,
+                },
+                {
+                  header: 'Role',
+                  filterFn: stringFilterFn,
+                  accessorFn: (row) => row.role,
+                },
+                {
+                  header: 'Actions',
+                  size: 200,
+                  cell: (cell) => {
+                    return (
+                      <Group spacing={10}>
+                        <Button
+                          color="green"
+                          onClick={() =>
+                            navigate(
+                              `/admin/edit/user/${cell.row.original._id}`
+                            )
+                          }
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          color="red"
+                          onClick={() =>
+                            handleDeleteUserClick(cell.row.original._id)
+                          }
+                        >
+                          Delete
+                        </Button>
+                      </Group>
+                    );
+                  },
+                },
+              ]}
+            />
+            <ConfirmModal
+              title="Delete User"
+              open={openModal}
+              setOpen={setOpenModal}
+              handleConfirm={handleConfirmDelete}
+            />
+          </Box>
+        )}
+      </AdminLayout>
+    </>
   );
 };
 

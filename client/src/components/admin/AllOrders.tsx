@@ -11,6 +11,7 @@ import {
 import { resetDeleteProductStatus } from '../../store/slices/productSlice';
 import toaster from '../../utils/helpers/toaster';
 import AdminLayout from '../layout/AdminLayout';
+import MetaData from '../layout/MetaData';
 import ConfirmModal from '../others/ConfirmModal';
 import WaitingLoader from '../others/WaitingLoader';
 
@@ -56,87 +57,90 @@ const AllOrders = () => {
     }
   }, [dispatch, error, isDeleted]);
 
-  console.log({ orders });
-
   return (
-    <AdminLayout>
-      {loading ? (
-        <WaitingLoader />
-      ) : (
-        <Box
-          sx={{
-            padding: '2rem',
-          }}
-        >
-          <Title align="center" order={1} mb={20}>
-            All Orders
-          </Title>
-          <DataGrid
-            data={orders}
-            withGlobalFilter
-            withPagination
-            fontSize={16}
-            pageSizes={['10']}
-            iconColor="orange"
-            columns={[
-              {
-                size: 220,
-                header: 'Order ID',
-                filterFn: stringFilterFn,
-                accessorFn: (row) => row._id,
-              },
-              {
-                header: 'Status',
-                filterFn: stringFilterFn,
-                accessorFn: (row) => row.orderStatus,
-              },
-              {
-                header: 'Items Qty',
-                filterFn: numberFilterFn,
-                accessorFn: (row) => row.orderItems.length,
-              },
-              {
-                header: 'Amount',
-                filterFn: numberFilterFn,
-                accessorFn: (row) => row.totalPrice,
-              },
-              {
-                header: 'Actions',
-                size: 200,
-                cell: (cell) => {
-                  return (
-                    <Group spacing={10}>
-                      <Button
-                        color="green"
-                        onClick={() =>
-                          navigate(`/admin/edit/order/${cell.row.original._id}`)
-                        }
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        color="red"
-                        onClick={() =>
-                          handleDeleteOrderClick(cell.row.original._id)
-                        }
-                      >
-                        Delete
-                      </Button>
-                    </Group>
-                  );
+    <>
+      <MetaData title="All Orders" />
+      <AdminLayout>
+        {loading ? (
+          <WaitingLoader />
+        ) : (
+          <Box
+            sx={{
+              padding: '2rem',
+            }}
+          >
+            <Title align="center" order={1} mb={20}>
+              All Orders
+            </Title>
+            <DataGrid
+              data={orders}
+              withGlobalFilter
+              withPagination
+              fontSize={16}
+              pageSizes={['10']}
+              iconColor="orange"
+              columns={[
+                {
+                  size: 220,
+                  header: 'Order ID',
+                  filterFn: stringFilterFn,
+                  accessorFn: (row) => row._id,
                 },
-              },
-            ]}
-          />
-          <ConfirmModal
-            title="Delete Order"
-            open={openModal}
-            setOpen={setOpenModal}
-            handleConfirm={handleConfirmDelete}
-          />
-        </Box>
-      )}
-    </AdminLayout>
+                {
+                  header: 'Status',
+                  filterFn: stringFilterFn,
+                  accessorFn: (row) => row.orderStatus,
+                },
+                {
+                  header: 'Items Qty',
+                  filterFn: numberFilterFn,
+                  accessorFn: (row) => row.orderItems.length,
+                },
+                {
+                  header: 'Amount',
+                  filterFn: numberFilterFn,
+                  accessorFn: (row) => row.totalPrice,
+                },
+                {
+                  header: 'Actions',
+                  size: 200,
+                  cell: (cell) => {
+                    return (
+                      <Group spacing={10}>
+                        <Button
+                          color="green"
+                          onClick={() =>
+                            navigate(
+                              `/admin/edit/order/${cell.row.original._id}`
+                            )
+                          }
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          color="red"
+                          onClick={() =>
+                            handleDeleteOrderClick(cell.row.original._id)
+                          }
+                        >
+                          Delete
+                        </Button>
+                      </Group>
+                    );
+                  },
+                },
+              ]}
+            />
+            <ConfirmModal
+              title="Delete Order"
+              open={openModal}
+              setOpen={setOpenModal}
+              handleConfirm={handleConfirmDelete}
+            />
+          </Box>
+        )}
+      </AdminLayout>
+    </>
   );
 };
 
