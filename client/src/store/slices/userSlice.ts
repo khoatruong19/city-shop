@@ -11,6 +11,8 @@ interface UserSliceState {
   user: User | null;
   users: User[];
   isAuthenticated: boolean;
+  isDeleted: boolean;
+  isUpdated: boolean;
   error: string | null;
 }
 
@@ -19,6 +21,8 @@ const initialState: UserSliceState = {
   user: null,
   users: [],
   isAuthenticated: false,
+  isDeleted: false,
+  isUpdated: false,
   error: null,
 };
 
@@ -84,12 +88,32 @@ export const getAllUsers = createAsyncThunk(
   }
 );
 
+export const deleteUser = createAsyncThunk(
+  'user/deleteUser',
+  async (id: string, thunkApi) => {
+    try {
+      await userApi.deleteUser(id);
+      return id;
+    } catch (error: any) {
+      if (error.data.message)
+        return thunkApi.rejectWithValue(error.data.message);
+      return thunkApi.rejectWithValue('Get All Users fail!');
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
     clearUserError: (state) => {
       state.error = null;
+    },
+    resetUpdateUserStatus: (state) => {
+      state.isUpdated = false;
+    },
+    resetDeleteUserStatus: (state) => {
+      state.isDeleted = false;
     },
   },
   extraReducers(builder) {
@@ -179,10 +203,27 @@ const userSlice = createSlice({
           state.loading = false;
           state.error = payload;
         }
+      )
+
+      .addCase(deleteUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteUser.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.isDeleted = true;
+        state.users = [...state.users].filter((user) => user._id !== payload);
+      })
+      .addCase(
+        deleteUser.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.error = payload;
+        }
       );
   },
 });
 
-export const { clearUserError } = userSlice.actions;
+export const { clearUserError, resetDeleteUserStatus, resetUpdateUserStatus } =
+  userSlice.actions;
 
 export default userSlice.reducer;

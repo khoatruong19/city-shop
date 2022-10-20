@@ -17,6 +17,11 @@ type UsersResponse = {
   users: User[];
 };
 
+type UDUserResponse = {
+  success: boolean;
+  message: string;
+};
+
 const userApi = {
   register: (params: RegisterUserParams) =>
     axiosClient.post<UserResponse>('auth/register', params),
@@ -29,6 +34,7 @@ const userApi = {
   updatePassword: (params: UpdatePasswordParams) =>
     axiosClient.put<UserResponse>('auth/me/password-update', params),
   getAllUsers: () => axiosClient.get<UsersResponse>('users'),
+  deleteUser: (id: string) => axiosClient.delete<UDUserResponse>(`users/${id}`),
 };
 
 export default userApi;
