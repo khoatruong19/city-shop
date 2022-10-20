@@ -68,3 +68,18 @@ export const quickLinks = [
     link: '/checkout',
   },
 ];
+
+export const userRoleOptions = [
+  {
+    label: 'User',
+    value: 'user',
+  },
+  {
+    label: 'Admin',
+    value: 'admin',
+  },
+  {
+    label: 'Creator',
+    value: 'creator',
+  },
+];
