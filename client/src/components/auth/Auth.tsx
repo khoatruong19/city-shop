@@ -1,22 +1,24 @@
 import { Box, Container, Group, Image } from '@mantine/core';
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from '@mantine/hooks';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../store';
+import { mediumScreenQuery, smallScreenQuery } from '../../utils/constants';
 import MetaData from '../layout/MetaData';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
-import { useMediaQuery } from '@mantine/hooks';
-import { mediumScreenQuery, smallScreenQuery } from '../../utils/constants';
 
 const Auth = () => {
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
   const tabletScreen = useMediaQuery(mediumScreenQuery);
   const mobileScreen = useMediaQuery(smallScreenQuery);
   const { isAuthenticated, loading } = useAppSelector((state) => state.user);
-  const navigate = useNavigate();
+  const location = useLocation();
+
+  const redirect = location.search ? location.search.split('=')[1] : '/';
 
   useEffect(() => {
-    if (!loading && isAuthenticated) navigate('/');
+    if (!loading && isAuthenticated) window.location.replace(redirect);
   }, [isAuthenticated, loading]);
 
   return (

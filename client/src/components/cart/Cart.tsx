@@ -61,7 +61,7 @@ const Cart = () => {
   const handleRemoveItem = (id: string) => dispatch(removeItem(id));
 
   const handleCheckout = () => {
-    navigate('/login?redirect=shipping');
+    navigate('/auth?redirect=shipping');
   };
 
   return (
