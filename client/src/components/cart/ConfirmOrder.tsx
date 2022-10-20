@@ -112,12 +112,7 @@ const ConfirmOrder = () => {
           </Stack>
           <Divider mb={10} />
           <GroupInfo between field="Total" value={`$${totalPrice}`} />
-          <Title order={4} align="center" mt={10}>
-            *Select a payment method
-          </Title>
-          <Checkbox label="Cash on Delivery" />
-          <Checkbox label="Bkash" />
-          <Checkbox label="Nagad" />
+
           <Button onClick={proceedToPayment} size="lg" color={'orange'}>
             Proceed To Payment
           </Button>
