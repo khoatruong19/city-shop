@@ -21,6 +21,23 @@ a {
   color: black;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: whitesmoke;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--mainOrange);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: orange;
+}
+
 .anchor {
   font-weight: 700;
   color: black;
