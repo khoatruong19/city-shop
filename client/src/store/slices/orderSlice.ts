@@ -196,7 +196,7 @@ const orderSlice = createSlice({
         updateOrderStatus.fulfilled,
         (state, { payload }: PayloadAction<boolean>) => {
           state.loading = false;
-          if (payload === true) state.isUpdated = true;
+          state.isUpdated = true;
         }
       )
       .addCase(
