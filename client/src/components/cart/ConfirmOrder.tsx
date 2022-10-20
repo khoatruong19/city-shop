@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../store';
 import { CartItem } from '../../utils/types/cart.type';
 import MetaData from '../layout/MetaData';
+import GroupInfo from '../others/GroupInfo';
 import CheckoutSteps from './CheckoutSteps';
 
 const ItemCard = ({ item }: { item: CartItem }) => {
@@ -39,25 +40,6 @@ const ItemCard = ({ item }: { item: CartItem }) => {
           ${item.price * item.quantity}
         </span>
       </Text>
-    </Group>
-  );
-};
-
-const GroupInfo = ({
-  field,
-  value,
-  between,
-}: {
-  field: string;
-  value?: string;
-  between?: boolean;
-}) => {
-  return (
-    <Group sx={{ justifyContent: between ? 'space-between' : '' }}>
-      <Text size={'lg'} weight={600}>
-        {field}:
-      </Text>
-      <Text color={'gray'}>{value}</Text>
     </Group>
   );
 };
