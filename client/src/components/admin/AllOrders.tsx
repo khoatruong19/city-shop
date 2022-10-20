@@ -1,20 +1,14 @@
 import { Box, Button, Group, Title } from '@mantine/core';
-import {
-  DataGrid,
-  dateFilterFn,
-  numberFilterFn,
-  stringFilterFn,
-} from 'mantine-data-grid';
+import { DataGrid, numberFilterFn, stringFilterFn } from 'mantine-data-grid';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { getAllOrdersByAdmin } from '../../store/slices/orderSlice';
 import {
-  clearProductError,
-  deleteProduct,
-  getAllProductsByAdmin,
-  resetDeleteProductStatus,
-} from '../../store/slices/productSlice';
+  clearOrderError,
+  deleteOrder,
+  getAllOrdersByAdmin,
+} from '../../store/slices/orderSlice';
+import { resetDeleteProductStatus } from '../../store/slices/productSlice';
 import toaster from '../../utils/helpers/toaster';
 import AdminLayout from '../layout/AdminLayout';
 import ConfirmModal from '../others/ConfirmModal';
@@ -25,22 +19,22 @@ const AllOrders = () => {
   const { orders, loading, error, isDeleted } = useAppSelector(
     (state) => state.order
   );
-  const [productId, setProductId] = useState('');
+  const [orderId, setOrderId] = useState('');
   const navigate = useNavigate();
 
   const [openModal, setOpenModal] = useState(false);
 
-  const handleDeleteProductClick = (id: string) => {
+  const handleDeleteOrderClick = (id: string) => {
     setOpenModal(true);
-    setProductId(id);
+    setOrderId(id);
   };
 
   const handleConfirmDelete = (yes: boolean) => {
     if (yes) {
-      dispatch(deleteProduct(productId));
+      dispatch(deleteOrder(orderId));
       setOpenModal(false);
     } else setOpenModal(false);
-    setProductId('');
+    setOrderId('');
   };
 
   useEffect(() => {
@@ -49,13 +43,13 @@ const AllOrders = () => {
 
   useEffect(() => {
     if (error) {
-      toaster({ id: 'delete product', message: 'Delete Product fail!' });
-      dispatch(clearProductError());
+      toaster({ id: 'delete order', message: 'Delete Order fail!' });
+      dispatch(clearOrderError());
     }
     if (isDeleted) {
       toaster({
-        id: 'delete product',
-        message: 'Product deleted!',
+        id: 'delete order',
+        message: 'Order deleted!',
         success: true,
       });
       dispatch(resetDeleteProductStatus());
@@ -75,7 +69,7 @@ const AllOrders = () => {
           }}
         >
           <Title align="center" order={1} mb={20}>
-            All Products
+            All Orders
           </Title>
           <DataGrid
             data={orders}
@@ -115,9 +109,7 @@ const AllOrders = () => {
                       <Button
                         color="green"
                         onClick={() =>
-                          navigate(
-                            `/admin/edit/product/${cell.row.original._id}`
-                          )
+                          navigate(`/admin/edit/order/${cell.row.original._id}`)
                         }
                       >
                         Edit
@@ -125,7 +117,7 @@ const AllOrders = () => {
                       <Button
                         color="red"
                         onClick={() =>
-                          handleDeleteProductClick(cell.row.original._id)
+                          handleDeleteOrderClick(cell.row.original._id)
                         }
                       >
                         Delete
@@ -137,7 +129,7 @@ const AllOrders = () => {
             ]}
           />
           <ConfirmModal
-            title="Delete Product"
+            title="Delete Order"
             open={openModal}
             setOpen={setOpenModal}
             handleConfirm={handleConfirmDelete}
