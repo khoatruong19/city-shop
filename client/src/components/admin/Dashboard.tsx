@@ -138,22 +138,24 @@ const Dashboard = () => {
                   </Text>
                 </Group>
               </Link>
-              <Group
-                sx={{
-                  width: '12rem',
-                  height: '12rem',
-                  borderRadius: '50%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: 'salmon',
-                  textAlign: 'center',
-                  cursor: 'pointer',
-                }}
-              >
-                <Text>
-                  Orders <br /> {orders.length}
-                </Text>
-              </Group>
+              <Link to="/admin/orders" style={{ color: 'inherit' }}>
+                <Group
+                  sx={{
+                    width: '12rem',
+                    height: '12rem',
+                    borderRadius: '50%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: 'salmon',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <Text>
+                    Orders <br /> {orders.length}
+                  </Text>
+                </Group>
+              </Link>
               <Group
                 sx={{
                   width: '12rem',
