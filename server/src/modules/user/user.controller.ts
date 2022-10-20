@@ -89,6 +89,7 @@ export async function deleteUserHandler(
 
     return reply.status(200).send({
       message: 'Delete user successfully!',
+      success: true,
     });
   } catch (error) {
     logger.info(`Delete user error, `, error);

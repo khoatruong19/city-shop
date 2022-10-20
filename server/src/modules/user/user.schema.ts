@@ -4,6 +4,11 @@ import {
   userResponseWithoutCredentials,
 } from '../auth/auth.schema';
 
+const userUDResponse = Type.Object({
+  message: Type.String(),
+  success: Type.Boolean(),
+});
+
 export const getAllUsersSchema = {
   tags: ['user'],
   description: 'All users',
@@ -49,7 +54,7 @@ export const deleteUserSchema = {
     id: Type.String(),
   },
   response: {
-    200: userResponseWithCredentials,
+    200: userUDResponse,
     400: userResponseWithoutCredentials,
   },
 };
