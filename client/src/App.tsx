@@ -7,6 +7,7 @@ import paymentApi from './api/paymentApi';
 import About from './components/about/About';
 import AllOrders from './components/admin/AllOrders';
 import AllProducts from './components/admin/AllProducts';
+import AllUsers from './components/admin/AllUsers';
 import CreateProduct from './components/admin/CreateProduct';
 import Dashboard from './components/admin/Dashboard';
 import EditProduct from './components/admin/EditProduct';
@@ -145,6 +146,14 @@ function App() {
           element={
             <ProtectedRoute isAdmin>
               <UpdateOrder />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/users"
+          element={
+            <ProtectedRoute isAdmin>
+              <AllUsers />
             </ProtectedRoute>
           }
         />
