@@ -67,7 +67,7 @@ const AllUsers = () => {
           }}
         >
           <Title align="center" order={1} mb={20}>
-            All Products
+            All Users
           </Title>
           <DataGrid
             data={users}
