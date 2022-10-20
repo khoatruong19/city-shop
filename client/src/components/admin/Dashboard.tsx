@@ -156,21 +156,24 @@ const Dashboard = () => {
                   </Text>
                 </Group>
               </Link>
-              <Group
-                sx={{
-                  width: '12rem',
-                  height: '12rem',
-                  borderRadius: '50%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: 'lightskyblue',
-                  textAlign: 'center',
-                }}
-              >
-                <Text>
-                  Users <br /> {users.length}
-                </Text>
-              </Group>
+
+              <Link to="/admin/users" style={{ color: 'inherit' }}>
+                <Group
+                  sx={{
+                    width: '12rem',
+                    height: '12rem',
+                    borderRadius: '50%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: 'lightskyblue',
+                    textAlign: 'center',
+                  }}
+                >
+                  <Text>
+                    Users <br /> {users.length}
+                  </Text>
+                </Group>
+              </Link>
             </Group>
             <Box style={{ width: '70%', margin: '2rem auto' }}>
               <Line data={lineState} />
