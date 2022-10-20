@@ -39,7 +39,7 @@ export async function getAllOrdersByUser(
 }
 
 export async function getAllOrdersByAdmin(): Promise<Order[]> {
-  const orders = await OrderModel.find();
+  const orders = await OrderModel.find().populate('user', 'name email');
 
   return orders;
 }

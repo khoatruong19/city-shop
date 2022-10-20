@@ -108,10 +108,10 @@ const orderSlice = createSlice({
     clearOrderError: (state) => {
       state.error = null;
     },
-    resetUpdateStatus: (state) => {
+    resetUpdateOrderStatus: (state) => {
       state.isUpdated = false;
     },
-    resetDeleteStatus: (state) => {
+    resetDeleteOrderStatus: (state) => {
       state.isDeleted = false;
     },
   },
@@ -227,7 +227,10 @@ const orderSlice = createSlice({
   },
 });
 
-export const { clearOrderError, resetDeleteStatus, resetUpdateStatus } =
-  orderSlice.actions;
+export const {
+  clearOrderError,
+  resetDeleteOrderStatus,
+  resetUpdateOrderStatus,
+} = orderSlice.actions;
 
 export default orderSlice.reducer;

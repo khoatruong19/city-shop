@@ -1,4 +1,5 @@
 import { Static, Type } from '@sinclair/typebox';
+import { user } from '../auth/auth.schema';
 
 const shippingInfo = Type.Object({
   _id: Type.Optional(Type.String()),
@@ -29,7 +30,10 @@ const order = Type.Object({
   _id: Type.String(),
   shippingInfo,
   orderItems: Type.Array(orderItem),
-  user: Type.String(),
+  user: Type.Object({
+    name: Type.String(),
+    email: Type.String(),
+  }),
   paymentInfo,
   paidAt: Type.String(),
   deliveryAt: Type.Optional(Type.String()),
