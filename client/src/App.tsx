@@ -7,6 +7,7 @@ import paymentApi from './api/paymentApi';
 import About from './components/about/About';
 import AllOrders from './components/admin/AllOrders';
 import AllProducts from './components/admin/AllProducts';
+import AllReviews from './components/admin/AllReviews';
 import AllUsers from './components/admin/AllUsers';
 import CreateProduct from './components/admin/CreateProduct';
 import Dashboard from './components/admin/Dashboard';
@@ -163,6 +164,14 @@ function App() {
           element={
             <ProtectedRoute isAdmin>
               <UpdateUser />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/reviews"
+          element={
+            <ProtectedRoute isAdmin>
+              <AllReviews />
             </ProtectedRoute>
           }
         />
