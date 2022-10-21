@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { TextInput, Button, Group, Box } from '@mantine/core';
+import { TextInput, Button, Group, Box, Anchor } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { clearUserError, loginUser } from '../../store/slices/userSlice';
 import { showNotification } from '@mantine/notifications';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toaster from '../../utils/helpers/toaster';
 
 type FormData = {
@@ -70,6 +70,13 @@ const LoginForm = () => {
           </Button>
         </Group>
       </form>
+      <Anchor
+        sx={{ fontSize: '0.8rem', float: 'right', marginTop: '1rem' }}
+        component={Link}
+        to="/password/forgot"
+      >
+        Forgot Password?
+      </Anchor>
     </Box>
   );
 };
