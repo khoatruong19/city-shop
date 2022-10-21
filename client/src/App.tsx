@@ -29,6 +29,7 @@ import Search from './components/product/Search';
 import ProtectedRoute from './components/route/ProtectedRoute';
 import Support from './components/support/Support';
 import EditProfile from './components/user/EditProfile';
+import ForgotPassword from './components/user/ForgotPassword';
 import MoreOptions from './components/user/MoreOptions';
 import MyOrder from './components/user/MyOrder';
 import Profile from './components/user/Profile';
@@ -78,6 +79,7 @@ function App() {
         <Route path="/order/confirm" element={<ConfirmOrder />} />
         <Route path="/orders" element={<MyOrder />} />
         <Route path="/more" element={<MoreOptions />} />
+        <Route path="/password/forgot" element={<ForgotPassword />} />
         <Route path="/commingsoon" element={<CommingSoon />} />
         <Route
           path="/me"
