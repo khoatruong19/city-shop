@@ -96,7 +96,7 @@ const CreateProduct = () => {
       toaster({ id: 'create-product', message: error });
       dispatch(clearProductError());
     }
-  }, [error]);
+  }, [error, dispatch]);
 
   return (
     <>
