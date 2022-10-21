@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import productApi from '../../api/productApi';
-import { Product } from '../../utils/models/product.model';
+import { Product, UserReview } from '../../utils/models/product.model';
 import {
   createProductParams,
   createProductReviewParams,
@@ -14,6 +14,10 @@ interface ProductSliceState {
   reviewLoading: boolean;
   products: Product[];
   product: Product;
+  productReviews: {
+    productId: string;
+    reviews: UserReview[];
+  };
   productsCount: number;
   resultsPerPage: number;
   isDeleted: boolean;
@@ -26,6 +30,10 @@ const initialState: ProductSliceState = {
   reviewLoading: false,
   products: [],
   product: {} as Product,
+  productReviews: {
+    productId: '',
+    reviews: [],
+  },
   productsCount: 0,
   resultsPerPage: 0,
   isDeleted: false,
@@ -126,10 +134,25 @@ export const deleteProductReview = createAsyncThunk(
   'product/deleteReview',
   async (params: DeleteProductReviewParams, thunkApi) => {
     try {
-      const res = await productApi.deleteReview(params);
-      return res.data;
+      await productApi.deleteReview(params);
+      return params;
     } catch (error) {
       return thunkApi.rejectWithValue(`Delete product review fail. ${error}`);
+    }
+  }
+);
+
+export const getProductReviews = createAsyncThunk(
+  'product/productReviews',
+  async (id: string, thunkApi) => {
+    try {
+      const res = await productApi.getProductReviews(id);
+      return {
+        productId: id,
+        reviews: res.data.reviews,
+      };
+    } catch (error) {
+      return thunkApi.rejectWithValue(`Get product reviews fail. ${error}`);
     }
   }
 );
@@ -202,8 +225,16 @@ const productSlice = createSlice({
       .addCase(deleteProductReview.pending, (state) => {
         state.reviewLoading = true;
       })
-      .addCase(deleteProductReview.fulfilled, (state) => {
+      .addCase(deleteProductReview.fulfilled, (state, { payload }) => {
         state.reviewLoading = false;
+        state.isDeleted = true;
+        if (state.productReviews.productId === payload.productId) {
+          state.productReviews.reviews = [
+            ...state.productReviews.reviews.filter(
+              (review) => review._id !== payload.reviewId
+            ),
+          ];
+        }
       })
       .addCase(
         deleteProductReview.rejected,
@@ -284,6 +315,22 @@ const productSlice = createSlice({
         deleteProduct.rejected,
         (state, { payload }: PayloadAction<any>) => {
           state.loading = false;
+          state.error = payload;
+        }
+      )
+
+      //Get Product Reviews By Admin
+      .addCase(getProductReviews.pending, (state) => {
+        state.reviewLoading = true;
+      })
+      .addCase(getProductReviews.fulfilled, (state, { payload }) => {
+        state.reviewLoading = false;
+        state.productReviews = payload;
+      })
+      .addCase(
+        getProductReviews.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.reviewLoading = false;
           state.error = payload;
         }
       );

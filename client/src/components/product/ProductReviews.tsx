@@ -8,7 +8,7 @@ import {
   Group,
   Title,
 } from '@mantine/core';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { UserReview } from '../../utils/models/product.model';
@@ -57,34 +57,31 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
 
     dispatch(createProductReview({ id: productId!, comment, rating }));
 
-    if (error) {
-      toaster({ id: 'create-review', message: error });
-      return dispatch(clearProductError());
+    const newReview = {
+      _id: comment.trim(),
+      comment,
+      name: user?.name!,
+      user: user?._id!,
+      rating,
+      time: new Date().toString(),
+    };
+    if (newReviews.length === 0) {
+      setNewReviews([newReview]);
+      window.location.reload();
     }
-
     const existingReview = newReviews.find((item) => item.user === user?._id);
 
     if (existingReview) {
       let tempReviews = [...newReviews];
+
       const reviewIndex = newReviews.findIndex(
         (item) => item.user === user?._id
       );
       tempReviews[reviewIndex] = { ...existingReview, rating, comment };
       setNewReviews(tempReviews);
     } else {
-      setNewReviews((prev) => [
-        ...prev,
-        {
-          _id: comment.trim(),
-          comment,
-          name: user?.name!,
-          user: user?._id!,
-          rating,
-          time: new Date().toString(),
-        },
-      ]);
+      setNewReviews((prev) => [...prev, newReview]);
     }
-
     setComment('');
     setRating(0);
   };
@@ -98,6 +95,13 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
     let tempReviews = newReviews.filter((item) => item._id !== reviewId);
     setNewReviews(tempReviews);
   };
+
+  useEffect(() => {
+    if (error) {
+      toaster({ id: 'create-review', message: error });
+      dispatch(clearProductError());
+    }
+  }, [dispatch, error]);
 
   return (
     <Box mb={40}>
