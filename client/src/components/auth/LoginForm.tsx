@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import { TextInput, Button, Group, Box, Anchor } from '@mantine/core';
+import { Anchor, Box, Button, Group, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { clearUserError, loginUser } from '../../store/slices/userSlice';
-import { showNotification } from '@mantine/notifications';
-import { Link, useNavigate } from 'react-router-dom';
 import toaster from '../../utils/helpers/toaster';
 
 type FormData = {
@@ -17,7 +16,6 @@ const LoginForm = () => {
     (state) => state.user
   );
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const form = useForm<FormData>({
     initialValues: {
       email: '',
