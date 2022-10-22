@@ -1,15 +1,37 @@
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { Button, Divider, Group, Stack, TextInput, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { clearUserError, forgotPassword } from '../../store/slices/userSlice';
 import { mediumScreenQuery, smallScreenQuery } from '../../utils/constants';
+import toaster from '../../utils/helpers/toaster';
 import MetaData from '../layout/MetaData';
 
 const ForgotPassword = () => {
+  const dispatch = useAppDispatch();
+  const { error, message, loading } = useAppSelector((state) => state.user);
   const mobileScreen = useMediaQuery(smallScreenQuery);
   const tabletScreen = useMediaQuery(mediumScreenQuery);
 
   const [email, setEmail] = useState('');
+
+  const handleforgotPasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    dispatch(forgotPassword(email));
+  };
+
+  useEffect(() => {
+    if (error && error !== 'Not authenticated') {
+      toaster({ id: 'Forgot-password', message: error });
+      dispatch(clearUserError());
+    }
+
+    if (message) {
+      toaster({ id: 'Forgot-password', message, success: true });
+    }
+  }, [dispatch, error, message, loading]);
 
   return (
     <>
@@ -46,9 +68,14 @@ const ForgotPassword = () => {
             </Title>
             <Divider />
           </Stack>
-          <form action="" style={{ width: '100%' }}>
+          <form
+            action=""
+            style={{ width: '100%' }}
+            onSubmit={handleforgotPasswordSubmit}
+          >
             <Stack>
               <TextInput
+                type={'email'}
                 value={email}
                 placeholder="Email"
                 icon={
@@ -66,6 +93,7 @@ const ForgotPassword = () => {
                 size="md"
                 color={'orange'}
                 sx={{ fontSize: '1.2rem' }}
+                loading={loading}
               >
                 Send
               </Button>
