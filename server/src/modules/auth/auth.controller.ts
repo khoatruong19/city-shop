@@ -128,8 +128,8 @@ export async function resetPasswordHandler(
     if (!user) throw new ApiError(400, 'Token has expired or no user exists!');
 
     reply.send({
-      message: 'Sent reset password mail!',
-      user,
+      message: 'New Password updated!',
+      success: true,
     });
   } catch (error) {
     logger.error(`Reset password handler error, ${error}`);

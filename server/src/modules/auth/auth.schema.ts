@@ -99,7 +99,7 @@ export const resetPasswordSchema = {
     confirmPassword: Type.String({ minLength: 3 }),
   }),
   response: {
-    200: userResponseWithCredentials,
+    200: authUDResponse,
     400: userResponseWithoutCredentials,
   },
 };
