@@ -16,6 +16,11 @@ export const user = Type.Object({
   updatedAt: Type.String(),
 });
 
+const authUDResponse = Type.Object({
+  message: Type.String(),
+  success: Type.Boolean(),
+});
+
 export const userResponseWithCredentials = Type.Object({
   message: Type.String(),
   user: Type.Optional(user),
@@ -78,7 +83,7 @@ export const forgotPasswordSchema = {
     }),
   }),
   response: {
-    200: userResponseWithoutCredentials,
+    200: authUDResponse,
     400: userResponseWithoutCredentials,
   },
 };

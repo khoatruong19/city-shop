@@ -101,6 +101,7 @@ export async function forgotPasswordHandler(
       throw new ApiError(400, 'Reset password fail!').getErrorObject(reply);
 
     reply.send({
+      success: true,
       message: 'Sent reset password mail!',
     });
   } catch (error) {
