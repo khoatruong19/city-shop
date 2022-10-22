@@ -82,7 +82,6 @@ export async function sendResetPasswordMail(
   });
 
   const resetPasswordUrl = `${protocol}://${hostname}/password/reset/${resetToken}`;
-  console.log({ resetPasswordUrl });
 
   const message = `Your password reset token is :- \n\n ${resetPasswordUrl}`;
 

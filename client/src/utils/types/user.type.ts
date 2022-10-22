@@ -30,3 +30,9 @@ export type UpdateUserParams = {
   email: string;
   role: UserRoles;
 };
+
+export type ResetPasswordParams = {
+  token: string;
+  password: string;
+  confirmPassword: string;
+};

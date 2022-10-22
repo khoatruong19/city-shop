@@ -2,6 +2,7 @@ import { User } from '../utils/models/user.model';
 import {
   LoginUserParams,
   RegisterUserParams,
+  ResetPasswordParams,
   UpdatePasswordParams,
   UpdateProfileParams,
   UpdateUserParams,
@@ -39,6 +40,10 @@ const userApi = {
   updateUser: ({ id, ...rest }: UpdateUserParams) =>
     axiosClient.put<UDUserResponse>(`users/${id}`, rest),
   deleteUser: (id: string) => axiosClient.delete<UDUserResponse>(`users/${id}`),
+  forgotPassword: (email: string) =>
+    axiosClient.post<UDUserResponse>(`auth/forgot-password`, { email }),
+  resetPassword: ({ token, ...rest }: ResetPasswordParams) =>
+    axiosClient.put<UDUserResponse>(`auth/reset-password/${token}`, rest),
 };
 
 export default userApi;

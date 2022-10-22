@@ -33,6 +33,7 @@ import ForgotPassword from './components/user/ForgotPassword';
 import MoreOptions from './components/user/MoreOptions';
 import MyOrder from './components/user/MyOrder';
 import Profile from './components/user/Profile';
+import ResetPassword from './components/user/ResetPassword';
 import UpdatePassword from './components/user/UpdatePassword';
 import UserNav from './components/user/UserNav';
 import { useAppDispatch, useAppSelector } from './store';
@@ -80,6 +81,7 @@ function App() {
         <Route path="/orders" element={<MyOrder />} />
         <Route path="/more" element={<MoreOptions />} />
         <Route path="/password/forgot" element={<ForgotPassword />} />
+        <Route path="/password/reset/:token" element={<ResetPassword />} />
         <Route path="/commingsoon" element={<CommingSoon />} />
         <Route
           path="/me"
