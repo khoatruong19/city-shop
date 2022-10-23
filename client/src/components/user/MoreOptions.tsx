@@ -48,7 +48,7 @@ const MoreOptions = () => {
       <Stack
         sx={{
           width: largeScreen ? '50%' : '100%',
-          margin: '0 auto',
+          margin: '3rem auto',
           height: '60vh',
           justifyContent: largeScreen ? 'center' : '',
           alignItems: largeScreen ? 'center' : '',

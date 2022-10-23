@@ -7,8 +7,8 @@ import {
   clearOrderError,
   deleteOrder,
   getAllOrdersByAdmin,
+  resetDeleteOrderStatus,
 } from '../../store/slices/orderSlice';
-import { resetDeleteProductStatus } from '../../store/slices/productSlice';
 import toaster from '../../utils/helpers/toaster';
 import AdminLayout from '../layout/AdminLayout';
 import MetaData from '../layout/MetaData';
@@ -53,7 +53,7 @@ const AllOrders = () => {
         message: 'Order deleted!',
         success: true,
       });
-      dispatch(resetDeleteProductStatus());
+      dispatch(resetDeleteOrderStatus());
     }
   }, [dispatch, error, isDeleted]);
 

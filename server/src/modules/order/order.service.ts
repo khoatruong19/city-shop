@@ -27,7 +27,6 @@ export async function getSingleOrder(
 ): Promise<Order | null> {
   const order = await OrderModel.findById(id).populate('user', 'name email');
   if (!order) return null;
-  console.log(order.user);
 
   return order;
 }
@@ -35,7 +34,7 @@ export async function getSingleOrder(
 export async function getAllOrdersByUser(
   userId: Types.ObjectId
 ): Promise<Order[]> {
-  return await OrderModel.find({ user: userId });
+  return await OrderModel.find({ user: userId }).populate('user', 'name email');
 }
 
 export async function getAllOrdersByAdmin(): Promise<Order[]> {
