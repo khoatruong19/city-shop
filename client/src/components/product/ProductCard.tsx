@@ -15,6 +15,7 @@ const ProductCard = ({ product }: IProps) => {
     isHalf: 0.5,
     precision: 0.5,
   };
+  console.log({ product });
   return (
     <Link to={`/product/${product._id}`}>
       <Container
@@ -25,7 +26,7 @@ const ProductCard = ({ product }: IProps) => {
             transition: 'all 0.5s ease-in-out',
           },
           border: '1px solid gray',
-          height: '240px',
+          height: '250px',
           padding: '5px',
           borderRadius: '0.5rem',
           width: '100%',
@@ -47,13 +48,6 @@ const ProductCard = ({ product }: IProps) => {
             alt={product.name}
           />
         </Box>
-        {/* <Stack
-          sx={{ height: '150px', objectFit: 'cover' }}
-          justify="center"
-          align={'center'}
-        >
-          
-        </Stack> */}
         <Text
           color={'black'}
           weight={600}
@@ -67,17 +61,29 @@ const ProductCard = ({ product }: IProps) => {
             {product.numOfReviews} Reviews
           </span>
         </div>
-        <Group
+        <Box
           sx={{
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            position: 'relative',
+            marginTop: '0.5rem',
           }}
         >
-          <Text>{product.offerPrice && `$${product.offerPrice}`}</Text>
+          <Text
+            sx={{
+              fontSize: '0.8rem',
+              position: 'absolute',
+              top: '-0.5rem',
+              left: '2.6rem',
+              textDecoration: 'line-through',
+              color: 'orange',
+              fontWeight: 600,
+            }}
+          >
+            {product.offerPrice && `$${product.offerPrice}`}
+          </Text>
           <Text color={'green'} weight={500} size={18}>
             ${product.price}
           </Text>
-        </Group>
+        </Box>
       </Container>
     </Link>
   );

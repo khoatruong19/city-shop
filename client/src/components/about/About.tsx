@@ -3,6 +3,7 @@ import AboutImage from '../../images/about.png';
 import {
   largeScreenQuery,
   mainOrangeColor,
+  mediumScreenQuery,
   smallScreenQuery,
 } from '../../utils/constants';
 import { aboutInfos } from '../../utils/data';
@@ -15,6 +16,7 @@ import { useMediaQuery } from '@mantine/hooks';
 const About = () => {
   const largeScreen = useMediaQuery(largeScreenQuery);
   const smallScreen = useMediaQuery(smallScreenQuery);
+  const mediumScreen = useMediaQuery(mediumScreenQuery);
   return (
     <Box>
       <MetaData title="About" />
@@ -83,7 +85,7 @@ const About = () => {
             }}
           >
             {aboutInfos.map((info, i) => (
-              <Grid.Col key={i} span={smallScreen ? 12 : 4}>
+              <Grid.Col key={i} span={smallScreen ? 12 : mediumScreen ? 6 : 4}>
                 <AboutCard
                   description={info.description}
                   imageUrl={info.imageUrl}

@@ -37,7 +37,7 @@ const Header = () => {
   });
   return (
     <Stack
-      spacing={20}
+      spacing={10}
       style={{ padding: '10px 5px 5px', borderBottom: '1px solid lightgray' }}
     >
       <Group
@@ -69,11 +69,13 @@ const Header = () => {
             <MovingText text="Welcome to our shop... You can find anything in here as your favourites..." />
           </div>
         )}
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <EnvelopeIcon width={20} height={20} />
-          <Text mx={3}>Email:</Text>
-          <Text>khoa.truongthdk@hcmut.edu.vn</Text>
-        </div>
+        {largeScreen && (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <EnvelopeIcon width={20} height={20} />
+            <Text mx={3}>Email:</Text>
+            <Text>khoa.truongthdk@hcmut.edu.vn</Text>
+          </div>
+        )}
       </Group>
       {!mobileScreen && (
         <Group
@@ -83,60 +85,62 @@ const Header = () => {
           ref={navRef}
         >
           <NavLinks />
-          <Group
-            spacing={'lg'}
-            sx={{
-              width: !largeScreen ? '100%' : '',
-              justifyContent: !largeScreen ? 'center' : '',
-            }}
-          >
-            <Link to={'/search'}>
-              <MagnifyingGlassIcon className="navIcon linkHover" />
-            </Link>
-            <Link to="/favourites">
-              <Box sx={{ position: 'relative' }}>
-                <HeartIcon className="navIcon linkHover" />
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: '-5px',
-                    right: '-8px',
-                    textAlign: 'center',
-                    width: '1.3rem',
-                    height: '1.3rem',
-                    borderRadius: '50%',
-                    backgroundColor: mainOrangeColor,
-                    color: 'white',
-                  }}
-                >
-                  {favouriteItemsCount}
+          {largeScreen && (
+            <Group
+              spacing={'lg'}
+              sx={{
+                width: !largeScreen ? '100%' : '',
+                justifyContent: !largeScreen ? 'center' : '',
+              }}
+            >
+              <Link to={'/search'}>
+                <MagnifyingGlassIcon className="navIcon linkHover" />
+              </Link>
+              <Link to="/favourites">
+                <Box sx={{ position: 'relative' }}>
+                  <HeartIcon className="navIcon linkHover" />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '-5px',
+                      right: '-8px',
+                      textAlign: 'center',
+                      width: '1.3rem',
+                      height: '1.3rem',
+                      borderRadius: '50%',
+                      backgroundColor: mainOrangeColor,
+                      color: 'white',
+                    }}
+                  >
+                    {favouriteItemsCount}
+                  </Box>
                 </Box>
-              </Box>
-            </Link>
-            <Link to="/cart">
-              <Box sx={{ position: 'relative' }}>
-                <ShoppingCartIcon className="navIcon linkHover" />
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: '-5px',
-                    right: '-8px',
-                    textAlign: 'center',
-                    width: '1.3rem',
-                    height: '1.3rem',
-                    borderRadius: '50%',
-                    backgroundColor: mainOrangeColor,
-                    color: 'white',
-                  }}
-                >
-                  {cartItemsCount}
+              </Link>
+              <Link to="/cart">
+                <Box sx={{ position: 'relative' }}>
+                  <ShoppingCartIcon className="navIcon linkHover" />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '-5px',
+                      right: '-8px',
+                      textAlign: 'center',
+                      width: '1.3rem',
+                      height: '1.3rem',
+                      borderRadius: '50%',
+                      backgroundColor: mainOrangeColor,
+                      color: 'white',
+                    }}
+                  >
+                    {cartItemsCount}
+                  </Box>
                 </Box>
-              </Box>
-            </Link>
-            <Link to="/me">
-              <UserIcon className="navIcon linkHover" />
-            </Link>
-          </Group>
+              </Link>
+              <Link to="/me">
+                <UserIcon className="navIcon linkHover" />
+              </Link>
+            </Group>
+          )}
         </Group>
       )}
     </Stack>

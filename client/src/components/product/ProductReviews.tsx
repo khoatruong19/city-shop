@@ -105,7 +105,7 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
 
   return (
     <Box mb={40}>
-      <Text size={40} weight={600} ml={'4rem'}>
+      <Text size={40} weight={600} ml={mobileScreen ? '' : '4rem'}>
         Reviews
       </Text>
       <Divider size={'sm'} />
@@ -115,7 +115,7 @@ const ProductReviews = ({ numOfReviews, reviews }: IProps) => {
             No Reviews
           </Text>
         ) : (
-          <Stack pl={'4rem'} mt={20} spacing={20}>
+          <Stack pl={mobileScreen ? '' : '4rem'} mt={20} spacing={20}>
             {newReviews.map((review) => (
               <Box key={review._id}>
                 <Group spacing={8}>
