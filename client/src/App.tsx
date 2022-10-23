@@ -33,6 +33,7 @@ import EditProfile from './components/user/EditProfile';
 import ForgotPassword from './components/user/ForgotPassword';
 import MoreOptions from './components/user/MoreOptions';
 import MyOrder from './components/user/MyOrder';
+import MyOrderDetails from './components/user/MyOrderDetails';
 import Profile from './components/user/Profile';
 import ResetPassword from './components/user/ResetPassword';
 import UpdatePassword from './components/user/UpdatePassword';
@@ -80,6 +81,7 @@ function App() {
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/order/confirm" element={<ConfirmOrder />} />
         <Route path="/orders" element={<MyOrder />} />
+        <Route path="/orders/:id" element={<MyOrderDetails />} />
         <Route path="/more" element={<MoreOptions />} />
         <Route path="/password/forgot" element={<ForgotPassword />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />
