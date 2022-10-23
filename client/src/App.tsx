@@ -23,6 +23,7 @@ import PaymentSuccess from './components/cart/PaymentSuccess';
 import Shipping from './components/cart/Shipping';
 import Home from './components/home/Home';
 import CommingSoon from './components/others/CommingSoon';
+import NotFound from './components/others/NotFound';
 import ProductDetails from './components/product/ProductDetails';
 import Products from './components/product/Products';
 import Search from './components/product/Search';
@@ -86,6 +87,7 @@ function App() {
         <Route path="/offers" element={<CommingSoon />} />
         <Route path="/creater" element={<CommingSoon />} />
         <Route path="/faq" element={<CommingSoon />} />
+        <Route path="*" element={<NotFound />} />
         <Route
           path="/me"
           element={
