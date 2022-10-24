@@ -67,10 +67,7 @@ const Footer = () => {
             <Link to="/auth" className="linkHover">
               <Title order={4}>Sign Up</Title>
             </Link>
-            <Link to="/" className="linkHover">
-              <Title order={4}>Registeration</Title>
-            </Link>
-            <Link to="/" className="linkHover">
+            <Link to="/password/forgot" className="linkHover">
               <Title order={4}>Forgot Password</Title>
             </Link>
           </Stack>
@@ -88,31 +85,31 @@ const Footer = () => {
           </Stack>
           <Stack spacing={10}>
             <Title order={2}>Business</Title>
-            <Link to="/" className="linkHover">
+            <Link to="/creator" className="linkHover">
               <Title order={4}>Create A Seller Account</Title>
             </Link>
-            <Link to="/" className="linkHover">
+            <Link to="/creator" className="linkHover">
               <Title order={4}>Seller Rules</Title>
             </Link>
             <Link to="/" className="linkHover">
               <Title order={4}>View Shop</Title>
             </Link>
-            <Link to="/" className="linkHover">
+            <Link to="/support" className="linkHover">
               <Title order={4}>Report Us</Title>
             </Link>
           </Stack>
           <Stack spacing={10}>
             <Title order={2}>Rules</Title>
-            <Link to="/" className="linkHover">
+            <Link to="/faq" className="linkHover">
               <Title order={4}>FAQ</Title>
             </Link>
-            <Link to="/" className="linkHover">
+            <Link to="/contact" className="linkHover">
               <Title order={4}>Contact Us</Title>
             </Link>
             <Link to="/about" className="linkHover">
               <Title order={4}>About Us</Title>
             </Link>
-            <Link to="/" className="linkHover">
+            <Link to="/commingsoon" className="linkHover">
               <Title order={4}>Live Chat</Title>
             </Link>
           </Stack>
