@@ -23,7 +23,9 @@ import PaymentSuccess from './components/cart/PaymentSuccess';
 import Shipping from './components/cart/Shipping';
 import Home from './components/home/Home';
 import CommingSoon from './components/others/CommingSoon';
+import Contact from './components/others/Contact';
 import NotFound from './components/others/NotFound';
+import Rules from './components/others/Rules';
 import ProductDetails from './components/product/ProductDetails';
 import Products from './components/product/Products';
 import Search from './components/product/Search';
@@ -32,6 +34,7 @@ import Support from './components/support/Support';
 import EditProfile from './components/user/EditProfile';
 import ForgotPassword from './components/user/ForgotPassword';
 import MoreOptions from './components/user/MoreOptions';
+import MyOrders from './components/user/MyOrder';
 import MyOrder from './components/user/MyOrder';
 import MyOrderDetails from './components/user/MyOrderDetails';
 import Profile from './components/user/Profile';
@@ -79,22 +82,44 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/shipping" element={<Shipping />} />
-        <Route path="/order/confirm" element={<ConfirmOrder />} />
-        <Route path="/orders" element={<MyOrder />} />
-        <Route path="/orders/:id" element={<MyOrderDetails />} />
         <Route path="/more" element={<MoreOptions />} />
         <Route path="/password/forgot" element={<ForgotPassword />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />
         <Route path="/commingsoon" element={<CommingSoon />} />
         <Route path="/offers" element={<CommingSoon />} />
-        <Route path="/creater" element={<CommingSoon />} />
-        <Route path="/faq" element={<CommingSoon />} />
+        <Route path="/creator" element={<CommingSoon />} />
+        <Route path="/faq" element={<Rules />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
         <Route
           path="/me"
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/order/confirm"
+          element={
+            <ProtectedRoute>
+              <ConfirmOrder />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <MyOrders />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders/:id"
+          element={
+            <ProtectedRoute>
+              <MyOrderDetails />
             </ProtectedRoute>
           }
         />

@@ -25,7 +25,7 @@ const NavLinks = () => {
       <Anchor component={Link} to="/offers" className="anchor">
         Offers
       </Anchor>
-      <Anchor component={Link} to="/creater" className="anchor">
+      <Anchor component={Link} to="/creator" className="anchor">
         Become A Seller
       </Anchor>
       <Anchor component={Link} to="/faq" className="anchor">
