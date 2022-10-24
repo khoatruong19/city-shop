@@ -40,7 +40,7 @@ export async function createServer() {
     parseOptions: {
       domain: __prod__ ? '.vercel.app' : undefined,
       path: '/',
-      httpOnly: true,
+      httpOnly: false,
       sameSite: 'lax',
       secure: __prod__,
     },
