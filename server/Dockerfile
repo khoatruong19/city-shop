@@ -7,6 +7,8 @@ COPY package-lock.json ./
 
 RUN npm install
 
+RUN npm i bcrypt --unsafe-perm=true --allow-root --save
+
 COPY . .
 
 RUN npm run build
