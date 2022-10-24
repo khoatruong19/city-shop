@@ -1,6 +1,5 @@
 import { Group, Stack } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import React from 'react';
 import { smallScreenQuery } from '../../utils/constants';
 
 interface IProps {

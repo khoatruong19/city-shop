@@ -28,7 +28,7 @@ const Payment = () => {
 
   const { shippingInfo, cartItems } = useAppSelector((state) => state.cart);
   const { user } = useAppSelector((state) => state.user);
-  const { error, loading } = useAppSelector((state) => state.order);
+  const { error } = useAppSelector((state) => state.order);
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),

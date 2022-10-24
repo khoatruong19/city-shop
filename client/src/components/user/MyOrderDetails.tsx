@@ -1,21 +1,16 @@
-import { Box, Stack, Text, Title, Group, Image } from '@mantine/core';
-import React from 'react';
-import MetaData from '../layout/MetaData';
-import GroupInfo from '../others/GroupInfo';
-import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { OrderItem } from '../../utils/types/order.type';
-import { useParams } from 'react-router-dom';
-import { clearOrderError, getOrderDetail } from '../../store/slices/orderSlice';
-import toaster from '../../utils/helpers/toaster';
-import WaitingLoader from '../others/WaitingLoader';
+import { Box, Group, Image, Stack, Text, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import {
-  largeScreenQuery,
-  mediumScreenQuery,
-  smallScreenQuery,
-} from '../../utils/constants';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { clearOrderError, getOrderDetail } from '../../store/slices/orderSlice';
+import { largeScreenQuery, smallScreenQuery } from '../../utils/constants';
+import toaster from '../../utils/helpers/toaster';
+import { OrderItem } from '../../utils/types/order.type';
+import MetaData from '../layout/MetaData';
 import BottomTab from '../others/BottomTab';
+import GroupInfo from '../others/GroupInfo';
+import WaitingLoader from '../others/WaitingLoader';
 
 const ItemCard = ({ item }: { item: OrderItem }) => {
   return (
@@ -50,7 +45,6 @@ const MyOrderDetails = () => {
   const { id } = useParams();
   const largeScreen = useMediaQuery(largeScreenQuery);
   const mobileScreen = useMediaQuery(smallScreenQuery);
-  const tabletScreen = useMediaQuery(mediumScreenQuery);
 
   useEffect(() => {
     if (id) dispatch(getOrderDetail(id));

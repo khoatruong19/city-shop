@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Checkbox,
   Divider,
   Group,
   Image,
@@ -9,7 +8,6 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../store';
 import { CartItem } from '../../utils/types/cart.type';

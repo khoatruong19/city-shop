@@ -1,7 +1,6 @@
 import { Button, Stack, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import React from 'react';
-import { largeScreenQuery, smallScreenQuery } from '../../utils/constants';
+import { smallScreenQuery } from '../../utils/constants';
 
 const BannerContent = () => {
   const smallScreen = useMediaQuery(smallScreenQuery);

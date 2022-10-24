@@ -1,10 +1,9 @@
-import { Stepper, Text } from '@mantine/core';
 import {
-  TruckIcon,
-  ClipboardDocumentCheckIcon,
   BuildingLibraryIcon,
+  ClipboardDocumentCheckIcon,
+  TruckIcon,
 } from '@heroicons/react/24/solid';
-import React, { useState } from 'react';
+import { Stepper } from '@mantine/core';
 import { mainOrangeColor } from '../../utils/constants';
 
 interface IProps {

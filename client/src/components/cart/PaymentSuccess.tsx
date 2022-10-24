@@ -1,6 +1,5 @@
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Button, Group, Stack, Title } from '@mantine/core';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mainOrangeColor } from '../../utils/constants';
 

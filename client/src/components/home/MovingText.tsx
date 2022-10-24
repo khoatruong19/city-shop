@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSpring, animated } from 'react-spring';
+import { useState } from 'react';
+import { animated, useSpring } from 'react-spring';
 
 const MovingText = ({ text }: { text: string }) => {
   const [key, setKey] = useState(1);

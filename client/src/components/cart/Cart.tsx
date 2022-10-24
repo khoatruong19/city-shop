@@ -9,8 +9,9 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import React from 'react';
+import { useMediaQuery } from '@mantine/hooks';
 import { useNavigate } from 'react-router-dom';
+import EmptyCart from '../../images/empty-cart.png';
 import { useAppDispatch, useAppSelector } from '../../store';
 import {
   decreaseItemQuantity,
@@ -21,11 +22,9 @@ import { mainOrangeColor, mediumScreenQuery } from '../../utils/constants';
 import toaster from '../../utils/helpers/toaster';
 import Header from '../layout/Header';
 import MetaData from '../layout/MetaData';
+import BottomTab from '../others/BottomTab';
 import QuantityButtons from '../others/QuantityButtons';
 import CartItemCard from './CartItemCard';
-import EmptyCart from '../../images/empty-cart.png';
-import { useMediaQuery } from '@mantine/hooks';
-import BottomTab from '../others/BottomTab';
 
 const Cart = () => {
   const cartItems = useAppSelector((state) => state.cart.cartItems);

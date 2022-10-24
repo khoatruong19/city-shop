@@ -1,15 +1,15 @@
 import { Box, Button, Image, Stack, Table, Title } from '@mantine/core';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import EmptyHeart from '../../images/like.png';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { addItemToCart } from '../../store/slices/cartSlice';
+import { removeFavouriteItem } from '../../store/slices/favouriteSlice';
 import { mainOrangeColor } from '../../utils/constants';
+import toaster from '../../utils/helpers/toaster';
+import { CartItem } from '../../utils/types/cart.type';
 import Header from '../layout/Header';
 import MetaData from '../layout/MetaData';
 import FavouriteItemCard from './FavouriteItemCard';
-import EmptyHeart from '../../images/like.png';
-import { CartItem } from '../../utils/types/cart.type';
-import toaster from '../../utils/helpers/toaster';
-import { removeFavouriteItem } from '../../store/slices/favouriteSlice';
 
 const Favourites = () => {
   const favouriteItems = useAppSelector(

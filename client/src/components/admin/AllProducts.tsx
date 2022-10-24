@@ -1,10 +1,5 @@
 import { Box, Button, Group, Title } from '@mantine/core';
-import {
-  DataGrid,
-  dateFilterFn,
-  numberFilterFn,
-  stringFilterFn,
-} from 'mantine-data-grid';
+import { DataGrid, numberFilterFn, stringFilterFn } from 'mantine-data-grid';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';

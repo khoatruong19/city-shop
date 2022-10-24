@@ -12,11 +12,7 @@ import { Box, Group } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../store';
-import {
-  mainOrangeColor,
-  mediumScreenQuery,
-  smallScreenQuery,
-} from '../../utils/constants';
+import { mainOrangeColor, mediumScreenQuery } from '../../utils/constants';
 
 const BottomTab = () => {
   const cartItemsCount = useAppSelector((state) => state.cart.cartItems).length;

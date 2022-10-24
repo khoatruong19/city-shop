@@ -1,6 +1,5 @@
 import { Box } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import React from 'react';
 import { smallScreenQuery } from '../../utils/constants';
 import Footer from '../layout/Footer';
 import Header from '../layout/Header';

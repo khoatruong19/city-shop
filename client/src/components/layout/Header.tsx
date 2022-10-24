@@ -1,23 +1,23 @@
-import React, { useRef } from 'react';
-import Logo from '../../images/logo.png';
-import { Image, Group, Stack, Text, Box } from '@mantine/core';
 import {
-  MagnifyingGlassIcon,
+  EnvelopeIcon,
   HeartIcon,
+  MagnifyingGlassIcon,
   ShoppingCartIcon,
   UserIcon,
-  EnvelopeIcon,
 } from '@heroicons/react/24/outline';
-import NavLinks from '../home/NavLinks';
-import MovingText from '../home/MovingText';
+import { Box, Group, Image, Stack, Text } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import Logo from '../../images/logo.png';
+import { useAppSelector } from '../../store';
 import {
   largeScreenQuery,
   mainOrangeColor,
   smallScreenQuery,
 } from '../../utils/constants';
-import { useAppSelector } from '../../store';
-import { useMediaQuery } from '@mantine/hooks';
+import MovingText from '../home/MovingText';
+import NavLinks from '../home/NavLinks';
 
 const Header = () => {
   const cartItemsCount = useAppSelector((state) => state.cart.cartItems).length;

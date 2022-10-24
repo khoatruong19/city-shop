@@ -1,6 +1,6 @@
 import { Box, Button, Group, Title } from '@mantine/core';
 import { DataGrid, numberFilterFn, stringFilterFn } from 'mantine-data-grid';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
 import {

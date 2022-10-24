@@ -1,6 +1,5 @@
 import { Box, Button, Group, Image, Stack, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import React from 'react';
 import { smallScreenQuery } from '../../utils/constants';
 import { CartItem } from '../../utils/types/cart.type';
 

@@ -1,19 +1,19 @@
-import React, { useEffect, useRef } from 'react';
-import Header from '../layout/Header';
 import { Carousel } from '@mantine/carousel';
-import BannerContent from './BannerContent';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { getAllProducts } from '../../store/slices/productSlice';
 import Autoplay from 'embla-carousel-autoplay';
-import MetaData from '../layout/MetaData';
-import Footer from '../layout/Footer';
+import { useEffect, useRef } from 'react';
 import BannerImage from '../../images/background.jpg';
 import BannerImage2 from '../../images/background2.jpg';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { getAllProducts } from '../../store/slices/productSlice';
+import Footer from '../layout/Footer';
+import Header from '../layout/Header';
+import MetaData from '../layout/MetaData';
+import BannerContent from './BannerContent';
 
 import { Badge, Box, Divider, Group, Stack, Text } from '@mantine/core';
-import ProductCard from '../product/ProductCard';
-import BottomTab from '../others/BottomTab';
 import { Link } from 'react-router-dom';
+import BottomTab from '../others/BottomTab';
+import ProductCard from '../product/ProductCard';
 
 const Home = () => {
   const { loading, products } = useAppSelector((state) => state.product);

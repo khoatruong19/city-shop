@@ -1,3 +1,5 @@
+import { BuildingOffice2Icon, GlobeAltIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, PhoneIcon } from '@heroicons/react/24/solid';
 import {
   Box,
   Button,
@@ -7,18 +9,15 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
-import React from 'react';
+import { useForm } from '@mantine/form';
+import { Country, State } from 'country-state-city';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { saveShippingInfo } from '../../store/slices/cartSlice';
+import { ShippingInfo } from '../../utils/types/cart.type';
 import Header from '../layout/Header';
 import MetaData from '../layout/MetaData';
 import CheckoutSteps from './CheckoutSteps';
-import { HomeIcon, PhoneIcon } from '@heroicons/react/24/solid';
-import { GlobeAltIcon, BuildingOffice2Icon } from '@heroicons/react/24/outline';
-import { Country, State } from 'country-state-city';
-import { ShippingInfo } from '../../utils/types/cart.type';
-import { useForm } from '@mantine/form';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { saveShippingInfo } from '../../store/slices/cartSlice';
-import { useNavigate } from 'react-router-dom';
 
 const Shipping = () => {
   const shippingInfo = useAppSelector((state) => state.cart.shippingInfo);

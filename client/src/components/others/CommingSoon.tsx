@@ -1,6 +1,5 @@
 import { WrenchScrewdriverIcon } from '@heroicons/react/24/solid';
 import { Box, Button, Stack, Title } from '@mantine/core';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mainOrangeColor } from '../../utils/constants';
 import BottomTab from './BottomTab';

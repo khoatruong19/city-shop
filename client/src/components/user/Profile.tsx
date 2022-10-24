@@ -1,5 +1,5 @@
 import { Anchor, Box, Group, Image, Loader, Stack, Title } from '@mantine/core';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../store';
 import Footer from '../layout/Footer';

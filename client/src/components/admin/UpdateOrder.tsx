@@ -1,3 +1,4 @@
+import { RectangleGroupIcon } from '@heroicons/react/24/solid';
 import {
   Box,
   Button,
@@ -8,8 +9,8 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
 import {
   clearOrderError,
@@ -23,8 +24,6 @@ import AdminLayout from '../layout/AdminLayout';
 import MetaData from '../layout/MetaData';
 import GroupInfo from '../others/GroupInfo';
 import WaitingLoader from '../others/WaitingLoader';
-import { useState } from 'react';
-import { RectangleGroupIcon } from '@heroicons/react/24/solid';
 
 const ItemCard = ({ item }: { item: OrderItem }) => {
   return (
@@ -58,10 +57,9 @@ const UpdateOrder = () => {
   const { order, error, loading, isUpdated } = useAppSelector(
     (state) => state.order
   );
-  const navigate = useNavigate();
   const { id } = useParams();
 
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState(order.orderStatus || '');
 
   const updateOrderSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -155,7 +153,7 @@ const UpdateOrder = () => {
                       }
                       order={4}
                     >
-                      {order.orderStatus}
+                      {status}
                     </Title>
                   </Stack>
                   <Title weight={600} order={2}>
