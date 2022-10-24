@@ -21,7 +21,9 @@ export async function createServer() {
   app.register(paymentRoute, { prefix: '/api/payment' });
 
   app.register(cors, {
-    origin: 'http://localhost:3000',
+    origin: __prod__
+      ? process.env.CORS_ORIGIN_PROD
+      : process.env.CORS_ORIGIN_DEV,
     credentials: true,
   });
 
