@@ -1,6 +1,8 @@
 import { envSchema } from 'env-schema';
 import { Type, Static } from '@sinclair/typebox';
 
+export const __prod__ = process.env.NODE_ENV === 'production';
+
 const schema = Type.Object({
   PORT: Type.Number({
     default: 4000,
@@ -22,6 +24,9 @@ const schema = Type.Object({
   CLOUDINARY_API_SECRET: Type.String(),
   STRIPE_SECRET_KEY: Type.String(),
   STRIPE_API_KEY: Type.String(),
+  ...(__prod__
+    ? { CORS_ORIGIN_PROD: Type.String() }
+    : { CORS_ORIGIN_DEV: Type.String() }),
 });
 
 type Env = Static<typeof schema>;
