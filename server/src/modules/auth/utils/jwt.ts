@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 import server from '../../../app';
-import { config } from '../../../utils/config';
+import { config, __prod__ } from '../../../utils/config';
 import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from 'fastify';
 import { User } from '../../user/user.model';
 import { ApiError } from '../../../utils/helpers/error';
@@ -29,8 +29,9 @@ export async function sendToken(
     .status(statusCode)
     .setCookie('token', token, {
       expires: new Date(new Date().getTime() + 60 * 60 * 1000 * 24),
-      httpOnly: true,
-      sameSite: 'lax',
+      httpOnly: false,
+      sameSite: 'none',
+      secure: __prod__,
     })
     .send({
       message:

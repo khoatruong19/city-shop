@@ -38,10 +38,9 @@ export async function createServer() {
   app.register(cookie, {
     secret: config.COOKIE_SECRET,
     parseOptions: {
-      domain: __prod__ ? '.vercel.app' : undefined,
       path: '/',
       httpOnly: false,
-      sameSite: 'lax',
+      sameSite: 'none',
       secure: __prod__,
     },
   } as FastifyCookieOptions);
