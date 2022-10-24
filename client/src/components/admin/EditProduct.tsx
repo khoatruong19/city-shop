@@ -269,17 +269,8 @@ const EditProduct = () => {
                     sx={{ height: '6rem', overflowY: 'scroll', width: '100%' }}
                   >
                     {oldImages.map((image, i) => (
-                      <Box key={i} sx={{ position: 'relative', width: '5rem' }}>
+                      <Box key={i} sx={{ width: '5rem' }}>
                         <Image alt="" src={image.url} className="img" />
-                        <XMarkIcon
-                          className="footerIcon hover"
-                          style={{
-                            position: 'absolute',
-                            top: '-10px',
-                            right: '-5px',
-                          }}
-                          onClick={() => handleDeleteProductImage(i)}
-                        />
                       </Box>
                     ))}
                     {images.map((image, i) => (
